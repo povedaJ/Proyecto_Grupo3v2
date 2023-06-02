@@ -43,7 +43,7 @@ public class HelloController {
 
     @FXML
     void bubbleSortOnAction(ActionEvent event) {
-        loadPage("bubbleSort.fxml");
+        loadPage("login.fxml");
     }
 
     @FXML
