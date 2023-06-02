@@ -7,6 +7,7 @@ package util;
 
 import domain.*;
 
+import java.io.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -125,6 +126,15 @@ public class Utility {
                 Character ch2 = (Character) b;
                 return ch1.compareTo(ch2) < 0 ? -1 :
                         ch1.compareTo(ch2) > 0 ? 1 : 0;
+            case "CircularLinkedList":
+                CircularLinkedList cir1 = (CircularLinkedList) a; CircularLinkedList cir2 = (CircularLinkedList) b;
+                return !cir1.equals(cir2)  ? -1 : 0;
+
+            case "Security":
+                Security sec1 = (Security) a; Security sec2 = (Security) b;
+                return sec1.getUser().compareToIgnoreCase(((Security) b).getUser()) < 0   ||  sec1.getPassWord().compareToIgnoreCase(((Security) b).getPassWord() ) < 0   ||  sec1.getRol().compareToIgnoreCase(((Security) b).getRol())< 0? -1 :
+                        sec1.getUser().compareToIgnoreCase(((Security) b).getUser()) > 0   ||  sec1.getPassWord().compareToIgnoreCase(((Security) b).getPassWord() ) > 0   ||  sec1.getRol().compareToIgnoreCase(((Security) b).getRol()) >0 ? 1: 0;
+
 //            case "Person":
 //                Person p1 = (Person) a;
 //                Person p2 = (Person) b;
@@ -167,8 +177,11 @@ public class Utility {
         if (a instanceof Integer && b instanceof Integer) return "Integer";
         if (a instanceof String && b instanceof String) return "String";
         if (a instanceof Character && b instanceof Character) return "Character";
-      //  if (a instanceof Person && b instanceof Person) return "Person";
-       // if (a instanceof Person && b instanceof Object) return "Person";
+        if (a instanceof Security && b instanceof Security) return "Security";
+        if (a instanceof CircularLinkedList && b instanceof CircularLinkedList) return "Security";
+
+        //  if (a instanceof Person && b instanceof Person) return "Person";
+        // if (a instanceof Person && b instanceof Object) return "Person";
 //        if (a instanceof Person && b instanceof String) return "PersonMood";
 //        if (a instanceof ArrayStack && b instanceof ArrayStack) return "forArrayS";
 //        if (a instanceof Climate && b instanceof String) return "forClimate";
@@ -176,10 +189,6 @@ public class Utility {
 
         return "Unknown"; //desconocido
     }
-
-
-
-
 
 
     public static char getAlphabet() {
@@ -199,8 +208,6 @@ public class Utility {
 //    }
 
 
-
-
     public static int getAge(Date date) {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate birthdate = LocalDate.parse(dateFormat(date), fmt);
@@ -212,8 +219,48 @@ public class Utility {
         return period.getYears();
     }
 
+    public static void file(Object b, String name) throws IOException {
+        FileWriter file = new FileWriter(name + ".txt");
+        file.write(b + "\n");
+        file.close();
+    }
 
 
+    public static void ReadFile(String string) {
+
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            archivo = new File(string + ".txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+
+            // Lectura del fichero
+            String linea;
+            while ((linea = br.readLine()) != null)
+                System.out.println(linea);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta
+            // una excepcion.
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+
+
+    }
 
 
 }
+
