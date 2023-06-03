@@ -39,6 +39,9 @@ public class HelloController {
     void Home(ActionEvent event) {
         this.txtMessage.setText("Laboratory No. 8");
         this.bp.setCenter(ap);
+    } @FXML
+    void correo(ActionEvent event) {
+        loadPage("correos.fxml");
     }
 
     @FXML

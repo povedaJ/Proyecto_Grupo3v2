@@ -9,7 +9,7 @@
 
 <BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@stylesheet.css" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="149.0" layoutY="93.0" text="Usuario">
                <font>
@@ -29,6 +29,7 @@
                   <Font name="Berlin Sans FB" size="33.0" />
                </font>
             </Label>
+            <Button contentDisplay="GRAPHIC_ONLY" layoutX="40.0" layoutY="343.0" mnemonicParsing="false" onAction="#returnOnAction" stylesheets="@returnButton.css" text="Button" />
          </children>
       </AnchorPane>
    </center>

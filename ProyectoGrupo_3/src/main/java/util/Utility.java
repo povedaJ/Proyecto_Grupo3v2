@@ -22,9 +22,21 @@ import java.util.Random;
  */
 public class Utility {
 
+    private static String routeImagen = "file:ProyectoGrupo_3/logo1.png";
+
+
+    public static String getRouteImagen() {
+        return routeImagen;
+    }
+
+    public static void setRouteImagen(String routeImagen) {
+        Utility.routeImagen = routeImagen;
+    }
+
     private static Random random;    // pseudo-random number generator
     private static long seed;        // pseudo-random number generator seed
-//    private static PriorityLinkedQueue priorityLinkedQueue;
+   private static  SinglyLinkedList customerList;
+
 //    private static LinkedQueue linkedQueue;
 //    private static LinkedStack linkedStack;
 //
@@ -57,11 +69,19 @@ public class Utility {
         // this is how the seed was set in Java 1.4
         seed = System.currentTimeMillis();
         random = new Random(seed);
+        customerList=new SinglyLinkedList();
 //        priorityLinkedQueue = new PriorityLinkedQueue();
 //        linkedQueue= new LinkedQueue();
 //        linkedStack= new LinkedStack();
     }
 
+    public static SinglyLinkedList getCustomerList() {
+        return customerList;
+    }
+
+    public static void setCustomerList(SinglyLinkedList customerList) {
+        Utility.customerList = customerList;
+    }
 
     public static int random() {
         return 1 + (int) Math.floor(Math.random() * 99);
@@ -135,17 +155,12 @@ public class Utility {
                 return sec1.getUser().compareToIgnoreCase(((Security) b).getUser()) < 0   ||  sec1.getPassWord().compareToIgnoreCase(((Security) b).getPassWord() ) < 0   ||  sec1.getRol().compareToIgnoreCase(((Security) b).getRol())< 0? -1 :
                         sec1.getUser().compareToIgnoreCase(((Security) b).getUser()) > 0   ||  sec1.getPassWord().compareToIgnoreCase(((Security) b).getPassWord() ) > 0   ||  sec1.getRol().compareToIgnoreCase(((Security) b).getRol()) >0 ? 1: 0;
 
-//            case "Person":
-//                Person p1 = (Person) a;
-//                Person p2 = (Person) b;
-////                return p1.getName().compareTo(p2.getName())!=
-////                        p1.getMood().compareTo(p2.getMood()) ? -1 :0;
-//                return p1.getName().compareTo(p2.getName()) < 0 ? -1 :
-//                        p1.getMood().compareTo(p2.getMood()) < 0 ? -1 :
-//                                p1.getName().compareTo(p2.getName()) >0 ? 1 :
-//                                        p1.getMood().compareTo(p2.getMood()) > 0 ? 1 :
-//                                                p1.getName().compareTo(p2.getName())!=
-//                                                p1.getMood().compareTo(p2.getMood()) ? -1 :0;
+            case "Customer":
+                Customer p1 = (Customer) a;
+                Customer p2 = (Customer) b;
+
+                return p1.getId() < p2.getId() ? -1 :
+                        p1.getId() > p2.getId() ? 1 : 0; //0==equal
 //
 //            case "PersonMood":
 //                Person pm1 = (Person) a; String pm2 = (String) b;
@@ -178,6 +193,7 @@ public class Utility {
         if (a instanceof String && b instanceof String) return "String";
         if (a instanceof Character && b instanceof Character) return "Character";
         if (a instanceof Security && b instanceof Security) return "Security";
+        if (a instanceof Customer && b instanceof Customer) return "Customer";
         if (a instanceof CircularLinkedList && b instanceof CircularLinkedList) return "Security";
 
         //  if (a instanceof Person && b instanceof Person) return "Person";

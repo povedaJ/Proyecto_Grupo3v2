@@ -18,8 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class LoginController implements Initializable {
 
@@ -89,5 +88,9 @@ public class LoginController implements Initializable {
         }catch(java.security.NoSuchAlgorithmException e){
         }
         return null;
+    }
+    @FXML
+    void returnOnAction(ActionEvent event) {
+loadPage("initial_view.fxml");
     }
 }
