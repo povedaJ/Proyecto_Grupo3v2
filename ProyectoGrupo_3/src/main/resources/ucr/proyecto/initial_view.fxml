@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InitialViewController">
+   <center>
+      <AnchorPane prefHeight="603.0" prefWidth="600.0" stylesheets="@stylesheet.css">
+         <children>
+            <ImageView fx:id="logoImagen" fitHeight="193.0" fitWidth="231.0" layoutX="195.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+            <Button layoutX="240.0" layoutY="323.0" mnemonicParsing="false" onAction="#signUpOnAction" stylesheets="@stylesheet.css" text="Sign up" />
+            <Button layoutX="240.0" layoutY="399.0" mnemonicParsing="false" onAction="#logInOnAction" prefHeight="46.0" prefWidth="125.0" stylesheets="@stylesheet.css" text="Log in" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
