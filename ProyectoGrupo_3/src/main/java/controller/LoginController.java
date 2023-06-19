@@ -29,8 +29,6 @@ public class LoginController implements Initializable {
     private TextField textFieldUsuario;
     @javafx.fxml.FXML
     private TextField textFieldContrasena;
-
-    CircularLinkedList circularL = new CircularLinkedList();
     @FXML
     private Label txtError;
 
@@ -38,8 +36,8 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            circularL.add(new Security("Admin",MD5("1234"),"1"));
-            circularL.add(new Security("User",MD5("12345"),"2"));
+            util.Utility.securityList().add(new Security("Admin",util.Utility.MD5("1234"),"1"));
+            util.Utility.securityList().add(new Security("User",util.Utility.MD5("12345"),"2"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,10 +51,10 @@ public class LoginController implements Initializable {
          String contrasena= this.textFieldContrasena.getText();
 
 
-        Utility.file(circularL.toString(), "Security");
-        if(circularL.contains(new Security(usuario, MD5(contrasena),"1"))){
+        Utility.file(util.Utility.securityList().toString(), "Security");
+        if(util.Utility.securityList().contains(new Security(usuario, util.Utility.MD5(contrasena),"1"))){
             loadPage("menuAdmin.fxml");
-        } else if(circularL.contains(new Security(usuario, MD5(contrasena),"2"))){
+        } else if(util.Utility.securityList().contains(new Security(usuario, util.Utility.MD5(contrasena),"2"))){
             loadPage("menuUsuario.fxml");
         }else {
             this.txtError.setVisible(true);
@@ -71,24 +69,7 @@ public class LoginController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    public String MD5(String md5) throws IOException{
 
-        try{
-            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
-            byte[] array = md.digest(md5.getBytes());
-            StringBuffer sb = new StringBuffer();
-
-            for (int i = 0; i < array.length; i++) {
-                sb.append(Integer.toHexString((array[i]&0xFF)|0x100).substring(1,3));
-            }
-
-
-            return sb.toString();
-
-        }catch(java.security.NoSuchAlgorithmException e){
-        }
-        return null;
-    }
     @FXML
     void returnOnAction(ActionEvent event) {
 loadPage("initial_view.fxml");

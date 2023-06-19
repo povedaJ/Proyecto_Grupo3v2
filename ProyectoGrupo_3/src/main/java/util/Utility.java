@@ -36,6 +36,7 @@ public class Utility {
     private static Random random;    // pseudo-random number generator
     private static long seed;        // pseudo-random number generator seed
    private static  SinglyLinkedList customerList;
+    private static  CircularLinkedList securityList;
 
 //    private static LinkedQueue linkedQueue;
 //    private static LinkedStack linkedStack;
@@ -70,10 +71,14 @@ public class Utility {
         seed = System.currentTimeMillis();
         random = new Random(seed);
         customerList=new SinglyLinkedList();
+        securityList = new CircularLinkedList();
+
 //        priorityLinkedQueue = new PriorityLinkedQueue();
 //        linkedQueue= new LinkedQueue();
 //        linkedStack= new LinkedStack();
     }
+
+    public static CircularLinkedList securityList(){ return securityList; }
 
     public static SinglyLinkedList getCustomerList() {
         return customerList;
@@ -235,6 +240,25 @@ public class Utility {
         return period.getYears();
     }
 
+    public static String MD5(String md5) throws IOException{
+
+        try{
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            byte[] array = md.digest(md5.getBytes());
+            StringBuffer sb = new StringBuffer();
+
+            for (int i = 0; i < array.length; i++) {
+                sb.append(Integer.toHexString((array[i]&0xFF)|0x100).substring(1,3));
+            }
+
+
+            return sb.toString();
+
+        }catch(java.security.NoSuchAlgorithmException e){
+        }
+        return null;
+    }
+
     public static void file(Object b, String name) throws IOException {
         FileWriter file = new FileWriter(name + ".txt");
         file.write(b + "\n");
@@ -276,6 +300,8 @@ public class Utility {
 
 
     }
+
+
 
 
 }
