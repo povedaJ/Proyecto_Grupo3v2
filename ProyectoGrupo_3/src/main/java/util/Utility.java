@@ -38,6 +38,8 @@ public class Utility {
    private static  SinglyLinkedList customerList;
     private static  CircularLinkedList securityList;
 
+    static Product[] productsList;
+
 //    private static LinkedQueue linkedQueue;
 //    private static LinkedStack linkedStack;
 //
@@ -301,6 +303,23 @@ public class Utility {
 
     }
 
+    public  static void llenarProductosLista(){
+        productsList= new Product[]{
+                new Product(01, "Enchufe de vinil 15 a 125v", 1395.0, 12, 20, 11),
+                new Product(02, "Extensión para exterior 3x12 awg 15m", 59950.0, 7, 12, 12),
+                new Product(03, "Plafón de policarbonato 150 w", 900.0, 3, 37, 13),
+                new Product(04, "Tubo cpvc 1/2' x6m", 12450.0, 10, 12, 14),
+                new Product(05, "Tubi emt 1 1/2' ul", 10.0, 20, 38, 15),
+                new Product(06, "Cable transparente N°18", 220.0, 25, 42, 16)
+        };
+    }
+    public static Product[] getProductosList() { //hay que editarlo porque los datos son inventados
+        return productsList;
+    }
+
+    public static void setProductsList(Product[] productsLista) {
+        productsList = productsLista;
+    }
 
 
 
