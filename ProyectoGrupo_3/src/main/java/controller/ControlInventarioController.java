@@ -121,6 +121,8 @@ public class ControlInventarioController {
             }
             eliminaNulos(node.left);
             eliminaNulos(node.right);
+        }else{
+        registro.remove(null);
         }
     }
 
