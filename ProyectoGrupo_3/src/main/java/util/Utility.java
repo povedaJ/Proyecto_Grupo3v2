@@ -6,12 +6,12 @@
 package util;
 
 import domain.*;
-import domain.HearderLinkedQueue;
 import domain.List.CircularLinkedList;
 import domain.List.SinglyLinkedList;
 import domain.Tree.AVL;
 import domain.Tree.BST;
 import domain.Tree.BTree;
+import domain.queue.HearderLinkedQueue;
 
 import java.io.*;
 import java.text.DecimalFormat;

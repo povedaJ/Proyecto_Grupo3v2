@@ -1,6 +1,6 @@
 .root {
     -fx-spacing: 30;
-    -fx-background-color:  #fff8dc; /* Beige claro */
+    -fx-background-color:   #f3eae2; /* Beige claro */
 }
 
 .button {
@@ -108,8 +108,8 @@
 .table-view:row-selection .table-row-cell:filled:selected {
     -fx-background-color: rgba(28, 183, 236, 0.65);
 }
-
 .table-view, .table-view:focused {
     -fx-background-color: transparent, -fx-box-border, -fx-control-inner-background;
     -fx-background-insets: -1.4, 0, 1;
-    -fx-background-radius: 1.4, 0,
+    -fx-background-radius: 1.4, 0;
+}
