@@ -1,5 +1,7 @@
 package controller;
 
+
+
 import domain.Product;
 import domain.Tree.BTree;
 import domain.Tree.BTreeNode;
@@ -132,14 +134,25 @@ public class ControlInventarioController {
         if (productosChoiceBox.getValue()!=null){
             if (!cant.isEmpty()){
                 String producto = (String) productosChoiceBox.getValue();
-                int cantidad = Integer.parseInt(cant);
-                cambiarCantidad(registro.getRoot(), producto, cantidad);
-                cambiarListaProductos(registro.getRoot(), 0); //se debe actualizar toda la lista de productos
+                if (Utility.isNumberExp(cant)){
+                    int cantidad = Integer.parseInt(cant);
+                    cambiarCantidad(registro.getRoot(), producto, cantidad);
+                    cambiarListaProductos(registro.getRoot(), 0); //se debe actualizar toda la lista de productos
+                    notificacionLabel.setText("La cantidad se actualizo");
+                }else{
+                    notificacionLabel.setText("Solo puede ingresar numeros");
+                }
+            }else{
+                notificacionLabel.setText("Debe ingresar la cantidad a actualizar");
             }
+        }else{
+            notificacionLabel.setText("Debe seleccionar el producto");
         }
-        notificacionLabel.setText("La cantidad se actializo");
         cantidadTextField.clear();
     }
+
+
+
     public void cambiarCantidad(BTreeNode node, String nombre, int cant) throws TreeException {
         if (node!=null){
             Product p = (Product) node.data;

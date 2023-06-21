@@ -17,12 +17,15 @@
                   <Font name="Berlin Sans FB" size="30.0" />
                </font>
             </Label>
-            <Button layoutX="93.0" layoutY="341.0" mnemonicParsing="false" onAction="#btnRegresar" text="Regresar">
+            <Button layoutX="29.0" layoutY="341.0" mnemonicParsing="false" onAction="#btnRegresar" text="Regresar">
                <font>
                   <Font name="Berlin Sans FB" size="24.0" />
                </font>
             </Button>
-            <Button layoutX="422.0" layoutY="16.0" mnemonicParsing="false" onAction="#btnActualizaciónAutomatica" prefHeight="41.0" prefWidth="164.0" text="Actualización automatica" />
+            <Button layoutX="337.0" layoutY="342.0" mnemonicParsing="false" onAction="#btnActualizaciónAutomatica" prefHeight="41.0" prefWidth="249.0" text="Actualización automatica">
+               <font>
+                  <Font name="Berlin Sans FB" size="20.0" />
+               </font></Button>
             <ChoiceBox fx:id="productosChoiceBox" layoutX="212.0" layoutY="137.0" prefHeight="45.0" prefWidth="178.0" />
             <Label layoutX="128.0" layoutY="92.0" text="Seleccione el producto a actualizar">
                <font>
@@ -39,12 +42,12 @@
                   <Font name="Berlin Sans FB" size="24.0" />
                </font>
             </TextField>
-            <Button layoutX="372.0" layoutY="341.0" mnemonicParsing="false" onAction="#btnActualizar" text="Actualizar">
+            <Button layoutX="182.0" layoutY="341.0" mnemonicParsing="false" onAction="#btnActualizar" text="Actualizar">
                <font>
                   <Font name="Berlin Sans FB" size="24.0" />
                </font>
             </Button>
-            <Label fx:id="notificacionLabel" layoutX="148.0" layoutY="286.0" prefHeight="27.0" prefWidth="306.0" textAlignment="CENTER">
+            <Label fx:id="notificacionLabel" layoutX="122.0" layoutY="285.0" prefHeight="27.0" prefWidth="390.0" textAlignment="CENTER">
                <font>
                   <Font name="Berlin Sans FB" size="24.0" />
                </font>

@@ -7,11 +7,11 @@
     -fx-font-family: "Arial";
     -fx-font-size: 25px;
     -fx-font-weight: bold;
-    -fx-background-color: #ffb6c1; /* Rosa claro */
+    -fx-background-color:  #3a8db8; /* Rosa claro */
 }
 
 .button:hover {
-    -fx-background-color: #ff69b4; /* Rosa más oscuro */
+    -fx-background-color: #8acce9; /* Rosa más oscuro */
     -fx-scale-y: 1.1;
 }
 
@@ -112,4 +112,5 @@
 .table-view, .table-view:focused {
     -fx-background-color: transparent, -fx-box-border, -fx-control-inner-background;
     -fx-background-insets: -1.4, 0, 1;
-    -fx-background-radius: 1.4, 0,
+    -fx-background-radius: 1.4, 0;}
+

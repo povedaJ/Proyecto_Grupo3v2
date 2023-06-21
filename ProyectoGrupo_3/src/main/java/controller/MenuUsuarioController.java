@@ -37,7 +37,7 @@ public class MenuUsuarioController {
 
         @FXML
         void gestionPedidosOnAction(ActionEvent event) {
-
+loadPage("gestionPedidos.fxml");
         }
 
         @FXML

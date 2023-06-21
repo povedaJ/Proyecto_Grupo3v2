@@ -192,7 +192,17 @@ public class Utility {
         }
         return 2; //Unknown
     }
-
+    public static boolean isNumberExp(String str) {
+        str = str.replaceAll("\\s", "");
+        int n = str.length();
+        for (int i = 0; i < n; i++) {
+            if (Character.isDigit(str.charAt(i)) && !Character.isLetter(str.charAt(i))) {
+                //true si es digito
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static String instanceOf(Object a, Object b) {
         if (a instanceof Integer && b instanceof Integer) return "Integer";
@@ -318,6 +328,62 @@ public class Utility {
         }
 
 
+    }
+
+    public static SinglyLinkedList getConfiGeneralesList() {
+        return confiGeneralesList;
+    }
+
+    public static void setConfiGeneralesList(SinglyLinkedList confiGeneralesList) {
+        Utility.confiGeneralesList = confiGeneralesList;
+    }
+
+    public static AVL getSupplierAVL() {
+        return supplierAVL;
+    }
+
+    public static void setSupplierAVL(AVL supplierAVL) {
+        Utility.supplierAVL = supplierAVL;
+    }
+
+    public static AVL getProductsAVL() {
+        return productsAVL;
+    }
+
+    public static void setProductsAVL(AVL productsAVL) {
+        Utility.productsAVL = productsAVL;
+    }
+
+    public static BTree getInventoryBT() {
+        return inventoryBT;
+    }
+
+    public static void setInventoryBT(BTree inventoryBT) {
+        Utility.inventoryBT = inventoryBT;
+    }
+
+    public static AVL getOrdersManagement() {
+        return ordersManagement;
+    }
+
+    public static void setOrdersManagement(AVL ordersManagement) {
+        Utility.ordersManagement = ordersManagement;
+    }
+
+    public static BST getForecastDemandBST() {
+        return forecastDemandBST;
+    }
+
+    public static void setForecastDemandBST(BST forecastDemandBST) {
+        Utility.forecastDemandBST = forecastDemandBST;
+    }
+
+    public static HearderLinkedQueue getCostsControlQ() {
+        return costsControlQ;
+    }
+
+    public static void setCostsControlQ(HearderLinkedQueue costsControlQ) {
+        Utility.costsControlQ = costsControlQ;
     }
 
     public static void llenarProductosLista() {
