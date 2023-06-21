@@ -1,4 +1,4 @@
-package domain;
+package domain.Tree;
 
 public class TreeException extends  Exception {
 

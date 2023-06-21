@@ -1,4 +1,4 @@
-package domain;
+package domain.Tree;
 
 public interface Tree {
     //devuelve el número de elementos en el árbol
@@ -57,4 +57,23 @@ public interface Tree {
     //para mostrar todos los elementos existentes
     public String postOrder() throws TreeException;
     //private String postOrder(BTreeNode node)
+
+    //additional methods
+    BTreeNode getRoot();
+    String printNodesWithChildren() throws TreeException;
+    String printNodes1Child() throws TreeException;
+
+    String printNodes2Children() throws TreeException;
+
+    String printLeaves() throws TreeException;
+    Object grandFather(Object element) throws TreeException;
+    Object father(Object element) throws TreeException;
+
+    Object brother(Object element) throws TreeException;
+
+    Object cousins(Object data) throws TreeException;
+
+    Object subTree(Object data) throws TreeException;
+
+    int totalLeaves() throws TreeException;
 }

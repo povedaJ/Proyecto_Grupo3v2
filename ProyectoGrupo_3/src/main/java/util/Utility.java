@@ -6,6 +6,12 @@
 package util;
 
 import domain.*;
+import domain.HearderLinkedQueue;
+import domain.List.CircularLinkedList;
+import domain.List.SinglyLinkedList;
+import domain.Tree.AVL;
+import domain.Tree.BST;
+import domain.Tree.BTree;
 
 import java.io.*;
 import java.text.DecimalFormat;
@@ -15,6 +21,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
+import java.util.Scanner;
 
 
 /**
@@ -35,52 +42,47 @@ public class Utility {
 
     private static Random random;    // pseudo-random number generator
     private static long seed;        // pseudo-random number generator seed
-   private static  SinglyLinkedList customerList;
-    private static  CircularLinkedList securityList;
+    private static SinglyLinkedList confiGeneralesList;//Configuraciones Generales
+    private static CircularLinkedList securityList;//Seguridad del Sistema
+    private static AVL supplierAVL;//Mantenimiento de proveedores
+    private static AVL productsAVL;//Mantenimiento de Productos
+    private static SinglyLinkedList customerList;//mantenimiento de clientes
+   private static BTree inventoryBT; //control de inventario
+   private static AVL ordersManagement;// Gestión de pedidos
+    private static BST forecastDemandBST;//Previsión de la demanda
+    private static HearderLinkedQueue costsControlQ;//Control de costos
 
     static Product[] productsList;
 
-//    private static LinkedQueue linkedQueue;
-//    private static LinkedStack linkedStack;
-//
-//    public static LinkedStack getLinkedStack() {
-//        return linkedStack;
-//    }
-//
-//    public static void setLinkedStack(LinkedStack linkedStack) {
-//        Utility.linkedStack = linkedStack;
-//    }
-//
-//    public static LinkedQueue getLinkedQueue() {
-//        return linkedQueue;
-//    }
-//
-//    public static void setLinkedQueue(LinkedQueue linkedQueue) {
-//        Utility.linkedQueue = linkedQueue;
-//    }
-//
-//    public static PriorityLinkedQueue getPriorityLinkedQueue() {
-//        return priorityLinkedQueue;
-//    }
-//
-//    public static void setPriorityLinkedQueue(PriorityLinkedQueue priorityLinkedQueue) {
-//        Utility.priorityLinkedQueue = priorityLinkedQueue;
-//    }
 
     // static initializer
     static {
         // this is how the seed was set in Java 1.4
         seed = System.currentTimeMillis();
         random = new Random(seed);
-        customerList=new SinglyLinkedList();
+        customerList = new SinglyLinkedList();
         securityList = new CircularLinkedList();
+        productsAVL= new AVL();
+        supplierAVL= new AVL();
 
-//        priorityLinkedQueue = new PriorityLinkedQueue();
-//        linkedQueue= new LinkedQueue();
-//        linkedStack= new LinkedStack();
+//
     }
 
-    public static CircularLinkedList securityList(){ return securityList; }
+    public static CircularLinkedList getSecurityList() {
+        return securityList;
+    }
+
+    public static void setSecurityList(CircularLinkedList securityList) {
+        Utility.securityList = securityList;
+    }
+
+    public static Product[] getProductsList() {
+        return productsList;
+    }
+
+    public static CircularLinkedList securityList() {
+        return securityList;
+    }
 
     public static SinglyLinkedList getCustomerList() {
         return customerList;
@@ -154,13 +156,15 @@ public class Utility {
                 return ch1.compareTo(ch2) < 0 ? -1 :
                         ch1.compareTo(ch2) > 0 ? 1 : 0;
             case "CircularLinkedList":
-                CircularLinkedList cir1 = (CircularLinkedList) a; CircularLinkedList cir2 = (CircularLinkedList) b;
-                return !cir1.equals(cir2)  ? -1 : 0;
+                CircularLinkedList cir1 = (CircularLinkedList) a;
+                CircularLinkedList cir2 = (CircularLinkedList) b;
+                return !cir1.equals(cir2) ? -1 : 0;
 
             case "Security":
-                Security sec1 = (Security) a; Security sec2 = (Security) b;
-                return sec1.getUser().compareToIgnoreCase(((Security) b).getUser()) < 0   ||  sec1.getPassWord().compareToIgnoreCase(((Security) b).getPassWord() ) < 0   ||  sec1.getRol().compareToIgnoreCase(((Security) b).getRol())< 0? -1 :
-                        sec1.getUser().compareToIgnoreCase(((Security) b).getUser()) > 0   ||  sec1.getPassWord().compareToIgnoreCase(((Security) b).getPassWord() ) > 0   ||  sec1.getRol().compareToIgnoreCase(((Security) b).getRol()) >0 ? 1: 0;
+                Security sec1 = (Security) a;
+                Security sec2 = (Security) b;
+                return sec1.getUser().compareToIgnoreCase(((Security) b).getUser()) < 0 || sec1.getPassWord().compareToIgnoreCase(((Security) b).getPassWord()) < 0 || sec1.getRol().compareToIgnoreCase(((Security) b).getRol()) < 0 ? -1 :
+                        sec1.getUser().compareToIgnoreCase(((Security) b).getUser()) > 0 || sec1.getPassWord().compareToIgnoreCase(((Security) b).getPassWord()) > 0 || sec1.getRol().compareToIgnoreCase(((Security) b).getRol()) > 0 ? 1 : 0;
 
             case "Customer":
                 Customer p1 = (Customer) a;
@@ -179,11 +183,11 @@ public class Utility {
                 Product prod1 = (Product) a;
                 String pro1 = prod1.getDescription();
                 String pro2 = (String) b;
-                return pro1==pro2? 0: 1 ;
+                return pro1 == pro2 ? 0 : 1;
             case "Eliminar los nulos":
                 String produc1 = (String) a;
                 String produc2 = (String) b;
-                return produc1==produc2? 0: 1 ;
+                return produc1 == produc2 ? 0 : 1;
 
         }
         return 2; //Unknown
@@ -213,14 +217,6 @@ public class Utility {
         return alfabeto[(int) (Math.random() * 25 - 1)];
     }
 
-//    public static Object getObject() {
-//        int num = random(0, 4);
-//        Object list[] = { new Person(getFirstName(),getMood()), new Place(getPlace())
-//                ,new Weather(getWeather()), new Climate(new Place(getPlace()), new Weather(getWeather()))
-//        };
-//        return list[num];
-//    }
-
 
     public static int getAge(Date date) {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -233,21 +229,20 @@ public class Utility {
         return period.getYears();
     }
 
-    public static String MD5(String md5) throws IOException{
+    public static String MD5(String md5) throws IOException {
 
-        try{
+        try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             byte[] array = md.digest(md5.getBytes());
             StringBuffer sb = new StringBuffer();
 
             for (int i = 0; i < array.length; i++) {
-                sb.append(Integer.toHexString((array[i]&0xFF)|0x100).substring(1,3));
+                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
             }
-
 
             return sb.toString();
 
-        }catch(java.security.NoSuchAlgorithmException e){
+        } catch (java.security.NoSuchAlgorithmException e) {
         }
         return null;
     }
@@ -258,6 +253,37 @@ public class Utility {
         file.close();
     }
 
+
+    public static CircularLinkedList addreadSecuritiesFromFile(String fileName) throws FileNotFoundException {
+        File file = new File(fileName + ".txt");
+        Scanner scanner = new Scanner(file);
+
+        //CircularLinkedList securityList = new CircularLinkedList();
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.startsWith("Security{")) {
+                int startIndex = line.indexOf("user='") + 6;
+                int endIndex = line.indexOf("'", startIndex);
+                String user = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("passWord='") + 10;
+                endIndex = line.indexOf("'", startIndex);
+                String passWord = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("rol='") + 5;
+                endIndex = line.indexOf("'", startIndex);
+                String rol = line.substring(startIndex, endIndex);
+
+                Security security = new Security(user, passWord, rol);
+                securityList.add(security);
+            }
+        }
+
+        scanner.close();
+
+        return securityList;
+    }
 
     public static void ReadFile(String string) {
 
@@ -294,8 +320,8 @@ public class Utility {
 
     }
 
-    public  static void llenarProductosLista(){
-        productsList= new Product[]{
+    public static void llenarProductosLista() {
+        productsList = new Product[]{
                 new Product(01, "Enchufe de vinil 15 a 125v", 1395.0, 12, 20, 11),
                 new Product(02, "Extensión para exterior 3x12 awg 15m", 59950.0, 7, 12, 12),
                 new Product(03, "Plafón de policarbonato 150 w", 900.0, 3, 37, 13),
@@ -304,6 +330,7 @@ public class Utility {
                 new Product(06, "Cable transparente N°18", 220.0, 25, 42, 16)
         };
     }
+
     public static Product[] getProductosList() { //hay que editarlo porque los datos son inventados
         return productsList;
     }
@@ -311,7 +338,6 @@ public class Utility {
     public static void setProductsList(Product[] productsLista) {
         productsList = productsLista;
     }
-
 
 
 }

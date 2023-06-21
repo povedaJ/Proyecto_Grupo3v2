@@ -1,4 +1,6 @@
-package domain;
+package domain.List;
+
+import domain.Node;
 
 public class CircularLinkedList implements List {
     private Node first; //apunta al inicio de la lista

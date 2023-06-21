@@ -1,9 +1,9 @@
 package controller;
 
-import domain.BTree;
-import domain.BTreeNode;
 import domain.Product;
-import domain.TreeException;
+import domain.Tree.BTree;
+import domain.Tree.BTreeNode;
+import domain.Tree.TreeException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

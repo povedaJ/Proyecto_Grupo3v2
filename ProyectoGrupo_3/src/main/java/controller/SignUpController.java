@@ -1,9 +1,10 @@
 package controller;
 
-import domain.CircularLinkedList;
 import domain.Customer;
-import domain.ListException;
-import domain.SinglyLinkedList;
+import domain.List.CircularLinkedList;
+import domain.List.ListException;
+import domain.List.SinglyLinkedList;
+import domain.Security;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +20,6 @@ import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.*;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.text.DateFormat;
@@ -50,12 +50,14 @@ public class SignUpController {
     @FXML
     private TextField phoneNumberTextField;
     private SinglyLinkedList customerList;
+    private CircularLinkedList securityList;
     Alert alert;
     private static String emailFrom = "vivipoveda15@gmail.com";
     private static String passwordFrom = "exgehhmbahbxeeyi";
     private String emailTo;
     private String subject;
     private String content;
+    private String passwordU;
 
     private Properties mProperties;
     private Session mSession;
@@ -65,6 +67,7 @@ public class SignUpController {
         mProperties = new Properties();
         //carga la lista de clientes
          this.customerList = util.Utility.getCustomerList();
+         this.securityList=util.Utility.getSecurityList();
         this.alert = util.FXUtility.alert("Sign up", "Add new customer...");
         Image image = new Image(util.Utility.getRouteImagen()); // Cambia la ruta por la ubicación de tu imagen
         logoImagen.setImage(image);
@@ -105,13 +108,14 @@ public class SignUpController {
                         this.addressTextField.textProperty().getValue());
                 if (customerList.isEmpty()|| !customerList.contains(newCustomer)){
                     customerList.add(newCustomer);
-
-
-                    createEmail(newCustomer.getEmail(),newCustomer.getId());
+                    String pass = generateUniquePassword();
+                    createEmail(newCustomer.getEmail(),newCustomer.getId(),pass);
                     sendEmail();
                     //settear lista de utiliti, la global
+                    securityList.add(new Security(this.idTextField.getText(),util.Utility.MD5(pass),"2"));
+                  //  util.Utility.securityList().add(new Security("Admin",util.Utility.MD5("1234"),"1"));
                     btnClean(); //llama al boton clean
-                    util.Utility.setCustomerList(customerList);
+                    System.out.println(securityList.toString());
                 }else{
                     alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setContentText("The employee already exists in the list");
@@ -125,6 +129,8 @@ public class SignUpController {
 
         } catch (ListException ex) {
             System.out.println(ex.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }//end
 
@@ -141,10 +147,10 @@ public class SignUpController {
         return !idTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !phoneNumberTextField.getText().isEmpty()
                 && !emailTextField.getText().isEmpty() && !addressTextField.getText().isEmpty();
     }
-    private void createEmail(String email,int user) {
+    private void createEmail(String email,int user,String password) {
         emailTo = email;
         subject = "Acceso a ferreteria ";
-        String password= generateUniquePassword();
+        passwordU= password;
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         String horaRegistro = dateFormat.format(date);
@@ -156,7 +162,7 @@ public class SignUpController {
                 + "<p>Le damos la bienvenida a nuestra nueva aplicación. A continuación, encontrará los detalles de su cuenta:</p>"
                 + "<ul>"
                 + "<li><strong>Usuario:</strong> " + user + "</li>"
-                + "<li><strong>Contraseña:</strong> " + password + "</li>"
+                + "<li><strong>Contraseña:</strong> " + passwordU + "</li>"
                 + "</ul>"
                 + "<p>Fecha y hora de registro: " + horaRegistro + "</p>"
                 + "<p>Por favor, guarde estos detalles de inicio de sesión de manera segura. Si tiene alguna pregunta o necesita ayuda, no dude en contactarnos.</p>"

@@ -1,8 +1,6 @@
 package ucr.proyecto;
 
-import domain.CircularLinkedList;
-import domain.ListException;
-import domain.Security;
+import domain.List.ListException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

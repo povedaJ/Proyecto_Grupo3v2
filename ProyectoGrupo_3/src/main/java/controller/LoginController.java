@@ -1,13 +1,11 @@
 package controller;
 
-import domain.CircularLinkedList;
-import domain.ListException;
+import domain.List.ListException;
 import domain.Security;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -36,8 +34,8 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            util.Utility.securityList().add(new Security("Admin",util.Utility.MD5("1234"),"1"));
-            util.Utility.securityList().add(new Security("User",util.Utility.MD5("12345"),"2"));
+
+            System.out.println("Listsss\n"+Utility.addreadSecuritiesFromFile("ProyectoGrupo_3/Security"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -50,8 +48,8 @@ public class LoginController implements Initializable {
          String usuario= this.textFieldUsuario.getText();
          String contrasena= this.textFieldContrasena.getText();
 
-
-        Utility.file(util.Utility.securityList().toString(), "Security");
+        //System.out.println("Listsss\n"+Utility.addreadSecuritiesFromFile("ProyectoGrupo_3/Security"));
+       // Utility.file(util.Utility.securityList().toString(), "Security");
         if(util.Utility.securityList().contains(new Security(usuario, util.Utility.MD5(contrasena),"1"))){
             loadPage("menuAdmin.fxml");
         } else if(util.Utility.securityList().contains(new Security(usuario, util.Utility.MD5(contrasena),"2"))){

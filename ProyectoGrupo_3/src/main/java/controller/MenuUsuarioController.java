@@ -27,7 +27,7 @@ public class MenuUsuarioController {
     }
         @FXML
         void Exit(ActionEvent event) {
-
+            System.exit(0);
         }
 
         @FXML

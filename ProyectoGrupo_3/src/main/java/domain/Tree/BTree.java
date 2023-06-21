@@ -1,12 +1,15 @@
-package domain;
+package domain.Tree;
 
 public class BTree implements Tree {
     private BTreeNode root;
 
-
-
     public BTree() {
         this.root = null;
+    }
+
+    @Override
+    public BTreeNode getRoot() {
+        return root;
     }
 
     @Override
@@ -146,16 +149,19 @@ public class BTree implements Tree {
     }
 
     private Object getLeaf(BTreeNode node) {
+        Object aux;
         if(node==null)
             return null;
             //Si es una hoja
         else if(node.left==null && node.right==null)
             return node.data; //es una hoja
         else{
-            if((getLeaf(node.left)==null))
+            aux = getLeaf(node.left);
+            if(aux==null) {
                 return getLeaf(node.right);
+            }
         }
-        return null;
+        return aux;
     }
 
     @Override
@@ -273,7 +279,76 @@ public class BTree implements Tree {
         return result;
     }
 
-    public BTreeNode getRoot() {
-        return root;
+    @Override
+    public String printNodesWithChildren() throws TreeException {
+        return null;
+    }
+
+    @Override
+    public String printNodes1Child() throws TreeException {
+        return null;
+    }
+
+    @Override
+    public String printNodes2Children() throws TreeException {
+        return null;
+    }
+
+    @Override
+    public String printLeaves() throws TreeException {
+        return null;
+    }
+
+    @Override
+    public Object grandFather(Object element) throws TreeException {
+        return null;
+    }
+
+    @Override
+    public Object father(Object element) throws TreeException {
+        return null;
+    }
+
+    @Override
+    public Object brother(Object element) throws TreeException {
+        return null;
+    }
+
+    @Override
+    public Object cousins(Object data) throws TreeException {
+        return null;
+    }
+
+    @Override
+    public Object subTree(Object data) throws TreeException {
+        return null;
+    }
+
+    @Override
+    public int totalLeaves() throws TreeException {
+        return countLeaves(root);
+    }
+    //    if(node==null)
+    //            return 0;
+//        else
+//                return 1+size(node.left)+size(node.right);
+    private int countLeaves(BTreeNode node) {
+        if (node == null) {return 0;}
+
+        if (node.left == null && node.right == null) {//node es hoja
+            System.out.println(node.data);
+            return 1;
+        }
+        // cuenta las hojas de los subarboles izquierdo y derecho
+        int leftLeaves = countLeaves(node.left);
+        int rightLeaves = countLeaves(node.right);
+
+        return leftLeaves + rightLeaves;
+    }
+    public String toStringLEAVES() {
+        if(isEmpty()) return "Binary tree is empty";
+        String result = "Binary Tree Tour...\n";
+        result+="PreOrder: "+preOrder(root)+"\n";
+        return result;
     }
 }
