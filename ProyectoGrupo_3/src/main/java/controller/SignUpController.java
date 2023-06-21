@@ -22,6 +22,8 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.*;
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Properties;
@@ -143,7 +145,26 @@ public class SignUpController {
         emailTo = email;
         subject = "Acceso a ferreteria ";
         String password= generateUniquePassword();
-        content = "Este mensaje es enviado por ferreterias 3 hermanos\n\n"+"User: "+user+"\n Password: "+password;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        String horaRegistro = dateFormat.format(date);
+
+       // content = "Este mensaje es enviado por ferreterias 3 hermanos\n\n"+"User: "+user+"\n Password: "+password;
+        content = "<html><body>"
+                + "<h2 style='color: #333333;'>Mensaje enviado por Ferreterías 3 Hermanos</h2>"
+                + "<p>Estimado/a " + user + ",</p>"
+                + "<p>Le damos la bienvenida a nuestra nueva aplicación. A continuación, encontrará los detalles de su cuenta:</p>"
+                + "<ul>"
+                + "<li><strong>Usuario:</strong> " + user + "</li>"
+                + "<li><strong>Contraseña:</strong> " + password + "</li>"
+                + "</ul>"
+                + "<p>Fecha y hora de registro: " + horaRegistro + "</p>"
+                + "<p>Por favor, guarde estos detalles de inicio de sesión de manera segura. Si tiene alguna pregunta o necesita ayuda, no dude en contactarnos.</p>"
+                + "<p>Gracias por elegir Ferreterías 3 Hermanos.</p>"
+                + "<p>Atentamente,</p>"
+                + "<p>Equipo de soporte de Ferreterías 3 Hermanos</p>"
+                + "</body></html>";
+
 
         // Simple mail transfer protocol
         mProperties.put("mail.smtp.host", "smtp.gmail.com");
@@ -187,6 +208,7 @@ public class SignUpController {
             mTransport.close();
             alert.setAlertType(Alert.AlertType.INFORMATION);
             alert.setContentText("The login information has been sent, please check your email");
+            loadPage("initial_view.fxml");
 
         } catch (NoSuchProviderException ex) {
             throw new RuntimeException(ex);

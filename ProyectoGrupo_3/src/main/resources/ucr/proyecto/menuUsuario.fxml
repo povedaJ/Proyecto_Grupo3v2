@@ -1,16 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuUsuarioController">
-   <children>
-      <Label layoutX="164.0" layoutY="70.0" text="Menu Usuario">
-         <font>
-            <Font size="44.0" />
-         </font>
-      </Label>
-   </children>
-</AnchorPane>
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuUsuarioController">
+   <center>
+      <BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="711.0" stylesheets="@stylesheet.css">
+         <left>
+            <VBox prefHeight="625.0" prefWidth="208.0" style="-fx-background-color: #3a8db8;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#Home" prefHeight="62.0" prefWidth="256.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Home" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="30.0" />
+                     </font>
+                  </Button>
+                  <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#perfilOnAction" prefHeight="62.0" prefWidth="256.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Perfil" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="30.0" />
+                     </font>
+                  </Button>
+                  <MenuButton alignment="BASELINE_LEFT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="58.0" prefWidth="201.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Pedidos " textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#gestionPedidosOnAction" text="Gestión de pedidos" />
+                        <MenuItem mnemonicParsing="false" onAction="#reportePedidosOnAction" text="Reporte de pedidos" />
+                     </items>
+                     <font>
+                        <Font name="Arial" size="30.0" />
+                     </font>
+                  </MenuButton>
+                  <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="196.0" mnemonicParsing="false" onAction="#Exit" prefHeight="62.0" prefWidth="334.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Exit" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="30.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <Text fx:id="txtMessage" fill="#3a8db8" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu Usuario" textAlignment="CENTER" wrappingWidth="848.0825805664062">
+               <font>
+                  <Font name="Arial" size="40.0" />
+               </font>
+            </Text>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>

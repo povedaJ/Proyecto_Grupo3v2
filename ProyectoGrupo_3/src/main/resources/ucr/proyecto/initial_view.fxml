@@ -4,14 +4,19 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 
 <BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InitialViewController">
    <center>
-      <AnchorPane prefHeight="603.0" prefWidth="600.0" stylesheets="@stylesheet.css">
+      <AnchorPane prefHeight="603.0" prefWidth="732.0" stylesheets="@stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="logoImagen" fitHeight="193.0" fitWidth="231.0" layoutX="195.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
-            <Button layoutX="240.0" layoutY="323.0" mnemonicParsing="false" onAction="#signUpOnAction" stylesheets="@stylesheet.css" text="Sign up" />
-            <Button layoutX="240.0" layoutY="399.0" mnemonicParsing="false" onAction="#logInOnAction" prefHeight="46.0" prefWidth="125.0" stylesheets="@stylesheet.css" text="Log in" />
+            <Pane layoutX="108.0" layoutY="61.0" prefHeight="482.0" prefWidth="541.0">
+               <children>
+                  <ImageView fx:id="logoImagen" fitHeight="193.0" fitWidth="231.0" layoutX="155.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button layoutX="294.0" layoutY="312.0" mnemonicParsing="false" onAction="#logInOnAction" prefHeight="46.0" prefWidth="125.0" style="-fx-background-color: #3a8db8;" stylesheets="@stylesheet.css" text="Log in" />
+                  <Button layoutX="109.0" layoutY="312.0" mnemonicParsing="false" onAction="#signUpOnAction" style="-fx-background-color: #3a8db8;" stylesheets="@stylesheet.css" text="Sign up" />
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </center>

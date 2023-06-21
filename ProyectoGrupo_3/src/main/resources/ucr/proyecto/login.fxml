@@ -23,7 +23,7 @@
             </Label>
             <TextField fx:id="textFieldUsuario" layoutX="303.0" layoutY="99.0" />
             <TextField fx:id="textFieldContrasena" layoutX="303.0" layoutY="162.0" />
-            <Button layoutX="226.0" layoutY="266.0" mnemonicParsing="false" onAction="#btnIngresar" prefHeight="30.0" prefWidth="149.0" text="Ingresar" />
+            <Button layoutX="226.0" layoutY="266.0" mnemonicParsing="false" onAction="#btnIngresar" prefHeight="30.0" prefWidth="149.0" stylesheets="@stylesheet.css" text="Ingresar" />
             <Label fx:id="txtError" layoutX="181.0" layoutY="324.0" text="Usuario no válido" visible="false" wrapText="true">
                <font>
                   <Font name="Berlin Sans FB" size="33.0" />

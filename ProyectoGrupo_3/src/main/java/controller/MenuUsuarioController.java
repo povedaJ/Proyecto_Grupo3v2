@@ -1,15 +1,21 @@
 package controller;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import ucr.proyecto.HelloApplication;
 
 import java.io.IOException;
 
 public class MenuUsuarioController {
 
-    @javafx.fxml.FXML
-    private BorderPane bp;
+        @FXML
+        private BorderPane bp;
+
+        @FXML
+        private Text txtMessage;
 
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
@@ -19,4 +25,30 @@ public class MenuUsuarioController {
             throw new RuntimeException(e);
         }
     }
-}
+        @FXML
+        void Exit(ActionEvent event) {
+
+        }
+
+        @FXML
+        void Home(ActionEvent event) {
+
+        }
+
+        @FXML
+        void gestionPedidosOnAction(ActionEvent event) {
+
+        }
+
+        @FXML
+        void perfilOnAction(ActionEvent event) {
+
+        }
+
+        @FXML
+        void reportePedidosOnAction(ActionEvent event) {
+
+        }
+
+    }
+
