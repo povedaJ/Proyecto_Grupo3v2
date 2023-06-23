@@ -32,7 +32,7 @@ public class MenuUsuarioController {
 
         @FXML
         void Home(ActionEvent event) {
-
+              loadPage("initial_view.fxml");
         }
 
         @FXML

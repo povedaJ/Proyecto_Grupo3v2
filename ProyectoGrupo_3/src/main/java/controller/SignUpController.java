@@ -15,11 +15,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import ucr.proyecto.HelloApplication;
+import util.Utility;
 
 import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.text.DateFormat;
@@ -52,8 +54,11 @@ public class SignUpController {
     private SinglyLinkedList customerList;
     private CircularLinkedList securityList;
     Alert alert;
-    private static String emailFrom = "vivipoveda15@gmail.com";
-    private static String passwordFrom = "exgehhmbahbxeeyi";
+    private static String emailFrom = "ferreteriaclavooxidado@gmail.com";
+   // private static String emailFrom = "vivipoveda15@gmail.com";
+    //private static String passwordFrom = "exgehhmbahbxeeyi";
+    private static String passwordFrom = "buhbwyoayfqsbyxb";
+
     private String emailTo;
     private String subject;
     private String content;
@@ -71,6 +76,11 @@ public class SignUpController {
         this.alert = util.FXUtility.alert("Sign up", "Add new customer...");
         Image image = new Image(util.Utility.getRouteImagen()); // Cambia la ruta por la ubicación de tu imagen
         logoImagen.setImage(image);
+        try {
+            Utility.addreadSecuritiesFromFile("Security");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void loadPage(String page) {
@@ -109,10 +119,12 @@ public class SignUpController {
                 if (customerList.isEmpty()|| !customerList.contains(newCustomer)){
                     customerList.add(newCustomer);
                     String pass = generateUniquePassword();
-                    createEmail(newCustomer.getEmail(),newCustomer.getId(),pass);
+                    createEmail(newCustomer.getEmail(),newCustomer.getName(),pass);
                     sendEmail();
                     //settear lista de utiliti, la global
-                    securityList.add(new Security(this.idTextField.getText(),util.Utility.MD5(pass),"2"));
+                    Security p1= new Security(this.idTextField.getText(),util.Utility.MD5(pass),"2");
+                    securityList.add( p1);
+                    util.Utility.file(securityList,"Security");
                   //  util.Utility.securityList().add(new Security("Admin",util.Utility.MD5("1234"),"1"));
                     btnClean(); //llama al boton clean
                     System.out.println(securityList.toString());
@@ -147,9 +159,9 @@ public class SignUpController {
         return !idTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !phoneNumberTextField.getText().isEmpty()
                 && !emailTextField.getText().isEmpty() && !addressTextField.getText().isEmpty();
     }
-    private void createEmail(String email,int user,String password) {
+    private void createEmail(String email,String user,String password) {
         emailTo = email;
-        subject = "Acceso a ferreteria ";
+        subject = "Acceso a "+ util.Utility.getNameApp();
         passwordU= password;
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
@@ -157,7 +169,7 @@ public class SignUpController {
 
        // content = "Este mensaje es enviado por ferreterias 3 hermanos\n\n"+"User: "+user+"\n Password: "+password;
         content = "<html><body>"
-                + "<h2 style='color: #333333;'>Mensaje enviado por Ferreterías 3 Hermanos</h2>"
+                + "<h2 style='color: #333333;'>Mensaje enviado por " +util.Utility.getNameApp()+"</h2>"
                 + "<p>Estimado/a " + user + ",</p>"
                 + "<p>Le damos la bienvenida a nuestra nueva aplicación. A continuación, encontrará los detalles de su cuenta:</p>"
                 + "<ul>"
@@ -166,9 +178,9 @@ public class SignUpController {
                 + "</ul>"
                 + "<p>Fecha y hora de registro: " + horaRegistro + "</p>"
                 + "<p>Por favor, guarde estos detalles de inicio de sesión de manera segura. Si tiene alguna pregunta o necesita ayuda, no dude en contactarnos.</p>"
-                + "<p>Gracias por elegir Ferreterías 3 Hermanos.</p>"
+                + "<p>Gracias por elegir " +util.Utility.getNameApp()+".</p>"
                 + "<p>Atentamente,</p>"
-                + "<p>Equipo de soporte de Ferreterías 3 Hermanos</p>"
+                + "<p>Equipo de soporte de " +util.Utility.getNameApp()+"</p>"
                 + "</body></html>";
 
 

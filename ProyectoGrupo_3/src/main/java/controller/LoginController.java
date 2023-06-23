@@ -6,7 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import ucr.proyecto.HelloApplication;
@@ -26,7 +28,7 @@ public class LoginController implements Initializable {
     @javafx.fxml.FXML
     private TextField textFieldUsuario;
     @javafx.fxml.FXML
-    private TextField textFieldContrasena;
+    private TextField passwordField;
     @FXML
     private Label txtError;
 
@@ -35,18 +37,30 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
 
-            System.out.println("Listsss\n"+Utility.addreadSecuritiesFromFile("ProyectoGrupo_3/Security"));
+            System.out.println("Listsss\n"+Utility.addreadSecuritiesFromFile("Security"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.equals(passwordField.getText())) {
+                passwordField.setText(newValue);
+            }
+        });
+//// Configurar la función de enmascaramiento para reemplazar cada carácter con un asterisco
+//        textFieldContrasena.textProperty().addListener((observable, oldValue, newValue) -> {
+//            if (!newValue.equals(textFieldContrasena.getText())) {
+//                textFieldContrasena.setText(newValue);
+//            }
+//        });
     }
 
     @FXML
     private void btnIngresar(ActionEvent event) throws NoSuchAlgorithmException, IOException, ListException {
 
          String usuario= this.textFieldUsuario.getText();
-         String contrasena= this.textFieldContrasena.getText();
+         String contrasena= this. passwordField.getText();
 
         //System.out.println("Listsss\n"+Utility.addreadSecuritiesFromFile("ProyectoGrupo_3/Security"));
        // Utility.file(util.Utility.securityList().toString(), "Security");

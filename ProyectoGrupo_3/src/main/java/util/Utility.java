@@ -29,15 +29,16 @@ import java.util.Scanner;
  */
 public class Utility {
 
-    private static String routeImagen = "file:ProyectoGrupo_3/logo1.png";
-
+    //private static String routeImagen = "file:ProyectoGrupo_3/logo1.png";
+    private static String routeImagen = "file:ProyectoGrupo_3/Imagen/logo2.jpg";
+private static String nameApp="Ferreteria El Clavo Oxidado";
 
     public static String getRouteImagen() {
         return routeImagen;
     }
 
     public static void setRouteImagen(String routeImagen) {
-        Utility.routeImagen = routeImagen;
+        Utility.routeImagen = "ProyectoGrupo_3/Imagen/"+routeImagen;
     }
 
     private static Random random;    // pseudo-random number generator
@@ -90,6 +91,14 @@ public class Utility {
 
     public static void setCustomerList(SinglyLinkedList customerList) {
         Utility.customerList = customerList;
+    }
+
+    public static String getNameApp() {
+        return nameApp;
+    }
+
+    public static void setNameApp(String nameApp) {
+        Utility.nameApp = nameApp;
     }
 
     public static int random() {
@@ -258,16 +267,17 @@ public class Utility {
     }
 
     public static void file(Object b, String name) throws IOException {
-        FileWriter file = new FileWriter(name + ".txt");
+        FileWriter file = new FileWriter("ProyectoGrupo_3/ArchivosTXT/"+name + ".txt");
         file.write(b + "\n");
         file.close();
     }
 
 
     public static CircularLinkedList addreadSecuritiesFromFile(String fileName) throws FileNotFoundException {
-        File file = new File(fileName + ".txt");
+        File file = new File("ProyectoGrupo_3/ArchivosTXT/"+fileName + ".txt");
+       // ProyectoGrupo_3/ArchivosTXT/Security.txt
         Scanner scanner = new Scanner(file);
-
+securityList.clear();
         //CircularLinkedList securityList = new CircularLinkedList();
 
         while (scanner.hasNextLine()) {
