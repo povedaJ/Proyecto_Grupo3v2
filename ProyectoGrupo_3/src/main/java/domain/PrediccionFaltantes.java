@@ -1,7 +1,7 @@
 package domain;
-import domain.Tree.BST;
-import domain.Tree.BSTTree; // Asumiendo que esta clase existe
 
+import domain.Node;
+import domain.Tree.BST;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +33,11 @@ public class PrediccionFaltantes {
         }
 
         // Obtener los productos más demandados (en orden descendente)
-        BSTTree.Node[] nodosMasDemandados = bstTree.getTopKNodes(3); // Cambiar el número '3' por la cantidad deseada
+        Node[] nodosMasDemandados = bstTree.getTopKNodes(3); // Cambiar el número '3' por la cantidad deseada
 
         // Calcular los posibles faltantes para cada producto más demandado
         List<Faltante> faltantes = new ArrayList<>();
-        for (BSTTree.Node nodo : nodosMasDemandados) {
+        for (Node nodo : nodosMasDemandados) {
             Product producto = (Product) nodo.value;
             int cantidad = nodo.key;
             int faltantesCantidad = calcularFaltantes(cantidad); // Implementa tu algoritmo de cálculo de faltantes aquí

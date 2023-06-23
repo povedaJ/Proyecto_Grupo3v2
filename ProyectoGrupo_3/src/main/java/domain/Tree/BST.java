@@ -1,8 +1,10 @@
 package domain.Tree;
 
+import domain.Node;
+
 public class BST implements Tree {
     private BTreeNode root;
-
+    private Node root0;
     public BST() {
         this.root = null;
     }
@@ -324,20 +326,20 @@ public class BST implements Tree {
         return node;
     }
 
-    public BSTTree.Node[] getTopKNodes(int k) {
-        BTreeNode[] topNodes = new BTreeNode[k];
+    public Node[] getTopKNodes(int k) {
+        Node[] topNodes = new Node[k];
         getTopKNodesUtil(root, topNodes, 0, k);
         return topNodes;
     }
 
-    private int getTopKNodesUtil(BTreeNode node, BTreeNode[] topNodes, int index, int k) {
+    private int getTopKNodesUtil(BTreeNode node, Node[] topNodes, int index, int k) {
         if (node == null || index >= k) {
             return index;
         }
 
         index = getTopKNodesUtil(node.right, topNodes, index, k);
         if (index < k) {
-            topNodes[index++] = node;
+            topNodes[index++] = new Node(node.key, node.value);
             index = getTopKNodesUtil(node.left, topNodes, index, k);
         }
 
