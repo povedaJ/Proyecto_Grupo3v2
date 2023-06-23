@@ -13,11 +13,17 @@ public class Node {
     public Object data; //elemento guardado en el nodo
     public Integer priority; //1=low, 2=medium, 3=high
     public Node next; //enlace al sgte nodo
-    
+    public int key;
+    public Object value;
     //Constructor
     public Node(Object data){
         this.data = data;
         this.next = null; //apunta a nulo
+
+    }
+    public Node(int key, Object value) {
+        this.key = key;
+        this.value = value;
     }
     
     //Constructor sobrecargado

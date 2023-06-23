@@ -1,6 +1,8 @@
 package domain.Tree;
 
 public class BTreeNode {
+    public int key;
+    public String value;
     public Object data;
     public String path; //etiqueta con la ruta del nodo binario, ex. root/left, root/right
     public BTreeNode left, right;
@@ -8,6 +10,12 @@ public class BTreeNode {
     public BTreeNode(Object data) {
         this.data = data;
         this.left = this.right = null;
+    }
+    public BTreeNode(int key, String value) {
+        this.key = key;
+        this.value = value;
+        this.left = null;
+        this.right = null;
     }
 
     public BTreeNode(Object data, String path) {

@@ -306,4 +306,41 @@ public class BST implements Tree {
         return result;
     }
 
+    public void insert(int key, String  value) {
+        root = insertNode(root, key, value);
+    }
+
+    private BTreeNode insertNode(BTreeNode node, int key, String value) {
+        if (node == null) {
+            return new BTreeNode(key,  value);
+        }
+
+        if (key < node.key) {
+            node.left = insertNode(node.left, key, value);
+        } else if (key > node.key) {
+            node.right = insertNode(node.right, key, value);
+        }
+
+        return node;
+    }
+
+    public BSTTree.Node[] getTopKNodes(int k) {
+        BTreeNode[] topNodes = new BTreeNode[k];
+        getTopKNodesUtil(root, topNodes, 0, k);
+        return topNodes;
+    }
+
+    private int getTopKNodesUtil(BTreeNode node, BTreeNode[] topNodes, int index, int k) {
+        if (node == null || index >= k) {
+            return index;
+        }
+
+        index = getTopKNodesUtil(node.right, topNodes, index, k);
+        if (index < k) {
+            topNodes[index++] = node;
+            index = getTopKNodesUtil(node.left, topNodes, index, k);
+        }
+
+        return index;
+    }
 }

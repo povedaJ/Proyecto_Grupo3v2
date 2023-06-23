@@ -1,15 +1,11 @@
 package domain;
-import domain.Tree.BSTTree;
+import domain.Tree.BST;
+import domain.Tree.BSTTree; // Asumiendo que esta clase existe
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class PrediccionFaltantes {
-
-
-
     private static class Faltante {
         private Product producto;
         private int faltantes;
@@ -29,7 +25,7 @@ public class PrediccionFaltantes {
     }
 
     public List<Faltante> prediccionFaltantes(List<OrderDetail> historialPedidos) {
-        BSTTree bstTree = new BSTTree();
+        BST bstTree = new BST();
 
         // Insertar los pedidos en el BST
         for (OrderDetail orderDetail : historialPedidos) {
@@ -54,7 +50,7 @@ public class PrediccionFaltantes {
 
     private int calcularFaltantes(int cantidad) {
         int stockActual = 50; // Cantidad actual en el inventario
-        // (falta conectar con el archivo, actualmente esa variable esta quemada )
+        // (falta conectar con el archivo, actualmente esa variable está quemada)
         int faltantes = cantidad - stockActual;
         if (faltantes < 0) {
             faltantes = 0;

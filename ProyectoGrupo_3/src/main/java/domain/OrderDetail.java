@@ -24,8 +24,8 @@ public class OrderDetail {
         this.orderId = orderId;
     }
 
-    public int getProductId() {
-        return productId;
+    public String getProductId() {
+        return String.valueOf(productId);
     }
 
     public void setProductId(int productId) {
