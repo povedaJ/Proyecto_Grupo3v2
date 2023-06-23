@@ -1,9 +1,9 @@
-package domain;
+package domain.Tree;
 
 public class BSTTree {
     public static class Node {
-        int key;
-        Object value;
+        public int key;
+        public Object value;
         Node left;
         Node right;
 

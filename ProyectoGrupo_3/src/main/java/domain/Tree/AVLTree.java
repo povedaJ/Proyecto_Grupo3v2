@@ -1,4 +1,6 @@
-package domain;
+package domain.Tree;
+
+import domain.Supplier;
 
 public class AVLTree {
     private Node root;
