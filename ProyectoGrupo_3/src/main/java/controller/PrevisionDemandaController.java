@@ -1,17 +1,49 @@
 package controller;
 
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import domain.Product;
 import ucr.proyecto.HelloApplication;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class PrevisionDemandaController {
+public class PrevisionDemandaController implements Initializable {
 
-    @javafx.fxml.FXML
+    @FXML
     private BorderPane bp;
+    @FXML
+    private TableView<Product> tableView;
+    @FXML
+    private TableColumn<Product, Integer> idColumn;
+    @FXML
+    private TableColumn<Product, String> descriptionColumn;
+    @FXML
+    private TableColumn<Product, Double> priceColumn;
+    @FXML
+    private TableColumn<Product, Integer> currentStockColumn;
+    @FXML
+    private TableColumn<Product, Integer> minimumStockColumn;
+    @FXML
+    private TableColumn<Product, Integer> supplierIdColumn;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Button backButton;
 
+    private ObservableList<Product> products;
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
         try {
@@ -21,7 +53,41 @@ public class PrevisionDemandaController {
         }
     }
 
-    public void btnRegresar(ActionEvent actionEvent) {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Inicializar la lista de productos
+        products = FXCollections.observableArrayList();
+
+        // Configurar las columnas de la tabla
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        currentStockColumn.setCellValueFactory(new PropertyValueFactory<>("currentStock"));
+        minimumStockColumn.setCellValueFactory(new PropertyValueFactory<>("minimumStock"));
+        supplierIdColumn.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
+
+        // Cargar los productos en la tabla
+        loadProducts();
+
+        // Establecer el controlador para el botón de regreso
+        backButton.setOnAction(event -> btnRegresar());
+    }
+
+    private void loadProducts() {
+        // Aquí debes implementar la lógica para cargar los productos desde la base de datos o cualquier otra fuente de datos
+        // y agregarlos a la lista de productos (variable 'products')
+
+        // Ejemplo de carga de productos de prueba
+        products.add(new Product("Producto 1", 10.99, 100, 50, 10));
+        products.add(new Product("Producto 3", 10.99, 100, 50, 10));
+        products.add(new Product("Producto 2", 10.99, 100, 50, 10));
+
+        // Mostrar los productos en la tabla
+        tableView.setItems(products);
+    }
+
+    @FXML
+    private void btnRegresar() {
         loadPage("menuAdmin.fxml");
     }
 }
