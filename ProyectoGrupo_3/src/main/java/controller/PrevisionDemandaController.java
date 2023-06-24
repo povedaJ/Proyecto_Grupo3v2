@@ -15,7 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import domain.Product;
 import ucr.proyecto.HelloApplication;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
+import java.util.Optional;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -89,5 +91,44 @@ public class PrevisionDemandaController implements Initializable {
     @FXML
     private void btnRegresar() {
         loadPage("menuAdmin.fxml");
+    }
+    @FXML
+    private void btnActualizar() {
+        // Obtener el producto seleccionado de la tabla
+        Product selectedProduct = tableView.getSelectionModel().getSelectedItem();
+
+        if (selectedProduct != null) {
+            // Mostrar el cuadro de diálogo para actualizar el stock actual
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Actualizar Stock");
+            dialog.setHeaderText(selectedProduct.getDescription());
+            dialog.setContentText("Ingrese la cantidad de stock actual:");
+
+            // Obtener el resultado del cuadro de diálogo
+            Optional<String> result = dialog.showAndWait();
+
+            result.ifPresent(stock -> {
+                // Validar y actualizar el stock actual del producto
+                try {
+                    int stockValue = Integer.parseInt(stock);
+                    selectedProduct.setCurrentStock(stockValue);
+
+                } catch (NumberFormatException e) {
+                    // Manejar el caso en el que se ingrese un valor no válido
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Valor inválido");
+                    alert.setContentText("Ingrese un valor numérico válido para el stock actual.");
+                    alert.showAndWait();
+                }
+            });
+        } else {
+            // Si no se selecciona ningún producto, mostrar un mensaje de error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Producto no seleccionado");
+            alert.setContentText("Por favor, seleccione un producto de la tabla.");
+            alert.showAndWait();
+        }
     }
 }
