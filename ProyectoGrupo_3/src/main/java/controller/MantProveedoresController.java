@@ -1,5 +1,6 @@
 package controller;
 
+import domain.Customer;
 import domain.List.ListException;
 import domain.Product;
 import domain.Tree.AVL;
@@ -15,7 +16,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import ucr.proyecto.HelloApplication;
+import util.Utility;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -38,54 +41,72 @@ public class MantProveedoresController {
 
     @FXML
     private TableColumn<Supplier, String> telefonoColumn;
+
     @FXML
     private ImageView logoImagen;
 
-    private AVL supplierList = util.Utility.getSupplierAVL();
-
     TextInputDialog busc = new TextInputDialog("");
-
     TextInputDialog nameTID = new TextInputDialog("");
     TextInputDialog idTID = new TextInputDialog("");
-    TextInputDialog phoneNumberTID= new TextInputDialog("");
+    TextInputDialog phoneNumberTID = new TextInputDialog("");
     TextInputDialog emailTID = new TextInputDialog("");
     TextInputDialog addressTID = new TextInputDialog("");
+
     @FXML
     private Label txtMessages;
+
     @FXML
     private Label txtErrorMessages;
-    @FXML
-    private TableColumn emailColumn;
 
+    @FXML
+    private TableColumn<Supplier, String> emailColumn;
+
+    private AVL supplierList = util.Utility.getSupplierAVL();
+
+    private Alert alert;
 
     @FXML
     public void initialize() {
-        Image image = new Image(util.Utility.getRouteImagen()); // Cambia la ruta por la ubicación de tu imagen
-        logoImagen.setImage(image);
-        if (supplierList.isEmpty()) {
-
-        } else {
-            try {
-                Supplier supplier = new Supplier((Supplier) supplierList.get(1));
-                for (int j = 0; j <= tableView.getItems().size(); j++) {
-                    this.tableView.getItems().clear();
-                }
-                for (int i = 1; i <= supplierList.size(); i++) {
-                    supplier = new Supplier((Supplier) supplierList.get(i));
-                    this.tableView.getItems().add(supplier);
-                    // Configurar las celdas de las columnas con las propiedades del supplier
-                    idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-                    nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-                    direccionColumn.setCellValueFactory(new PropertyValueFactory<>("direccion"));
-                    telefonoColumn.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-                }
-                this.tableView.setVisible(true);
-            } catch (TreeException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            Utility.addReadSuppliersFromFile("Supplier");
+        } catch (FileNotFoundException e) {
+            // Manejar adecuadamente la excepción o mostrar un mensaje de error
+            e.printStackTrace();
         }
 
+        Image image = new Image(util.Utility.getRouteImagen());
+        logoImagen.setImage(image);
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nombreColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        telefonoColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        direccionColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+
+        updateTable();
     }
+
+    private void updateTable() {
+        try {
+            this.alert = util.FXUtility.alert("Student List", "Display Students");
+            alert.setAlertType(Alert.AlertType.ERROR);
+
+            if (supplierList != null && !supplierList.isEmpty()) {
+                int n = supplierList.size();
+                for (int i = 1; i < n; i++) {
+                    this.tableView.getItems().add((Supplier) supplierList.get(i));
+                }
+            } else {
+                alert.setContentText("Supplier list is empty");
+                alert.showAndWait();
+            }
+        } catch (TreeException e) {
+            alert.setContentText("Error occurred while updating the table");
+            alert.showAndWait();
+        }
+    }
+
+
 
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
@@ -108,7 +129,7 @@ public class MantProveedoresController {
     private String phoneNumber;
     private String email;
     private String address;
-    @Deprecated
+    @FXML
     public void btnActualizar(ActionEvent event) throws TreeException {
         busc.setTitle("Modificar curso");
         busc.setHeaderText("Ingrese el ID del curso a modificar:");
@@ -118,13 +139,13 @@ public class MantProveedoresController {
         if (result.isPresent()) {
 
             try {
-                this.d = result.get();
+                this.d=result.get();
 
             } catch (NumberFormatException ex) {
 
             }
         }
-        compare = (supplierList.contains(new Supplier(id, name, phoneNumber, email, address)));
+        compare = (supplierList.contains(new Supplier(id, "", "", "", "")));
         if (compare == true) {
             supplierList.remove(new Supplier(id, name, phoneNumber, email, address));
             nameTID.setTitle("Agregar datos");
