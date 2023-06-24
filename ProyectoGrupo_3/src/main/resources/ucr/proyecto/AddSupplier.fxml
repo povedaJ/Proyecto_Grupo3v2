@@ -1,59 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.image.ImageView?>
 <BorderPane fx:id="bp" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddSupplierController">
-    <center>
-        <AnchorPane prefHeight="513.0" prefWidth="600.0">
-            <children>
-                <ImageView fx:id="logoImagen" fitHeight="110.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
-                <Text fontSmoothingType="LCD" layoutX="173.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create a New Account " wrappingWidth="292.822265625">
-                    <font>
+   <center>
+      <AnchorPane prefHeight="603.0" prefWidth="758.0" stylesheets="@stylesheet.css">
+         <children>
+            <ImageView fx:id="logoImagen" fitHeight="160.0" fitWidth="117.0" layoutX="130.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
+            <Button contentDisplay="GRAPHIC_ONLY" layoutX="117.0" layoutY="459.0" mnemonicParsing="false" onAction="#retunrOnAction" prefHeight="63.0" prefWidth="93.0" stylesheets="@returnButton.css" text="Button" />
+            <Pane layoutX="203.0" layoutY="55.0" prefHeight="494.0" prefWidth="483.0">
+               <children>
+                  <Text fontSmoothingType="LCD" layoutX="130.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar Proveedor" wrappingWidth="292.822265625">
+                     <font>
                         <Font name="System Bold" size="22.0" />
-                    </font>
-                </Text>
-                <Text layoutX="134.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Number">
-                    <font>
+                     </font>
+                  </Text>
+                  <Text layoutX="107.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID">
+                     <font>
                         <Font size="15.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="idTextField" layoutX="226.0" layoutY="163.0" onKeyTyped="#numericOnly" prefHeight="25.0" prefWidth="186.0" />
-                <Text layoutX="163.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-                    <font>
+                     </font>
+                  </Text>
+                  <TextField fx:id="idTextField" layoutX="180.0" layoutY="114.0" onKeyTyped="#numericOnly" prefHeight="25.0" prefWidth="186.0" />
+                  <Text layoutX="89.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
+                     <font>
                         <Font size="15.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="nameTextField" layoutX="229.0" layoutY="210.0" prefHeight="25.0" prefWidth="186.0" />
-                <Text layoutX="104.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone number ">
-                    <font>
+                     </font>
+                  </Text>
+                  <TextField fx:id="nameTextField" layoutX="183.0" layoutY="161.0" prefHeight="25.0" prefWidth="186.0" />
+                  <Text layoutX="58.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Núm Teléfono">
+                     <font>
                         <Font size="15.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="phoneNumberTextField" layoutX="228.0" layoutY="256.0" onKeyTyped="#numericOnly" prefHeight="25.0" prefWidth="186.0" />
-                <Text layoutX="160.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
-                    <font>
+                     </font>
+                  </Text>
+                  <TextField fx:id="phoneNumberTextField" layoutX="182.0" layoutY="207.0" onKeyTyped="#numericOnly" prefHeight="25.0" prefWidth="186.0" />
+                  <Text layoutX="114.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+                     <font>
                         <Font size="15.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="emailTextField" layoutX="229.0" layoutY="302.0" prefHeight="25.0" prefWidth="186.0" />
-                <Text layoutX="144.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
-                    <font>
+                     </font>
+                  </Text>
+                  <TextField fx:id="emailTextField" layoutX="183.0" layoutY="253.0" prefHeight="25.0" prefWidth="186.0" />
+                  <Text layoutX="98.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirección">
+                     <font>
                         <Font size="15.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="addressTextField" layoutX="228.0" layoutY="350.0" prefHeight="25.0" prefWidth="186.0" />
-                <Button contentDisplay="GRAPHIC_ONLY" layoutX="20.0" layoutY="458.0" mnemonicParsing="false" onAction="#retunrOnAction" prefHeight="46.0" prefWidth="62.0" stylesheets="@returnButton.css" text="Button" />
-                <Button layoutX="237.0" layoutY="443.0" mnemonicParsing="false" onAction="#AgregarOnAction" text="Agregar" />
-                <RadioButton layoutX="154.0" layoutY="397.0" mnemonicParsing="false" text="Acepta los terminos y condiciones" />
-            </children>
-        </AnchorPane>
-    </center>
+                     </font>
+                  </Text>
+                  <TextField fx:id="addressTextField" layoutX="182.0" layoutY="301.0" prefHeight="25.0" prefWidth="186.0" />
+                  <Button layoutX="191.0" layoutY="394.0" mnemonicParsing="false" onAction="#signUpOnAction" text="Agregar" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>

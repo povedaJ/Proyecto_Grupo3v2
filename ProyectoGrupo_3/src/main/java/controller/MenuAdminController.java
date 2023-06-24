@@ -57,17 +57,17 @@ public class MenuAdminController {
 
     @FXML
     void controlCostosOnAction(ActionEvent event) {
-
+        loadPage("controlCostos.fxml");
     }
 
     @FXML
     void controlInventarioOnAction(ActionEvent event) {
-
+        loadPage("controlInventario.fxml");
     }
 
     @FXML
     void infoEmpresarialOnAction(ActionEvent event) {
-
+        loadPage("generalesNombreLogo.fxml");
     }
 
     @FXML

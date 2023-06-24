@@ -185,7 +185,7 @@ public class AddSupplierController implements Initializable {
         loadPage("mantProveedores.fxml");
     }
 
-    public void AgregarOnAction(ActionEvent actionEvent) {
+    public void signUpOnAction(ActionEvent actionEvent) {
         try {
             if (isValid() && util.Utility.isCorreo(emailTextField.getText())) {
                 int id = Integer.parseInt(this.idTextField.getText());

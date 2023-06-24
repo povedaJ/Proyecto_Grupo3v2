@@ -5,6 +5,8 @@ import domain.List.CircularLinkedList;
 import domain.List.ListException;
 import domain.List.SinglyLinkedList;
 import domain.Security;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -81,6 +83,14 @@ public class SignUpController {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        idTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    idTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 
     private void loadPage(String page) {
