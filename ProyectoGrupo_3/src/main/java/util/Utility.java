@@ -279,7 +279,11 @@ public class Utility {
 
         Scanner scanner = new Scanner(file);
         securityList.clear();
-
+        try {
+            securityList.add(new Security("admin1",MD5("admin1"),"1"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();

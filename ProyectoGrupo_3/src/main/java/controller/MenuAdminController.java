@@ -90,12 +90,12 @@ public class MenuAdminController {
 
     @FXML
     void productosOnAction(ActionEvent event) {
-
+loadPage("newProduct.fxml");
     }
 
     @FXML
     void proveedoresOnAction(ActionEvent event) {
-
+loadPage("mantProveedores.fxml");
     }
 
 }

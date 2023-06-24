@@ -126,17 +126,19 @@ public class SignUpController {
                     Security p1= new Security(this.idTextField.getText(),util.Utility.MD5(pass),"2");
                     securityList.add( p1);
                     util.Utility.file(securityList,"Security");
+                    util.Utility.file(customerList,"Costumer");
                   //  util.Utility.securityList().add(new Security("Admin",util.Utility.MD5("1234"),"1"));
                     btnClean(); //llama al boton clean
                     System.out.println(securityList.toString());
+                    System.out.println(customerList.toString());
                 }else{
                     alert.setAlertType(Alert.AlertType.ERROR);
-                    alert.setContentText("The employee already exists in the list");
+                    alert.setContentText("El usuario ya existe");
                     btnClean(); //llama al boton clean
                 }
             } else {//alerta de complete los campos
                 alert.setAlertType(Alert.AlertType.ERROR);
-                alert.setContentText("Complete the form with \nthe information, please");
+                alert.setContentText("Por favor, Complete toda las información del formulario");
             }
             alert.showAndWait();
 
@@ -226,7 +228,7 @@ public class SignUpController {
             mTransport.sendMessage(mCorreo, mCorreo.getRecipients(Message.RecipientType.TO));
             mTransport.close();
             alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.setContentText("The login information has been sent, please check your email");
+            alert.setContentText("La información de su cuenta ya fue enviada, por favor revise su correo.");
             loadPage("initial_view.fxml");
 
         } catch (NoSuchProviderException ex) {

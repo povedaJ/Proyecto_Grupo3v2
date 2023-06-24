@@ -3,6 +3,7 @@ package controller;
 import domain.Product;
 import domain.Supplier;
 import domain.Tree.AVL;
+import domain.Tree.TreeException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -19,7 +20,7 @@ import util.Utility;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Properties;
+
 
 public class newProductController {
 
@@ -62,7 +63,8 @@ public class newProductController {
         try {
             if (!productsAVL.isEmpty()) {
                 Utility.addreadProductsFromFile("Products");
-            }if (!supplierAVL.isEmpty()){
+            }
+            if (!supplierAVL.isEmpty()) {
                 Utility.addReadSuppliersFromFile("Supplier");
             }
         } catch (FileNotFoundException e) {
@@ -78,7 +80,40 @@ public class newProductController {
 
     @FXML
     void addOnAction(ActionEvent event) {
+        try {
+        if (isValid()) {
+            int id = Integer.parseInt(this.idTextField.getText());
+            int currentStock = Integer.parseInt(this.currentStockTextField.getText());
+            int minimunStock = Integer.parseInt(this.minimunStockTextField.getText());
+           double price = Double.parseDouble(this.priceTextField.getText());
+Supplier selecSupplier= supplierChoiceBox.getValue();
+            Product newProduct = new Product(id,
+                    descriptionTextField.getText(), price,currentStock,
+                    minimunStock,selecSupplier.getId());
 
+        if (productsAVL.isEmpty()|| !supplierAVL.contains(newProduct.getId())){
+            productsAVL.add(newProduct);
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.setContentText("El producto fue añadido correctamente");
+            util.Utility.file(productsAVL,"Products");
+            btnClean();
+            System.out.println(productsAVL.toString());
+        }else{
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setContentText("El usuario ya existe");
+            btnClean(); //llama al boton clean
+        }
+        } else {//alerta de complete los campos
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setContentText("Por favor complete toda las información del formulario");
+        }
+            alert.showAndWait();
+
+        } catch (TreeException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void loadPage(String page) {
