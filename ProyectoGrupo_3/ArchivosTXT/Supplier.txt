@@ -1,0 +1,6 @@
+AVL Binary Search Tree Tour...
+Supplier{id=6090, name='Colono', phoneNumber='8787878', email='colono@gmail.com', address='Curridabat'}
+Supplier{id=1234, name='EPA', phoneNumber='8787878', email='epa@gmail.com', address='Curridabat'}
+Supplier{id=9065, name='El Lagar', phoneNumber='8787878', email='lagar@gmail.com', address='Curridabat'}
+
+

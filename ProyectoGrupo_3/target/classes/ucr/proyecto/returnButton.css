@@ -1,0 +1,11 @@
+
+.button {
+
+ -fx-background-color: transparent; /* Fondo transparente */
+    -fx-background-image: url("file:ProyectoGrupo_3/return.png"); /* Ruta a la imagen deseada */
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+
+
+}
