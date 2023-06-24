@@ -10,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import ucr.proyecto.HelloApplication;
 import util.Utility;
@@ -32,9 +34,14 @@ public class LoginController implements Initializable {
     @FXML
     private Label txtError;
 
+    @FXML
+    private ImageView logoImagen;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Image image = new Image(util.Utility.getRouteImagen()); // Cambia la ruta por la ubicación de tu imagen
+        logoImagen.setImage(image);
         try {
 
             System.out.println("Listsss\n"+Utility.addreadSecuritiesFromFile("Security"));
@@ -43,17 +50,6 @@ public class LoginController implements Initializable {
         }
 
 
-        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals(passwordField.getText())) {
-                passwordField.setText(newValue);
-            }
-        });
-//// Configurar la función de enmascaramiento para reemplazar cada carácter con un asterisco
-//        textFieldContrasena.textProperty().addListener((observable, oldValue, newValue) -> {
-//            if (!newValue.equals(textFieldContrasena.getText())) {
-//                textFieldContrasena.setText(newValue);
-//            }
-//        });
     }
 
     @FXML

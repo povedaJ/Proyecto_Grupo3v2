@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import ucr.proyecto.HelloApplication;
 
 import java.io.IOException;
@@ -14,6 +15,8 @@ import java.io.IOException;
 public class InitialViewController {
     @FXML
     private BorderPane bp;
+    @FXML
+    private Pane pcentral;
     @FXML
     private ImageView logoImagen;
     @FXML

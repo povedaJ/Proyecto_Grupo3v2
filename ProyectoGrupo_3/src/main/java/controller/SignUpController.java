@@ -119,7 +119,7 @@ public class SignUpController {
                 if (customerList.isEmpty()|| !customerList.contains(newCustomer)){
                     customerList.add(newCustomer);
                     String pass = generateUniquePassword();
-                    createEmail(newCustomer.getEmail(),newCustomer.getName(),pass);
+                    createEmail(newCustomer.getEmail(),newCustomer.getName(),newCustomer.getId(),pass);
                     sendEmail();
                     //settear lista de utiliti, la global
                     Security p1= new Security(this.idTextField.getText(),util.Utility.MD5(pass),"2");
@@ -159,7 +159,7 @@ public class SignUpController {
         return !idTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !phoneNumberTextField.getText().isEmpty()
                 && !emailTextField.getText().isEmpty() && !addressTextField.getText().isEmpty();
     }
-    private void createEmail(String email,String user,String password) {
+    private void createEmail(String email,String name,int user,String password) {
         emailTo = email;
         subject = "Acceso a "+ util.Utility.getNameApp();
         passwordU= password;
@@ -170,7 +170,7 @@ public class SignUpController {
        // content = "Este mensaje es enviado por ferreterias 3 hermanos\n\n"+"User: "+user+"\n Password: "+password;
         content = "<html><body>"
                 + "<h2 style='color: #333333;'>Mensaje enviado por " +util.Utility.getNameApp()+"</h2>"
-                + "<p>Estimado/a " + user + ",</p>"
+                + "<p>Estimado/a " + name + ",</p>"
                 + "<p>Le damos la bienvenida a nuestra nueva aplicación. A continuación, encontrará los detalles de su cuenta:</p>"
                 + "<ul>"
                 + "<li><strong>Usuario:</strong> " + user + "</li>"

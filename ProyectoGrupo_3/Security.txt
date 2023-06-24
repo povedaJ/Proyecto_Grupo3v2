@@ -1,3 +1,0 @@
-Circular Linked List Content
-Security{user='Admin', passWord='81dc9bdb52d04dc20036dbd8313ed055', rol='1'}
-Security{user='User', passWord='827ccb0eea8a706c4c34a16891f84e7b', rol='2'}

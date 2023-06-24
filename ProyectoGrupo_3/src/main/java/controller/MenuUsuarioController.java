@@ -20,7 +20,7 @@ public class MenuUsuarioController {
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
         try {
-            this.bp.setCenter(fxmlLoader.load());
+            this.bp.setTop(fxmlLoader.load());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -32,6 +32,7 @@ public class MenuUsuarioController {
 
         @FXML
         void Home(ActionEvent event) {
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("initial_view.fxml"));
               loadPage("initial_view.fxml");
         }
 
