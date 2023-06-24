@@ -45,9 +45,9 @@ public class GestionPedidosController {
     @FXML
     public void initialize() throws TreeException {
         notificacionLabel.setText("");
-        productos= util.Utility.getOrdersManagement();
+        productos= util.Utility.getProductsAVL();
         pedidos= new AVL();
-        orders= new AVL();
+        orders= util.Utility.getOrdersManagement();
         productosNombre= FXCollections.observableArrayList();
         extraerNombres(productos.getRoot());
         productosChoiceBox.setItems(productosNombre);
@@ -80,7 +80,8 @@ public class GestionPedidosController {
                 if (Utility.isNumberExp(cant)){
                     int cantidad = Integer.parseInt(cant);
                     hacePedido(productos.getRoot(), producto, cantidad);
-                    util.Utility.setOrdersManagement(productos); //actualiza la lista de productos
+                    util.Utility.setProductsAVL(productos); //actualiza la lista de productos
+                    util.Utility.setOrdersManagement(orders);
                 }else{
                     notificacionLabel.setText("Solo puede ingresar números");
                 }
@@ -135,7 +136,8 @@ public class GestionPedidosController {
                     int num= util.Utility.random(productosChoiceBox.getItems().size())-1; //probar
                     hacePedidoAuto(productos.getRoot(), cantidad, num);
                 }
-                util.Utility.setOrdersManagement(productos); //actualizar lista de productos
+                util.Utility.setProductsAVL(productos); //actualiza la lista de productos
+                util.Utility.setOrdersManagement(orders);
                 notificacionLabel.setText("Se realizo la petición automática");
                 guardarPedidoAuto(pedidos.getRoot());
             }else{
