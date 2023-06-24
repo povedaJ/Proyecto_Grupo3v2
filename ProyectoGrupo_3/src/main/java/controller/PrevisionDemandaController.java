@@ -76,10 +76,9 @@ public class PrevisionDemandaController implements Initializable {
     }
 
     private void loadProducts() {
-        // Aquí debes implementar la lógica para cargar los productos desde la base de datos o cualquier otra fuente de datos
-        // y agregarlos a la lista de productos (variable 'products')
 
-        // Ejemplo de carga de productos de prueba
+
+
         products.add(new Product("Producto 1", 10.99, 100, 50, 10));
         products.add(new Product("Producto 3", 10.99, 100, 50, 10));
         products.add(new Product("Producto 2", 10.99, 100, 50, 10));
