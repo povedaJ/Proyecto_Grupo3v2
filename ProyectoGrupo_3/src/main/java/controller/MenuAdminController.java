@@ -3,8 +3,11 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import ucr.proyecto.HelloApplication;
 
 import java.io.IOException;
@@ -12,49 +15,19 @@ import java.io.IOException;
 public class MenuAdminController {
 
     @FXML
+    private AnchorPane ap;
+
+    @FXML
     private BorderPane bp;
 
     @FXML
-    private MenuBar mb;
+    private ImageView logoImagen;
 
     @FXML
-    void menuClientes(ActionEvent event) {
-    loadPage("mantClientes.fxml");
-    }
-
-    @FXML
-    void menuCostos(ActionEvent event) {
-
-    }
-
-    @FXML
-    void menuDemanda(ActionEvent event) {
-
-    }
-
-    @FXML
-    void menuGenerales(ActionEvent event) {
-
-    }
-
-    @FXML
-    void menuInventario(ActionEvent event) {
-
-    }
-
-    @FXML
-    void menuProductos(ActionEvent event) {
-        loadPage("mantProductos.fxml");
-    }
-
-    @FXML
-    void menuProveedores(ActionEvent event) {
-        loadPage("mantProveedores.fxml");
-    }
-
-    @FXML
-    void menuReportes(ActionEvent event) {
-
+    private Text txtMessage;
+    public void initialize() {
+        Image image = new Image(util.Utility.getRouteImagen()); // Cambia la ruta por la ubicación de tu imagen
+        logoImagen.setImage(image);
     }
 
     private void loadPage(String page) {
@@ -66,27 +39,63 @@ public class MenuAdminController {
         }
     }
     @FXML
-    public void menuControlInventario(ActionEvent actionEvent) {
-        loadPage("controlInventario.fxml");
-    }
-    @FXML
-    public void menuPrevisiónDemanda(ActionEvent actionEvent) {
-        loadPage("previsionDemanda.fxml");
-    }
-    @FXML
-    public void menuGenerarReportes(ActionEvent actionEvent) {
-        loadPage("reportes.fxml");
-    }
-    @FXML
-    public void menuConfigNombreLogo(ActionEvent actionEvent) {
-        loadPage("generalesNombreLogo.fxml");
-    }
-    @FXML
-    public void menuArchivosSerializables(ActionEvent actionEvent) {
-        loadPage("generalesArchivosSerializables.fxml");
+    void Exit(ActionEvent event) {
+
     }
 
-    public void menuControlCostos(ActionEvent actionEvent) {
-        loadPage("controlCostos.fxml");
+    @FXML
+    void archiSerializablesOnAction(ActionEvent event) {
+
     }
+
+    @FXML
+    void clientesOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void controlCostosOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void controlInventarioOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void infoEmpresarialOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void infoInventarioOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void infoPedidosOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void infoProductosOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void previsionDemandaOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void productosOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void proveedoresOnAction(ActionEvent event) {
+
+    }
+
 }

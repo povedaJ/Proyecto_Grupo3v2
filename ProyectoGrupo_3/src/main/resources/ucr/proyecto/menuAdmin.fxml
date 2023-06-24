@@ -1,54 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="bp" prefHeight="400.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuAdminController">
-   <center>
-      <AnchorPane prefHeight="400.0" prefWidth="1104.0" style="-fx-background-color: E5E5E5;" BorderPane.alignment="CENTER">
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="897.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuAdminController">
+   <left>
+      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="205.0" style="-fx-background-color: #3a8db8;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="287.0" layoutY="61.0" prefHeight="90.0" prefWidth="245.0" text="Menu Admin">
+            <Button accessibleRole="IMAGE_VIEW" layoutX="10.0" layoutY="266.0" mnemonicParsing="false" onAction="#Exit" prefHeight="62.0" prefWidth="334.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" textFill="WHITE">
                <font>
-                  <Font name="Berlin Sans FB" size="45.0" />
+                  <Font name="Arial Narrow" size="22.0" />
                </font>
-            </Label>
-            <MenuBar fx:id="mb" layoutX="-1.0" prefHeight="46.0" prefWidth="820.0" style="-fx-background-color: #F5B301;" stylesheets="@stylesheet.css">
-              <menus>
-                <Menu mnemonicParsing="false" style="-fx-background-color: #333533;" text="Mantenimiento">
-                  <items>
-                    <MenuItem mnemonicParsing="false" onAction="#menuProveedores" text="Proveedores" />
-                        <MenuItem mnemonicParsing="false" onAction="#menuProductos" text="Productos" />
-                        <MenuItem mnemonicParsing="false" onAction="#menuClientes" text="Clientes" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" onAction="#menuInventario" style="-fx-background-color: #333533;" text="Inventario">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#menuControlInventario" text="Control de Inventario" />
-                     </items></Menu>
-                <Menu mnemonicParsing="false" onAction="#menuDemanda" style="-fx-background-color: #333533;" text="Demanda">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#menuPrevisiónDemanda" text="Previsión" />
-                     </items></Menu>
-                  <Menu mnemonicParsing="false" onAction="#menuCostos" style="-fx-background-color: #333533;" text="Costos">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#menuControlCostos" text="Control de costos" />
-                     </items></Menu>
-                  <Menu mnemonicParsing="false" onAction="#menuReportes" style="-fx-background-color: #333533;" text="Reportes">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#menuGenerarReportes" text="Generar Reporte" />
-                     </items></Menu>
-                  <Menu mnemonicParsing="false" onAction="#menuGenerales" style="-fx-background-color: #333533;" text="Config. Generales">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#menuConfigNombreLogo" text="Nombre y logo" />
-                        <MenuItem mnemonicParsing="false" onAction="#menuArchivosSerializables" text="Archivos Serializables" />
-                     </items></Menu>
-              </menus>
-            </MenuBar>
+            </Button>
+            <MenuButton contentDisplay="CENTER" mnemonicParsing="false" prefHeight="0.0" prefWidth="205.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Mantenimiento" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#proveedoresOnAction" text="Proveedores" />
+                  <MenuItem mnemonicParsing="false" onAction="#productosOnAction" text="Productos" />
+                  <MenuItem mnemonicParsing="false" onAction="#clientesOnAction" text="Clientes" />
+               </items>
+               <font>
+                  <Font name="Arial Narrow" size="22.0" />
+               </font>
+            </MenuButton>
+            <MenuButton contentDisplay="CENTER" layoutX="10.0" layoutY="72.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="349.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Inventario" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#controlInventarioOnAction" text="Control de inventario" />
+               </items>
+               <font>
+                  <Font name="Arial Narrow" size="22.0" />
+               </font>
+            </MenuButton>
+            <MenuButton contentDisplay="CENTER" layoutX="10.0" layoutY="192.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="349.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Demanda" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#previsionDemandaOnAction" text="Previsión " />
+               </items>
+               <font>
+                  <Font name="Arial Narrow" size="22.0" />
+               </font>
+            </MenuButton>
+            <MenuButton contentDisplay="CENTER" layoutX="10.0" layoutY="250.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="349.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Costos" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#controlCostosOnAction" text="Control de costos" />
+               </items>
+               <font>
+                  <Font name="Arial Narrow" size="22.0" />
+               </font>
+            </MenuButton>
+            <MenuButton contentDisplay="CENTER" layoutX="10.0" layoutY="308.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="349.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Reportes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#infoInventarioOnAction" text="Informe de inventario" />
+                  <MenuItem mnemonicParsing="false" onAction="#infoPedidosOnAction" text="Informe de pedidos" />
+                  <MenuItem mnemonicParsing="false" onAction="#infoProductosOnAction" text="Informe de productos " />
+               </items>
+               <font>
+                  <Font name="Arial Narrow" size="22.0" />
+               </font>
+            </MenuButton>
+            <MenuButton contentDisplay="CENTER" layoutX="10.0" layoutY="366.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="349.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Config. Generales" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#infoEmpresarialOnAction" text="Info. Empresarial" />
+                  <MenuItem mnemonicParsing="false" onAction="#archiSerializablesOnAction" text="Archivos Serializables" />
+               </items>
+               <font>
+                  <Font name="Arial Narrow" size="22.0" />
+               </font>
+            </MenuButton>
+            <Button mnemonicParsing="false" onAction="#Exit" prefHeight="62.0" prefWidth="334.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Exit" textFill="WHITE">
+               <font>
+                  <Font name="Arial Narrow" size="22.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <AnchorPane fx:id="ap" prefHeight="605.0" prefWidth="675.0" stylesheets="@stylesheet.css" BorderPane.alignment="CENTER">
+         <children>
+            <Text fx:id="txtMessage" fill="#3a8db8" layoutX="103.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu Admin" textAlignment="CENTER" wrappingWidth="486.0827325582504">
+               <font>
+                  <Font name="Arial" size="40.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="logoImagen" fitHeight="165.0" fitWidth="174.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </center>

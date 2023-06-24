@@ -14,7 +14,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <Button contentDisplay="GRAPHIC_ONLY" layoutX="173.0" layoutY="461.0" mnemonicParsing="false" onAction="#returnOnAction" stylesheets="@returnButton.css" text="Button" />
+            <Button contentDisplay="GRAPHIC_ONLY" layoutX="63.0" layoutY="421.0" mnemonicParsing="false" onAction="#returnOnAction" stylesheets="@returnButton.css" text="Button" />
             <Pane layoutX="217.0" layoutY="80.0" prefHeight="444.0" prefWidth="469.0">
                <children>
                   <Label layoutX="61.0" layoutY="86.0" text="Usuario">

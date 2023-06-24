@@ -73,6 +73,7 @@ public class SignUpController {
         //carga la lista de clientes
          this.customerList = util.Utility.getCustomerList();
          this.securityList=util.Utility.getSecurityList();
+
         this.alert = util.FXUtility.alert("Sign up", "Add new customer...");
         Image image = new Image(util.Utility.getRouteImagen()); // Cambia la ruta por la ubicación de tu imagen
         logoImagen.setImage(image);
