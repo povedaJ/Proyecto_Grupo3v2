@@ -284,22 +284,27 @@ public class AVL implements Tree {
         }
         return list;
     }
-    public Object get(Object element) throws TreeException {
+    public Object get(int index) throws TreeException {
         if (isEmpty()) {
             throw new TreeException("AVL Binary Search Tree is empty");
         }
-        return binarySearch(root, element);
+
+        if (index < 0 || index >= size()) {
+            throw new IllegalArgumentException("Index is out of bounds");
+        }
+
+        return get(root, index);
     }
 
-    private Object get(BTreeNode node, Object element) {
-        if (node == null) {
-            return null;
-        } else if (util.Utility.compare(node.data, element) == 0) {
-            return node; // Se encontró el nodo
-        } else if (util.Utility.compare(element, node.data) < 0) {
-            return get(node.left, element);
+    private Object get(BTreeNode node, int index) {
+        int leftSubtreeSize = size(node.left);
+
+        if (index == leftSubtreeSize) {
+            return node.data;
+        } else if (index < leftSubtreeSize) {
+            return get(node.left, index);
         } else {
-            return get(node.right, element);
+            return get(node.right, index - leftSubtreeSize - 1);
         }
     }
 
