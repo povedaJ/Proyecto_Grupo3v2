@@ -268,7 +268,7 @@ public class SinglyLinkedList implements List {
         String result = "Singly Linked List Content\n";
         Node aux = first;
         while (aux != null) {
-            result += aux.data + "\n ";
+            result += aux.data + "\n";
             aux = aux.next; //muevo aux al sgte nodo
         }
         return result;

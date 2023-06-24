@@ -10,4 +10,6 @@ module ucr.proyecto {
     exports ucr.proyecto;
     exports controller;
     opens controller to javafx.fxml;
+    opens domain to javafx.fxml;
+    exports domain;
 }

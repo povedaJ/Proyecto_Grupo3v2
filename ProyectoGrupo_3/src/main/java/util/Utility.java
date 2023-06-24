@@ -440,6 +440,45 @@ public class Utility {
 
         return securityList;
     }
+    public static SinglyLinkedList addReadCustomersFromFile(String fileName) throws FileNotFoundException {
+        File file = new File("ProyectoGrupo_3/ArchivosTXT/" + fileName + ".txt");
+
+        Scanner scanner = new Scanner(file);
+         customerList.clear();
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.startsWith("Customer{")) {
+                int startIndex = line.indexOf("id=") + 3;
+                int endIndex = line.indexOf(",", startIndex);
+                int id = Integer.parseInt(line.substring(startIndex, endIndex).trim());
+
+                startIndex = line.indexOf("name='") + 6;
+                endIndex = line.indexOf("'", startIndex);
+                String name = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("phoneNumber='") + 13;
+                endIndex = line.indexOf("'", startIndex);
+                String phoneNumber = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("email='") + 7;
+                endIndex = line.indexOf("'", startIndex);
+                String email = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("address='") + 9;
+                endIndex = line.indexOf("'", startIndex);
+                String address = line.substring(startIndex, endIndex);
+
+                Customer customer = new Customer(id, name, phoneNumber, email, address);
+                //System.out.println("EAD"+customerList);
+                customerList.add(customer);
+            }
+        }
+
+        scanner.close();
+
+        return customerList;
+    }
     public static AVL addreadProductsFromFile(String fileName) throws FileNotFoundException {
         File file = new File("ProyectoGrupo_3/ArchivosTXT/" + fileName + ".txt");
         Scanner scanner = new Scanner(file);
@@ -481,47 +520,7 @@ public class Utility {
 
         return productsAVL;
     }
-    public static AVL addreadSuppliesFromFile(String fileName) throws FileNotFoundException {
-        File file = new File("ProyectoGrupo_3/ArchivosTXT/"+fileName + ".txt");
-        // ProyectoGrupo_3/ArchivosTXT/Security.txt
-        Scanner scanner = new Scanner(file);
-        supplierAVL.clear();
-        //CircularLinkedList securityList = new CircularLinkedList();
 
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            if (line.startsWith("Supplier{")) {
-                int startIndex = line.indexOf("id='") + 13;
-                int endIndex = line.indexOf(",", startIndex);
-                String id = line.substring(startIndex, endIndex);
-
-                startIndex = line.indexOf("name='") + 6;
-                endIndex = line.indexOf("'", startIndex);
-                String name = line.substring(startIndex, endIndex);
-
-                startIndex = line.indexOf("phoneNumber='") + 14;
-                endIndex = line.indexOf("'", startIndex);
-                String phoneNumber = line.substring(startIndex, endIndex);
-
-                startIndex = line.indexOf("email='") + 8;
-                endIndex = line.indexOf("'", startIndex);
-                String email = line.substring(startIndex, endIndex);
-
-                startIndex = line.indexOf("address='") + 10;
-                endIndex = line.indexOf("'", startIndex);
-                String address = line.substring(startIndex, endIndex);
-
-                Supplier supplier = new Supplier(Integer.parseInt(id), name, phoneNumber,email,address);
-                supplierAVL.add(supplier);
-            }
-        }
-
-        scanner.close();
-
-        return supplierAVL;
-
-
-    }
 
     public static AVL addreadBinnacleFromFile(String fileName) throws FileNotFoundException {
         File file = new File("ProyectoGrupo_3/ArchivosTXT/"+fileName + ".txt");

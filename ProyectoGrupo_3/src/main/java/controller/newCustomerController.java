@@ -30,7 +30,8 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.Properties;
 
-public class SignUpController {
+public class newCustomerController {
+
     @FXML
     private TextField addressTextField;
 
@@ -55,7 +56,7 @@ public class SignUpController {
     private CircularLinkedList securityList;
     Alert alert;
     private static String emailFrom = "ferreteriaclavooxidado@gmail.com";
-   // private static String emailFrom = "vivipoveda15@gmail.com";
+    // private static String emailFrom = "vivipoveda15@gmail.com";
     //private static String passwordFrom = "exgehhmbahbxeeyi";
     private static String passwordFrom = "buhbwyoayfqsbyxb";
 
@@ -71,8 +72,8 @@ public class SignUpController {
     public void initialize() {
         mProperties = new Properties();
         //carga la lista de clientes
-         this.customerList = util.Utility.getCustomerList();
-         this.securityList=util.Utility.getSecurityList();
+        this.customerList = util.Utility.getCustomerList();
+        this.securityList=util.Utility.getSecurityList();
 
         this.alert = util.FXUtility.alert("Sign up", "Add new customer...");
         Image image = new Image(util.Utility.getRouteImagen()); // Cambia la ruta por la ubicación de tu imagen
@@ -103,7 +104,7 @@ public class SignUpController {
 
     @FXML
     void retunrOnAction(ActionEvent event) {
-        loadPage("initial_view.fxml");
+        loadPage("mantClientes.fxml");
     }
 
     @FXML
@@ -127,7 +128,7 @@ public class SignUpController {
                     securityList.add( p1);
                     util.Utility.file(securityList,"Security");
                     util.Utility.file(customerList,"Customer");
-                  //  util.Utility.securityList().add(new Security("Admin",util.Utility.MD5("1234"),"1"));
+                    //  util.Utility.securityList().add(new Security("Admin",util.Utility.MD5("1234"),"1"));
                     btnClean(); //llama al boton clean
                     System.out.println(securityList.toString());
                     System.out.println(customerList.toString());
@@ -170,7 +171,7 @@ public class SignUpController {
         Date date = new Date();
         String horaRegistro = dateFormat.format(date);
 
-       // content = "Este mensaje es enviado por ferreterias 3 hermanos\n\n"+"User: "+user+"\n Password: "+password;
+        // content = "Este mensaje es enviado por ferreterias 3 hermanos\n\n"+"User: "+user+"\n Password: "+password;
         content = "<html><body>"
                 + "<h2 style='color: #333333;'>Mensaje enviado por " +util.Utility.getNameApp()+"</h2>"
                 + "<p>Estimado/a " + name + ",</p>"
@@ -229,7 +230,7 @@ public class SignUpController {
             mTransport.close();
             alert.setAlertType(Alert.AlertType.INFORMATION);
             alert.setContentText("La información de su cuenta ya fue enviada, por favor revise su correo.");
-            loadPage("initial_view.fxml");
+            loadPage("mantClientes.fxml");
 
         } catch (NoSuchProviderException ex) {
             throw new RuntimeException(ex);

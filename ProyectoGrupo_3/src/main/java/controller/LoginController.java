@@ -47,6 +47,7 @@ public class LoginController implements Initializable {
         try {
 
             System.out.println("Listsss\n"+Utility.addreadSecuritiesFromFile("Security"));
+            System.out.println("Lcus\n"+Utility.addReadCustomersFromFile("Customer"));
             util.Utility.exportToPDF2(util.Utility.getSecurityList(),"Security.2o");
            // util.Utility.exportToPDf2(util.Utility.getSecurityList(),"Security.2023");
         } catch (IOException e) {

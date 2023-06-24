@@ -25,6 +25,7 @@ public class MenuAdminController {
 
     @FXML
     private Text txtMessage;
+
     public void initialize() {
         Image image = new Image(util.Utility.getRouteImagen()); // Cambia la ruta por la ubicación de tu imagen
         logoImagen.setImage(image);
@@ -38,6 +39,7 @@ public class MenuAdminController {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
     void Exit(ActionEvent event) {
 
@@ -50,7 +52,7 @@ public class MenuAdminController {
 
     @FXML
     void clientesOnAction(ActionEvent event) {
-
+        loadPage("mantClientes.fxml");
     }
 
     @FXML
@@ -90,12 +92,12 @@ public class MenuAdminController {
 
     @FXML
     void productosOnAction(ActionEvent event) {
-loadPage("newProduct.fxml");
+        loadPage("newProduct.fxml");
     }
 
     @FXML
     void proveedoresOnAction(ActionEvent event) {
-loadPage("mantProveedores.fxml");
+        loadPage("mantProveedores.fxml");
     }
 
 }
