@@ -1,8 +1,5 @@
 Singly Linked List Content
-Customer{id=303240670, name='Henry Poveda', phoneNumber='607676776', email='jvpovedaorozco15@gmail.com', address='Oreamuno Cartago'}
-Customer{id=303240670, name='Henry Poveda', phoneNumber='607676776', email='jvpovedaorozco15@gmail.com', address='Oreamuno Cartago'}
-Customer{id=303240670, name='Henry Poveda', phoneNumber='607676776', email='jvpovedaorozco15@gmail.com', address='Oreamuno Cartago'}
-Customer{id=303240670, name='Henry Poveda', phoneNumber='607676776', email='jvpovedaorozco15@gmail.com', address='Oreamuno Cartago'}
-Customer{id=303240670, name='Henry Poveda', phoneNumber='607676776', email='jvpovedaorozco15@gmail.com', address='Oreamuno Cartago'}
-Customer{id=909, name='Bertha Masis', phoneNumber='7767676', email='vivipoveda15@gmail.com', address='Paraiso'}
- 
+Customer{id=8888, name='Nuevo1', phoneNumber='6767676', email='vivipoveda15@gmail.com', address='Coy'}
+Customer{id=78780, name='Sebas', phoneNumber='878787', email='vivipoveda15@gmail.com', address='Cartago'}
+Customer{id=1234, name='SEBBAS', phoneNumber='5656', email='vivipoveda15@gmail.com', address='MX'}
+

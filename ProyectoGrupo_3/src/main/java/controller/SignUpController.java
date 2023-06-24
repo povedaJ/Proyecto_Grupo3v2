@@ -55,8 +55,6 @@ public class SignUpController {
     private CircularLinkedList securityList;
     Alert alert;
     private static String emailFrom = "ferreteriaclavooxidado@gmail.com";
-   // private static String emailFrom = "vivipoveda15@gmail.com";
-    //private static String passwordFrom = "exgehhmbahbxeeyi";
     private static String passwordFrom = "buhbwyoayfqsbyxb";
 
     private String emailTo;
@@ -79,6 +77,7 @@ public class SignUpController {
         logoImagen.setImage(image);
         try {
             Utility.addreadSecuritiesFromFile("Security");
+            Utility.addReadCustomersFromFile("Customer");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -100,6 +99,31 @@ public class SignUpController {
             event.consume();
         }
     }
+    public static boolean isNumber(String numero) {
+        for (int i = 0; i < numero.length(); i++) {
+            if (numero.charAt(i) < 48 || numero.charAt(i) > 57) {
+                return false;
+            }if(numero.length() >=9 || numero.length() <=7){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isWord(String palabra) {
+        for (int i = 0; i < palabra.length(); i++) {
+
+            if (palabra.charAt(i) < 65 || palabra.charAt(i) > 122) {
+                return false;
+
+            }if (palabra.charAt(0) < 97 && palabra.charAt(0) > 122) {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
 
     @FXML
     void retunrOnAction(ActionEvent event) {
@@ -110,6 +134,7 @@ public class SignUpController {
     void signUpOnAction(ActionEvent event) {
         try {
             if (isValid()) {
+                //if (isNumber(this.idTextField.getText())){
                 int id = Integer.parseInt(this.idTextField.getText());
                 Customer newCustomer = new Customer(
                         id,
@@ -138,7 +163,7 @@ public class SignUpController {
                 }
             } else {//alerta de complete los campos
                 alert.setAlertType(Alert.AlertType.ERROR);
-                alert.setContentText("Por favor, Complete toda las información del formulario");
+                alert.setContentText("Por favor, Complete correctamente toda las información del formulario");
             }
             alert.showAndWait();
 
@@ -158,8 +183,12 @@ public class SignUpController {
     }
 
     private boolean isValid() {
+        //System.out.println("ies numero"+isNumber(this.idTextField.getText()));
+        //System.out.println("ies "+isNumber("a"));
 
-        return !idTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !phoneNumberTextField.getText().isEmpty()
+        return !idTextField.getText().isEmpty()
+                //&& isNumber(idTextField.getText())
+                && !nameTextField.getText().isEmpty() && !phoneNumberTextField.getText().isEmpty()
                 && !emailTextField.getText().isEmpty() && !addressTextField.getText().isEmpty();
     }
     private void createEmail(String email,String name,int user,String password) {

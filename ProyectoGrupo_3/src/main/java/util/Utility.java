@@ -185,10 +185,17 @@ public class Utility {
 
             case "Customer":
                 Customer p1 = (Customer) a;
-                Customer p2 = (Customer) b;
+                int p2 = (int) b;
 
-                return p1.getId() < p2.getId() ? -1 :
-                        p1.getId() > p2.getId() ? 1 : 0; //0==equal
+                return p1.getId() < p2 ? -1 :
+                        p1.getId() > p2? 1 : 0; //0==equal
+            case "CustomerP":
+                Customer c1 = (Customer) a;
+                Customer c2 = (Customer) b;
+
+                return c1.getId() < c2.getId() ? -1 :
+                        c1.getId() > c2.getId()? 1 : 0; //0==equal
+
             case "Product":
                 Product b1 = (Product) a;
                 Product b2 = (Product) b;
@@ -227,7 +234,8 @@ public class Utility {
         if (a instanceof String && b instanceof String) return "String";
         if (a instanceof Character && b instanceof Character) return "Character";
         if (a instanceof Security && b instanceof Security) return "Security";
-        if (a instanceof Customer && b instanceof Customer) return "Customer";
+        if (a instanceof Customer && b instanceof Customer) return "CustomerP";
+        if (a instanceof Customer && b instanceof Integer) return "Customer";
         if (a instanceof CircularLinkedList && b instanceof CircularLinkedList) return "Security";
         if (a instanceof Product && b instanceof Product) return "Product";
         if (a instanceof Product && b == null) return "Eliminar nulo";
