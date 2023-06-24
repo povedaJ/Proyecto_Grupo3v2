@@ -35,8 +35,8 @@ public class GestionPedidosController {
 
     private AVL productos; //salen del inventario
     private AVL pedidos;
-    private Object bitacora; //para guardar en la bitacora
     ObservableList<String> productosNombre;
+    private int cantPedido;
 
     @FXML
     public void initialize() throws TreeException {
@@ -105,15 +105,22 @@ public class GestionPedidosController {
             if (Utility.compare(p.getDescription(), producto)==0){
                 int cant = p.getCurrentStock();
                 if (cantidad <= cant){
-                    Product pedido = p;
-                    pedido.setCurrentStock(cantidad);
-                    pedidos.add(pedido);
-
+                    Product  pedido= new Product(p.getDescription(), p.getPrice(), p.getCurrentStock(),p.getMinimumStock(),p.getSupplierId());
+                    if (!pedidos.isEmpty() && pedidos.contains(pedido)){
+                        //poner un Alert, para avisarle al cliente que ya pidio este producto
+                        pedidoCantActual(pedidos.getRoot(), producto);
+                        pedido.setCurrentStock(cantPedido+cantidad);
+                        pedidos.remove(pedido);
+                        pedidos.add(pedido);
+                        notificacionLabel.setText("El pedido se ha realizado con "+pedido.getCurrentStock()+" unidades"); //poner algo más corto
+                    }else{
+                        pedido.setCurrentStock(cantidad);
+                        pedidos.add(pedido);
+                        notificacionLabel.setText("El pedido se ha realizado");
+                    }
                     p.setCurrentStock(cant-cantidad); //actualiza la cantidad
                     productos.remove(node.data);
                     productos.add(p);
-                    notificacionLabel.setText("El pedido se ha realizado");
-                    return;
                 }else{
                     notificacionLabel.setText("Del producto elegido solo hay "+p.getCurrentStock());
                 }
@@ -134,8 +141,63 @@ public class GestionPedidosController {
     }
 
     @FXML
-    void btnPedidosAutomaticos(ActionEvent event) {
+    void btnPedidosAutomaticos(ActionEvent event) throws TreeException {
+        String cant = cantidadAutoTextField.getText();
+        if (!cant.isEmpty()){
+            if (util.Utility.isNumberExp(cant)){
+                int cantidad = Integer.parseInt(cant);
+                for (int i = 0; i < cantidad; i++) {
+                    int num= util.Utility.random(productosChoiceBox.getItems().size())-1; //probar
+                    hacePedidoAuto(productos.getRoot(), cantidad, num);
+                }
+                cambiarListaProductos(productos.getRoot(), 0); //se debe actualizar toda la lista de productos
+                notificacionLabel.setText("Se realizo la petición automática");
+            }else{
+                notificacionLabel.setText("Solo puede ingresar números");
+            }
+        }else{
+            notificacionLabel.setText("Debe ingresar la cantidad de productos que desea");
+        }
+    }
 
+    private void hacePedidoAuto(BTreeNode node, int cantidad, int num) throws TreeException {
+        int newCant= 1; //cantidad de unidades por producto
+        if (node!=null)  {  //probar
+            String producto = productosChoiceBox.getItems().get(num);
+            Product p = (Product) node.data;
+            if (util.Utility.compare(p.getDescription(), producto)==0){
+                int cantActual = p.getCurrentStock();
+                if ((cantActual-newCant) >=0){ //la cantidad del producto que queda no puede ser negativo
+                    Product  pedido= new Product(p.getDescription(),p.getPrice(),p.getCurrentStock(),p.getMinimumStock(),p.getSupplierId());
+                    if (!pedidos.isEmpty() && pedidos.contains(pedido)){
+                        pedidoCantActual(pedidos.getRoot(), producto);
+                        newCant= cantPedido+newCant;
+                        pedidos.remove(p);
+                    }
+                    pedido.setCurrentStock(newCant);
+                    pedidos.add(pedido);
+
+                    p.setCurrentStock(cantActual-newCant);
+                    productos.remove(node.data); //probar
+                    productos.add(p);
+                }else {
+                    cantidad++;
+                }
+            }
+            hacePedidoAuto(node.left, cantidad, num);
+            hacePedidoAuto(node.right, cantidad, num);
+        }
+    }
+
+    private void pedidoCantActual(BTreeNode node, String productos) {
+        if (node!=null){
+            Product p = (Product) node.data;
+            if (util.Utility.compare(p.getDescription(), productos)==0){
+                cantPedido= p.getCurrentStock();
+            }
+            pedidoCantActual(node.left, productos);
+            pedidoCantActual(node.right, productos);
+        }
     }
 
     public void btnRegresar(ActionEvent actionEvent) {
