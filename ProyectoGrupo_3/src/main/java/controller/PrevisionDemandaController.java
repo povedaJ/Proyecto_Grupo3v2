@@ -79,9 +79,9 @@ public class PrevisionDemandaController implements Initializable {
 
 
 
-        products.add(new Product("Producto 1", 10.99, 100, 50, 10));
-        products.add(new Product("Producto 3", 10.99, 100, 50, 10));
-        products.add(new Product("Producto 2", 10.99, 100, 50, 10));
+        products.add(new Product(10,"Producto 1", 10.99, 100, 50, 10));
+        products.add(new Product(11,"Producto 3", 10.99, 100, 50, 10));
+        products.add(new Product(12,"Producto 2", 10.99, 100, 50, 10));
 
         // Mostrar los productos en la tabla
         tableView.setItems(products);

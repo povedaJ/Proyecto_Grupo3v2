@@ -264,7 +264,8 @@ public class AVL implements Tree {
     private String preOrder(BTreeNode node){
         String result="";
         if(node!=null){
-            result=node.data+"("+node.path+"), ";
+            result=""+node.data;
+                    //+"("+node.path+"), ";
             result+=preOrder(node.left);
             result+=preOrder(node.right);
         }
@@ -328,11 +329,16 @@ public class AVL implements Tree {
     public String toString() {
         if(isEmpty()) return "AVL Binary Search tree is empty";
         String result = "AVL Binary Search Tree Tour...\n";
-        result+="PreOrder: "+preOrder(root)+"\n";
-        result+="InOrder: "+inOrder(root)+"\n";
-        result+="PostOrder: "+postOrder(root)+"\n";
-        return result;
-    }
+        result+=preOrder(root)+"\n";
+        return result;}
+//    }public String toString() {
+//        if(isEmpty()) return "AVL Binary Search tree is empty";
+//        String result = "AVL Binary Search Tree Tour...\n";
+//        result+="PreOrder: "+preOrder(root)+"\n";
+//        result+="InOrder: "+inOrder(root)+"\n";
+//        result+="PostOrder: "+postOrder(root)+"\n";
+//        return result;
+//    }
 
     @Override
     public String printNodesWithChildren() throws TreeException {

@@ -2,15 +2,15 @@ package domain;
 
 public class Product {
     private int id;
-    private static int autoId;// id autogenerado
+   // private static int autoId;// id autogenerado
     private String description;
     private Double price;
     private int currentStock;
     private Integer minimumStock;
     private int supplierId;
 
-    public Product( String description, Double price, int currentStock, Integer minimumStock, int supplierId) {
-        this.id=++autoId;
+    public Product( int id,String description, Double price, int currentStock, Integer minimumStock, int supplierId) {
+        this.id=id;
         this.description = description;
         this.price = price;
         this.currentStock = currentStock;

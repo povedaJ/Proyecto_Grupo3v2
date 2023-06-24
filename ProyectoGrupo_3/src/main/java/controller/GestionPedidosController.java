@@ -100,7 +100,7 @@ public class GestionPedidosController {
             if (Utility.compare(p.getDescription(), producto)==0){
                 int cant = p.getCurrentStock();
                 if (cantidad <= cant){
-                    Product  pedido= new Product(p.getDescription(), p.getPrice(), p.getCurrentStock(),p.getMinimumStock(),p.getSupplierId());
+                    Product  pedido= new Product(p.getId(),p.getDescription(), p.getPrice(), p.getCurrentStock(),p.getMinimumStock(),p.getSupplierId());
                     if (!pedidos.isEmpty() && pedidos.contains(pedido)){
                         //poner un Alert, para avisarle al cliente que ya pidio este producto
                         pedidoCantActual(pedidos.getRoot(), producto);
@@ -156,7 +156,7 @@ public class GestionPedidosController {
             if (util.Utility.compare(p.getDescription(), producto)==0){
                 int cantActual = p.getCurrentStock();
                 if ((cantActual-newCant) >=0){ //la cantidad del producto que queda no puede ser negativo
-                    Product  pedido= new Product(p.getDescription(),p.getPrice(),p.getCurrentStock(),p.getMinimumStock(),p.getSupplierId());
+                    Product  pedido= new Product(p.getId(),p.getDescription(),p.getPrice(),p.getCurrentStock(),p.getMinimumStock(),p.getSupplierId());
                     if (!pedidos.isEmpty() && pedidos.contains(pedido)){
                         pedidoCantActual(pedidos.getRoot(), producto);
                         newCant= cantPedido+newCant;

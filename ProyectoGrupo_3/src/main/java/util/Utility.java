@@ -31,14 +31,14 @@ public class Utility {
 
     //private static String routeImagen = "file:ProyectoGrupo_3/logo1.png";
     private static String routeImagen = "file:ProyectoGrupo_3/Imagen/logo2.jpg";
-private static String nameApp="Ferreteria El Clavo Oxidado";
+    private static String nameApp = "Ferreteria El Clavo Oxidado";
 
     public static String getRouteImagen() {
         return routeImagen;
     }
 
     public static void setRouteImagen(String routeImagen) {
-        Utility.routeImagen = "ProyectoGrupo_3/Imagen/"+routeImagen;
+        Utility.routeImagen = "ProyectoGrupo_3/Imagen/" + routeImagen;
     }
 
     private static Random random;    // pseudo-random number generator
@@ -48,8 +48,8 @@ private static String nameApp="Ferreteria El Clavo Oxidado";
     private static AVL supplierAVL;//Mantenimiento de proveedores
     private static AVL productsAVL;//Mantenimiento de Productos
     private static SinglyLinkedList customerList;//mantenimiento de clientes
-   private static BTree inventoryBT; //control de inventario
-   private static AVL ordersManagement;// Gestión de pedidos
+    private static BTree inventoryBT; //control de inventario
+    private static AVL ordersManagement;// Gestión de pedidos
     private static BST forecastDemandBST;//Previsión de la demanda
     private static HearderLinkedQueue costsControlQ;//Control de costos
 
@@ -63,8 +63,8 @@ private static String nameApp="Ferreteria El Clavo Oxidado";
         random = new Random(seed);
         customerList = new SinglyLinkedList();
         securityList = new CircularLinkedList();
-        productsAVL= new AVL();
-        supplierAVL= new AVL();
+        productsAVL = new AVL();
+        supplierAVL = new AVL();
 
 //
     }
@@ -201,6 +201,7 @@ private static String nameApp="Ferreteria El Clavo Oxidado";
         }
         return 2; //Unknown
     }
+
     public static boolean isNumberExp(String str) {
         str = str.replaceAll("\\s", "");
         int n = str.length();
@@ -267,23 +268,18 @@ private static String nameApp="Ferreteria El Clavo Oxidado";
     }
 
     public static void file(Object b, String name) throws IOException {
-        FileWriter file = new FileWriter("ProyectoGrupo_3/ArchivosTXT/"+name + ".txt");
+        FileWriter file = new FileWriter("ProyectoGrupo_3/ArchivosTXT/" + name + ".txt");
         file.write(b + "\n");
         file.close();
     }
 
 
     public static CircularLinkedList addreadSecuritiesFromFile(String fileName) throws FileNotFoundException {
-        File file = new File("ProyectoGrupo_3/ArchivosTXT/"+fileName + ".txt");
-       // ProyectoGrupo_3/ArchivosTXT/Security.txt
+        File file = new File("ProyectoGrupo_3/ArchivosTXT/" + fileName + ".txt");
+
         Scanner scanner = new Scanner(file);
-securityList.clear();
-        //CircularLinkedList securityList = new CircularLinkedList();
-        try {
-            securityList.add(new Security("admin1", Utility.MD5("admin1"),"1"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        securityList.clear();
+
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -308,6 +304,86 @@ securityList.clear();
         scanner.close();
 
         return securityList;
+    }
+    public static AVL addreadProductsFromFile(String fileName) throws FileNotFoundException {
+        File file = new File("ProyectoGrupo_3/ArchivosTXT/" + fileName + ".txt");
+        Scanner scanner = new Scanner(file);
+        productsAVL.clear();
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.startsWith("Product{")) {
+                int startIndex = line.indexOf("id=") + 3;
+                int endIndex = line.indexOf(",", startIndex);
+                int id = Integer.parseInt(line.substring(startIndex, endIndex));
+
+                startIndex = line.indexOf("description='") + 13;
+                endIndex = line.indexOf("'", startIndex);
+                String description = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("price=") + 6;
+                endIndex = line.indexOf(",", startIndex);
+                double price = Double.parseDouble(line.substring(startIndex, endIndex));
+
+                startIndex = line.indexOf("currentStock=") + 13;
+                endIndex = line.indexOf(",", startIndex);
+                int currentStock = Integer.parseInt(line.substring(startIndex, endIndex));
+
+                startIndex = line.indexOf("minimumStock=") + 13;
+                endIndex = line.indexOf(",", startIndex);
+                int minimumStock = Integer.parseInt(line.substring(startIndex, endIndex));
+
+                startIndex = line.indexOf("supplierId=") + 11;
+                endIndex = line.indexOf("}", startIndex);
+                int supplierId = Integer.parseInt(line.substring(startIndex, endIndex));
+
+                Product product = new Product(id,description, price, currentStock, minimumStock, supplierId);
+                productsAVL.add(product);
+            }
+        }
+
+        scanner.close();
+
+        return productsAVL;
+    }
+
+    public static AVL addReadSuppliersFromFile(String fileName) throws FileNotFoundException {
+        File file = new File("ProyectoGrupo_3/ArchivosTXT/" + fileName + ".txt");
+
+        Scanner scanner = new Scanner(file);
+        supplierAVL.clear();
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.startsWith("Supplier{")) {
+                int startIndex = line.indexOf("id=") + 3;
+                int endIndex = line.indexOf(",", startIndex);
+                int id = Integer.parseInt(line.substring(startIndex, endIndex).trim());
+
+                startIndex = line.indexOf("name='") + 6;
+                endIndex = line.indexOf("'", startIndex);
+                String name = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("phoneNumber='") + 13;
+                endIndex = line.indexOf("'", startIndex);
+                String phoneNumber = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("email='") + 7;
+                endIndex = line.indexOf("'", startIndex);
+                String email = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("address='") + 9;
+                endIndex = line.indexOf("'", startIndex);
+                String address = line.substring(startIndex, endIndex);
+
+                Supplier supplier = new Supplier(id, name, phoneNumber, email, address);
+                supplierAVL.add(supplier);
+            }
+        }
+
+        scanner.close();
+
+        return supplierAVL;
     }
 
     public static void ReadFile(String string) {
@@ -403,12 +479,12 @@ securityList.clear();
 
     public static void llenarProductosLista() {
         productsList = new Product[]{
-                new Product("Enchufe de vinil 15 a 125v", 1395.0, 12, 20, 11),
-                new Product( "Extensión para exterior 3x12 awg 15m", 59950.0, 7, 12, 12),
-                new Product( "Plafón de policarbonato 150 w", 900.0, 3, 37, 13),
-                new Product( "Tubo cpvc 1/2' x6m", 12450.0, 10, 12, 14),
-                new Product("Tubo emt 1 1/2' ul", 10.0, 20, 38, 15),
-                new Product("Cable transparente N°18", 220.0, 25, 42, 16)
+                new Product(1,"Enchufe de vinil 15 a 125v", 1395.0, 12, 20, 11),
+                new Product(2,"Extensión para exterior 3x12 awg 15m", 59950.0, 7, 12, 12),
+                new Product(3,"Plafón de policarbonato 150 w", 900.0, 3, 37, 13),
+                new Product(4,"Tubo cpvc 1/2' x6m", 12450.0, 10, 12, 14),
+                new Product(5,"Tubo emt 1 1/2' ul", 10.0, 20, 38, 15),
+                new Product(6,"Cable transparente N°18", 220.0, 25, 42, 16)
         };
     }
 
