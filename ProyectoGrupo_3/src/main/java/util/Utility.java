@@ -17,11 +17,21 @@ import java.io.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+
 
 
 /**
@@ -55,6 +65,8 @@ private static String nameApp="Ferreteria El Clavo Oxidado";
 
     static Product[] productsList;
 
+    private static AVL binnacleList = new AVL();
+
 
     // static initializer
     static {
@@ -67,6 +79,17 @@ private static String nameApp="Ferreteria El Clavo Oxidado";
         supplierAVL= new AVL();
 
 //
+    }
+
+    public static AVL getBinnacleAVL() {
+        return binnacleList;
+    }
+
+    public static void setBinnacleAVL(AVL binnacleList) {
+        Utility.binnacleList= binnacleList;
+    }
+    public static HearderLinkedQueue getHeaderLinkedQueue() {
+    return costsControlQ;
     }
 
     public static CircularLinkedList getSecurityList() {
@@ -420,6 +443,131 @@ securityList.clear();
         productsList = productsLista;
     }
 
+    public static void exportToPDF(Object show,String name){
+        System.out.println("SOY SHOW: \n"+show);
+        try  {
 
+            PDDocument documento = new PDDocument();
+            PDPage pagina = new PDPage(PDRectangle.A6);
+            documento.addPage(pagina);
+            PDPageContentStream contenido = new PDPageContentStream(documento, pagina);
+            contenido.beginText();
+            contenido.setFont(PDType1Font.TIMES_BOLD, 12);
+            contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight()-52);
+            String text = show.toString().replace("\n", ""); // Reemplazar el carácter de nueva línea
+            contenido.showText(text);
+
+
+            contenido.endText();
+
+            contenido.close();
+
+            documento.save(name);
+        } catch (IOException ex) {
+            Logger.getLogger(Utility.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+        public static AVL addreadSuppliesFromFile(String fileName) throws FileNotFoundException {
+            File file = new File("ProyectoGrupo_3/ArchivosTXT/"+fileName + ".txt");
+            // ProyectoGrupo_3/ArchivosTXT/Security.txt
+            Scanner scanner = new Scanner(file);
+            supplierAVL.clear();
+            //CircularLinkedList securityList = new CircularLinkedList();
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.startsWith("Supplier{")) {
+                    int startIndex = line.indexOf("id='") + 13;
+                    int endIndex = line.indexOf(",", startIndex);
+                    String id = line.substring(startIndex, endIndex);
+
+                    startIndex = line.indexOf("name='") + 6;
+                    endIndex = line.indexOf("'", startIndex);
+                    String name = line.substring(startIndex, endIndex);
+
+                    startIndex = line.indexOf("phoneNumber='") + 14;
+                    endIndex = line.indexOf("'", startIndex);
+                    String phoneNumber = line.substring(startIndex, endIndex);
+
+                    startIndex = line.indexOf("email='") + 8;
+                    endIndex = line.indexOf("'", startIndex);
+                    String email = line.substring(startIndex, endIndex);
+
+                    startIndex = line.indexOf("address='") + 10;
+                    endIndex = line.indexOf("'", startIndex);
+                    String address = line.substring(startIndex, endIndex);
+
+                    Supplier supplier = new Supplier(Integer.parseInt(id), name, phoneNumber,email,address);
+                    supplierAVL.add(supplier);
+                }
+            }
+
+            scanner.close();
+
+            return supplierAVL;
+
+
+    }
+
+    public static AVL addreadBinnacleFromFile(String fileName) throws FileNotFoundException {
+        File file = new File("ProyectoGrupo_3/ArchivosTXT/"+fileName + ".txt");
+        // ProyectoGrupo_3/ArchivosTXT/Security.txt
+        Scanner scanner = new Scanner(file);
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.startsWith("Binnacle{")) {
+                int startIndex = line.indexOf("id='") + 6;
+                int endIndex = line.indexOf("'", startIndex);
+                String id = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("dateHour='") + 10;
+                endIndex = line.indexOf("'", startIndex);
+                String dateHour = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("Description='") + 5;
+                endIndex = line.indexOf("'", startIndex);
+                String description = line.substring(startIndex, endIndex);
+
+                Binnacle binnacle = new Binnacle(LocalDateTime.parse(dateHour), id, description);
+                binnacleList.add(binnacle);
+            }
+        }
+
+        scanner.close();
+
+        return binnacleList;
+    }
+
+
+
+    public static boolean isCorreo(String email) {
+        String subCorreo = null;
+        if ('@' == email.charAt(0)) {
+            return false;
+        }
+        for (int i = 0; i < email.length(); i++) {
+            if ('@' == email.charAt(i)) {
+                subCorreo = email.toLowerCase().substring(i);
+            }
+        }
+        if (subCorreo == null || subCorreo.length() < 5 || !(97 <= subCorreo.charAt(1) && subCorreo.charAt(1) <= 122)) {
+            return false;
+        }
+
+        int i = 1;
+        while ('.' != subCorreo.charAt(i)) {
+            i++;
+            if (i >= subCorreo.length()) {
+                return false;
+            }
+        }
+        if (i + 2 >= subCorreo.length()) {
+            return false;
+        }
+        return true;
+    }
 }
 

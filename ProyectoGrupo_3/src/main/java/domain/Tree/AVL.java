@@ -44,6 +44,25 @@ public class AVL implements Tree {
         return binarySearch(root, element);
     }
 
+    public Object get(Object element) throws TreeException {
+        if (isEmpty()) {
+            throw new TreeException("AVL Binary Search Tree is empty");
+        }
+        return binarySearch(root, element);
+    }
+
+    private Object get(BTreeNode node, Object element) {
+        if (node == null) {
+            return null;
+        } else if (util.Utility.compare(node.data, element) == 0) {
+            return node; // Se encontró el nodo
+        } else if (util.Utility.compare(element, node.data) < 0) {
+            return get(node.left, element);
+        } else {
+            return get(node.right, element);
+        }
+    }
+
     private boolean binarySearch(BTreeNode node, Object element){
         if(node==null)
             return false;
@@ -328,9 +347,9 @@ public class AVL implements Tree {
     public String toString() {
         if(isEmpty()) return "AVL Binary Search tree is empty";
         String result = "AVL Binary Search Tree Tour...\n";
-        result+="PreOrder: "+preOrder(root)+"\n";
-        result+="InOrder: "+inOrder(root)+"\n";
-        result+="PostOrder: "+postOrder(root)+"\n";
+        result+=preOrder(root)+"\n";
+//        result+="InOrder: "+inOrder(root)+"\n";
+//        result+="PostOrder: "+postOrder(root)+"\n";
         return result;
     }
 

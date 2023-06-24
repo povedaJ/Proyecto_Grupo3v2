@@ -15,6 +15,21 @@ public class Supplier {
         this.address = address;
     }
 
+    public Supplier(Supplier supplier) {
+
+    }
+
+    @Override
+    public String toString() {
+        return "Supplier{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
