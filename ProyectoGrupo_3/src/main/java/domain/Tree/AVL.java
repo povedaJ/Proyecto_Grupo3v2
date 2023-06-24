@@ -1,5 +1,7 @@
 package domain.Tree;
 
+import domain.List.SinglyLinkedList;
+
 public class AVL implements Tree {
     private BTreeNode root;
 
@@ -264,12 +266,41 @@ public class AVL implements Tree {
     private String preOrder(BTreeNode node){
         String result="";
         if(node!=null){
-            result=""+node.data;
+            result=""+node.data+"\n";
                     //+"("+node.path+"), ";
             result+=preOrder(node.left);
             result+=preOrder(node.right);
         }
         return result;
+    }
+    public SinglyLinkedList getList(BTreeNode node){
+
+        SinglyLinkedList list=new SinglyLinkedList();
+        if(node!=null){
+            list.add(node.data);
+                    //+"("+node.path+"), ";
+            list.add(preOrder(node.left));
+            list.add(preOrder(node.right));
+        }
+        return list;
+    }
+    public Object get(Object element) throws TreeException {
+        if (isEmpty()) {
+            throw new TreeException("AVL Binary Search Tree is empty");
+        }
+        return binarySearch(root, element);
+    }
+
+    private Object get(BTreeNode node, Object element) {
+        if (node == null) {
+            return null;
+        } else if (util.Utility.compare(node.data, element) == 0) {
+            return node; // Se encontró el nodo
+        } else if (util.Utility.compare(element, node.data) < 0) {
+            return get(node.left, element);
+        } else {
+            return get(node.right, element);
+        }
     }
 
 

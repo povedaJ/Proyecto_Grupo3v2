@@ -1,8 +1,11 @@
 package controller;
 
+import domain.List.ListException;
+import domain.List.SinglyLinkedList;
 import domain.Product;
 import domain.Supplier;
 import domain.Tree.AVL;
+import domain.Tree.BTreeNode;
 import domain.Tree.TreeException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -52,7 +55,7 @@ public class newProductController {
 
 
     public void initialize() {
-
+util.Utility.llenarSupplier();
         //carga la lista de clientes
         this.supplierAVL = util.Utility.getSupplierAVL();
         this.productsAVL = util.Utility.getProductsAVL();
@@ -61,18 +64,41 @@ public class newProductController {
         Image image = new Image(util.Utility.getRouteImagen()); // Cambia la ruta por la ubicación de tu imagen
         logoImagen.setImage(image);
         try {
-            if (!productsAVL.isEmpty()) {
-                Utility.addreadProductsFromFile("Products");
+//            if (!productsAVL.isEmpty()) {
+//                Utility.addreadProductsFromFile("Products");
+//            }
+//            if (!supplierAVL.isEmpty()) {
+//                Utility.addReadSuppliersFromFile("Supplier");
+//            }
+            //Utility.addreadProductsFromFile("Products");
+            System.out.println(supplierAVL);
+            Utility.addReadSuppliersFromFile("Supplier");
+            supplierAVL.add(new Supplier(6090,"Colono","8787878","colono@gmail.com","Curridabat"));
+
+            SinglyLinkedList listSupplier= getList(supplierAVL.getRoot());
+            for (int i = 0; i <listSupplier.size() ; i++) {
+                //System.out.println(listSupplier.getNode(i).getData());
             }
-            if (!supplierAVL.isEmpty()) {
-                Utility.addReadSuppliersFromFile("Supplier");
-            }
+          //  supplierAVL.getList().size();
+
         } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (ListException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public SinglyLinkedList getList(BTreeNode node){
 
+        SinglyLinkedList list=new SinglyLinkedList();
+        if(node!=null){
+            list.add(node.data);
+            //+"("+node.path+"), ";
+            list.add(getList(node.left));
+            list.add(getList(node.right));
+        }
+        return list;
+    }
     @FXML
     void retunrOnAction(ActionEvent event) {
 

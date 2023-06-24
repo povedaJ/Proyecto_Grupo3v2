@@ -14,6 +14,9 @@ public class Supplier {
         this.email = email;
         this.address = address;
     }
+    public Supplier(Supplier supplier) {
+
+    }
 
     public int getId() {
         return id;

@@ -5,67 +5,80 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MantProveedoresController">
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="843.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MantProveedoresController">
    <center>
-      <AnchorPane prefHeight="406.0" prefWidth="872.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="843.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="18.0" layoutY="14.0" prefHeight="68.0" prefWidth="611.0">
+            <Pane layoutX="196.0" layoutY="9.0" prefHeight="561.0" prefWidth="546.0">
                <children>
-                  <Label layoutX="229.0" layoutY="22.0" text="Proveedores">
+                  <Label layoutX="167.0" layoutY="37.0" text="Proveedores">
                      <font>
                         <Font name="Berlin Sans FB" size="30.0" />
                      </font>
                   </Label>
+                  <Button layoutX="16.0" layoutY="111.0" mnemonicParsing="false" onAction="#btnAgregar" prefHeight="54.0" prefWidth="133.0" text="Agregar">
+                     <font>
+                        <Font name="Berlin Sans FB" size="1.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="167.0" layoutY="110.0" mnemonicParsing="false" onAction="#btnActualizar" prefHeight="54.0" prefWidth="154.0" text="Actualizar">
+                     <font>
+                        <Font name="Berlin Sans FB" size="1.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="343.0" layoutY="110.0" mnemonicParsing="false" onAction="#btnEliminar" prefHeight="53.0" prefWidth="137.0" text="Eliminar">
+                     <font>
+                        <Font name="Berlin Sans FB" size="1.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="txtErrorMessages" layoutX="234.0" layoutY="479.0" text="Proceso Fallido" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtMessages" layoutX="233.0" layoutY="490.0" text="Proceso Exitoso" textFill="#0dff00" visible="false">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tableView" layoutX="22.0" layoutY="192.0" prefHeight="280.0" prefWidth="466.0">
+                     <columns>
+                        <TableColumn fx:id="idColumn" prefWidth="49.33332824707031" text="ID">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="id" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="nombreColumn" prefWidth="95.33328247070312" text="Nombre">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="nombre" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="telefonoColumn" prefWidth="89.99996948242188" text="Teléfono">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="telefono" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="emailColumn" prefWidth="81.99996948242188" text="Email">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="direccion" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="direccionColumn" prefWidth="146.00003051757812" text="Dirección">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="direccion" />
+                           </cellValueFactory>
+                        </TableColumn>
+                     </columns>
+                  </TableView>
                </children>
-            </AnchorPane>
-            <TableView fx:id="tableView" layoutX="39.0" layoutY="172.0" prefHeight="227.0" prefWidth="505.0">
-               <columns>
-                  <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="id" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="nombreColumn" prefWidth="150.0" text="Nombre">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="nombre" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="direccionColumn" prefWidth="200.0" text="Dirección">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="direccion" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="telefonoColumn" prefWidth="100.0" text="Teléfono">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="telefono" />
-                     </cellValueFactory>
-                  </TableColumn>
-               </columns>
-            </TableView>
-            <Button layoutX="411.0" layoutY="78.0" mnemonicParsing="false" onAction="#btnEliminar" prefHeight="53.0" prefWidth="81.0" text="Eliminar">
-               <font>
-                  <Font name="Berlin Sans FB" size="15.0" />
-               </font>
-            </Button>
-            <Button layoutX="152.0" layoutY="78.0" mnemonicParsing="false" onAction="#btnAgregar" prefHeight="54.0" prefWidth="89.0" text="Agregar">
-               <font>
-                  <Font name="Berlin Sans FB" size="15.0" />
-               </font>
-            </Button>
-            <Button layoutX="242.0" layoutY="78.0" mnemonicParsing="false" onAction="#btnActualizar" prefHeight="54.0" prefWidth="82.0" text="Actualizar">
-               <font>
-                  <Font name="Berlin Sans FB" size="13.0" />
-               </font>
-            </Button>
-            <Button layoutX="324.0" layoutY="78.0" mnemonicParsing="false" onAction="#btnRegresar" prefHeight="56.0" prefWidth="88.0" text="Regresar">
-               <font>
-                  <Font name="Berlin Sans FB" size="13.0" />
-               </font>
-            </Button>
+            </Pane>
+            <ImageView fx:id="logoImagen" fitHeight="124.0" fitWidth="128.0" layoutX="91.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </center>

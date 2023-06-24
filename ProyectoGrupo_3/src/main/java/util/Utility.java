@@ -381,6 +381,7 @@ public class Utility {
                 String address = line.substring(startIndex, endIndex);
 
                 Supplier supplier = new Supplier(id, name, phoneNumber, email, address);
+                System.out.println("soy del read"+supplier.toString());
                 supplierAVL.add(supplier);
             }
         }
@@ -490,6 +491,15 @@ public class Utility {
                 new Product(5,"Tubo emt 1 1/2' ul", 10.0, 20, 38, 15),
                 new Product(6,"Cable transparente N°18", 220.0, 25, 42, 16)
         };
+    }  public static void llenarSupplier() {
+        supplierAVL.add(new Supplier(1234,"EPA","8787878","epa@gmail.com","Curridabat"));
+        supplierAVL.add(new Supplier(6090,"Colono","8787878","colono@gmail.com","Curridabat"));
+        supplierAVL.add(new Supplier(9065,"El Lagar","8787878","lagar@gmail.com","Curridabat"));
+        try {
+            file(supplierAVL,"Supplier");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static Product[] getProductosList() { //hay que editarlo porque los datos son inventados
