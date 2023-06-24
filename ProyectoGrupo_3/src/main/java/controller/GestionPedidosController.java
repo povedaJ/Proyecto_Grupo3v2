@@ -2,6 +2,7 @@ package controller;
 
 
 import domain.Product;
+import domain.Sale;
 import domain.Tree.AVL;
 import domain.Tree.BTreeNode;
 import domain.Tree.TreeException;
@@ -18,6 +19,7 @@ import ucr.proyecto.HelloApplication;
 import util.Utility;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class GestionPedidosController {
     @FXML
@@ -37,13 +39,15 @@ public class GestionPedidosController {
     private AVL pedidos;
     ObservableList<String> productosNombre;
     private int cantPedido;
+    private Sale sale;
+    private AVL orders;
 
     @FXML
     public void initialize() throws TreeException {
         notificacionLabel.setText("");
-        productos= new AVL();
+        productos= util.Utility.getOrdersManagement();
         pedidos= new AVL();
-        llenarProductos();
+        orders= new AVL();
         productosNombre= FXCollections.observableArrayList();
         extraerNombres(productos.getRoot());
         productosChoiceBox.setItems(productosNombre);
@@ -55,16 +59,6 @@ public class GestionPedidosController {
             productosNombre.add(p.getDescription());
             extraerNombres(node.left);
             extraerNombres(node.right);
-        }
-    }
-
-    private void llenarProductos() {
-        Utility.llenarProductosLista();
-
-        Product[] list =Utility.getProductosList();
-        int n = list.length;
-        for (int i = 0; i < n; i++) {
-            productos.add(list[i]);
         }
     }
 
@@ -86,7 +80,7 @@ public class GestionPedidosController {
                 if (Utility.isNumberExp(cant)){
                     int cantidad = Integer.parseInt(cant);
                     hacePedido(productos.getRoot(), producto, cantidad);
-                    cambiarListaProductos(productos.getRoot(), 0); //se debe actualizar toda la lista de productos
+                    util.Utility.setOrdersManagement(productos); //actualiza la lista de productos
                 }else{
                     notificacionLabel.setText("Solo puede ingresar números");
                 }
@@ -118,6 +112,7 @@ public class GestionPedidosController {
                         pedidos.add(pedido);
                         notificacionLabel.setText("El pedido se ha realizado");
                     }
+                    guardarPedido(pedido, cantidad);
                     p.setCurrentStock(cant-cantidad); //actualiza la cantidad
                     productos.remove(node.data);
                     productos.add(p);
@@ -130,16 +125,6 @@ public class GestionPedidosController {
         }
     }
 
-    public void cambiarListaProductos(BTreeNode node, int k) throws TreeException {
-        Product[] list = new Product[productos.size()];
-        if (node!=null){
-            list[k]= (Product) node.data;
-            cambiarListaProductos(node.left, k+1);
-            cambiarListaProductos(node.right, k+1);
-        }
-        Utility.setProductsList(list);
-    }
-
     @FXML
     void btnPedidosAutomaticos(ActionEvent event) throws TreeException {
         String cant = cantidadAutoTextField.getText();
@@ -150,8 +135,9 @@ public class GestionPedidosController {
                     int num= util.Utility.random(productosChoiceBox.getItems().size())-1; //probar
                     hacePedidoAuto(productos.getRoot(), cantidad, num);
                 }
-                cambiarListaProductos(productos.getRoot(), 0); //se debe actualizar toda la lista de productos
+                util.Utility.setOrdersManagement(productos); //actualizar lista de productos
                 notificacionLabel.setText("Se realizo la petición automática");
+                guardarPedidoAuto(pedidos.getRoot());
             }else{
                 notificacionLabel.setText("Solo puede ingresar números");
             }
@@ -197,6 +183,23 @@ public class GestionPedidosController {
             }
             pedidoCantActual(node.left, productos);
             pedidoCantActual(node.right, productos);
+        }
+    }
+
+    private void guardarPedido(Product product, int cantidad){
+        LocalDateTime fechaHoraActual = LocalDateTime.now();
+        sale= new Sale(fechaHoraActual, cantidad, product.getDescription());
+        orders.add(sale);
+    }
+
+    private void guardarPedidoAuto(BTreeNode node){
+        if (node!=null){
+            Product p = (Product) node.data;
+            LocalDateTime fechaHoraActual = LocalDateTime.now();
+            sale= new Sale(fechaHoraActual,p.getCurrentStock(), p.getDescription());
+            orders.add(sale);
+            guardarPedidoAuto(node.left);
+            guardarPedidoAuto(node.right);
         }
     }
 
