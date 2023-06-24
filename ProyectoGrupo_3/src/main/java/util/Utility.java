@@ -17,13 +17,19 @@ import java.io.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 
-
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 /**
  * @author Profesor Lic. Gilberth Chaves Avila
  */
@@ -52,6 +58,7 @@ public class Utility {
     private static AVL ordersManagement;// Gestión de pedidos
     private static BST forecastDemandBST;//Previsión de la demanda
     private static HearderLinkedQueue costsControlQ;//Control de costos
+    private static AVL binnacleList ;
 
     static Product[] productsList;
 
@@ -65,6 +72,7 @@ public class Utility {
         securityList = new CircularLinkedList();
         productsAVL = new AVL();
         supplierAVL = new AVL();
+        binnacleList= new AVL();
 
 //
     }
@@ -249,6 +257,14 @@ public class Utility {
         return period.getYears();
     }
 
+    public static AVL getBinnacleList() {
+        return binnacleList;
+    }
+
+    public static void setBinnacleList(AVL binnacleList) {
+        Utility.binnacleList = binnacleList;
+    }
+
     public static String MD5(String md5) throws IOException {
 
         try {
@@ -266,7 +282,122 @@ public class Utility {
         }
         return null;
     }
+    public static void exportToPDF(Object show,String name){
+       // System.out.println("SOY SHOW: \n"+show);
+        try  {
 
+            PDDocument documento = new PDDocument();
+            PDPage pagina = new PDPage(PDRectangle.A6);
+            documento.addPage(pagina);
+            PDPageContentStream contenido = new PDPageContentStream(documento, pagina);
+            contenido.beginText();
+            contenido.setFont(PDType1Font.TIMES_BOLD, 12);
+            contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight()-52);
+            String text = show.toString().replace("\n", ""); // Reemplazar el carácter de nueva línea
+            contenido.showText(text);
+
+
+            contenido.endText();
+
+            contenido.close();
+
+            documento.save(name);
+        }catch (Exception e2) {
+            e2.printStackTrace();
+        }
+    }
+    public static void exportToPDf2(Object show, String name) {
+        try {
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage(PDRectangle.A6);
+            document.addPage(page);
+
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            contentStream.setFont(PDType1Font.HELVETICA_OBLIQUE, 12);
+
+            float margin = 50;
+            float yPosition = page.getMediaBox().getHeight() - margin;
+            float width = page.getMediaBox().getWidth() - 2 * margin;
+            float startX = page.getMediaBox().getLowerLeftX() + margin;
+            float endX = page.getMediaBox().getUpperRightX() - margin;
+
+            String text = show.toString().replace("\n", "\n"); // Reemplazar el carácter de nueva línea
+
+            contentStream.beginText();
+           contentStream.newLineAtOffset(startX, yPosition);
+
+
+            for (String line : text.split("\n")) {
+                contentStream.showText(line);
+                contentStream.newLineAtOffset(0, -15); // Espaciado entre líneas
+            }
+
+            contentStream.endText();
+            contentStream.close();
+
+            document.save("ProyectoGrupo_3/Informes" + File.separator + name + ".pdf");
+            document.close();
+
+            System.out.println("PDF generado exitosamente.");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public static void exportToPDF2(Object show, String name) {
+        try {
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage(PDRectangle.A6);
+            document.addPage(page);
+
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            contentStream.setFont(PDType1Font.COURIER_BOLD, 6);
+
+            float margin = 50;
+            float yPosition = page.getMediaBox().getHeight() - margin;
+            float width = page.getMediaBox().getWidth() - 2 * margin;
+            float startX = page.getMediaBox().getLowerLeftX() + margin;
+            float endX = page.getMediaBox().getUpperRightX() - margin;
+
+            // Agregar imagen
+            String imagePath = "ProyectoGrupo_3/Imagen/logo2.jpg"; // Reemplaza con la ruta de tu imagen
+            PDImageXObject image = PDImageXObject.createFromFile(imagePath, document);
+            float imageWidth = 50; // Ancho de la imagen en puntos (ajusta según sea necesario)
+            float imageHeight = imageWidth * image.getHeight() / image.getWidth();
+            contentStream.drawImage(image, startX, yPosition - imageHeight, imageWidth, imageHeight);
+
+            // Limitar espacio de escritura
+            float textYPosition = yPosition - imageHeight - 20; // Espacio entre imagen y texto
+            float textWidth = width;
+            float textHeight = yPosition - margin - textYPosition;
+
+            String text = show.toString().replace("\n", "li"); // Reemplazar el carácter de nueva línea
+           // String text = "Soy el texto "; // Reemplazar el carácter de nueva línea
+
+            float textLimitX = startX; // Coordenada X de inicio del límite
+            float textLimitY = textYPosition - textHeight; // Coordenada Y de inicio del límite
+            float textLimitWidth = textWidth; // Ancho del límite
+            float textLimitHeight = width; // Alto del límite
+
+
+            contentStream.addRect(textLimitX, textLimitY, textLimitWidth, textLimitHeight);
+            contentStream.clip();
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.COURIER_BOLD, 6);
+            contentStream.newLineAtOffset(startX, textYPosition);
+            contentStream.setLeading(15); // Espaciado entre líneas
+
+            contentStream.showText(text);
+            contentStream.endText();
+            contentStream.close();
+
+            document.save("ProyectoGrupo_3/Informes" + File.separator + name + ".pdf"); // Reemplaza con la ruta y nombre de tu archivo PDF
+            document.close();
+
+            System.out.println("PDF generado exitosamente.");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
     public static void file(Object b, String name) throws IOException {
         FileWriter file = new FileWriter("ProyectoGrupo_3/ArchivosTXT/" + name + ".txt");
         file.write(b + "\n");
@@ -350,7 +481,77 @@ public class Utility {
 
         return productsAVL;
     }
+    public static AVL addreadSuppliesFromFile(String fileName) throws FileNotFoundException {
+        File file = new File("ProyectoGrupo_3/ArchivosTXT/"+fileName + ".txt");
+        // ProyectoGrupo_3/ArchivosTXT/Security.txt
+        Scanner scanner = new Scanner(file);
+        supplierAVL.clear();
+        //CircularLinkedList securityList = new CircularLinkedList();
 
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.startsWith("Supplier{")) {
+                int startIndex = line.indexOf("id='") + 13;
+                int endIndex = line.indexOf(",", startIndex);
+                String id = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("name='") + 6;
+                endIndex = line.indexOf("'", startIndex);
+                String name = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("phoneNumber='") + 14;
+                endIndex = line.indexOf("'", startIndex);
+                String phoneNumber = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("email='") + 8;
+                endIndex = line.indexOf("'", startIndex);
+                String email = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("address='") + 10;
+                endIndex = line.indexOf("'", startIndex);
+                String address = line.substring(startIndex, endIndex);
+
+                Supplier supplier = new Supplier(Integer.parseInt(id), name, phoneNumber,email,address);
+                supplierAVL.add(supplier);
+            }
+        }
+
+        scanner.close();
+
+        return supplierAVL;
+
+
+    }
+
+    public static AVL addreadBinnacleFromFile(String fileName) throws FileNotFoundException {
+        File file = new File("ProyectoGrupo_3/ArchivosTXT/"+fileName + ".txt");
+        // ProyectoGrupo_3/ArchivosTXT/Security.txt
+        Scanner scanner = new Scanner(file);
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.startsWith("Binnacle{")) {
+                int startIndex = line.indexOf("id='") + 6;
+                int endIndex = line.indexOf("'", startIndex);
+                String id = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("dateHour='") + 10;
+                endIndex = line.indexOf("'", startIndex);
+                String dateHour = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("Description='") + 5;
+                endIndex = line.indexOf("'", startIndex);
+                String description = line.substring(startIndex, endIndex);
+
+                Binnacle binnacle = new Binnacle(LocalDateTime.parse(dateHour), id, description);
+                binnacleList.add(binnacle);
+            }
+        }
+
+        scanner.close();
+
+        return binnacleList;
+    }
     public static AVL addReadSuppliersFromFile(String fileName) throws FileNotFoundException {
         File file = new File("ProyectoGrupo_3/ArchivosTXT/" + fileName + ".txt");
 
@@ -389,6 +590,32 @@ public class Utility {
         scanner.close();
 
         return supplierAVL;
+    }
+    public static boolean isCorreo(String email) {
+        String subCorreo = null;
+        if ('@' == email.charAt(0)) {
+            return false;
+        }
+        for (int i = 0; i < email.length(); i++) {
+            if ('@' == email.charAt(i)) {
+                subCorreo = email.toLowerCase().substring(i);
+            }
+        }
+        if (subCorreo == null || subCorreo.length() < 5 || !(97 <= subCorreo.charAt(1) && subCorreo.charAt(1) <= 122)) {
+            return false;
+        }
+
+        int i = 1;
+        while ('.' != subCorreo.charAt(i)) {
+            i++;
+            if (i >= subCorreo.length()) {
+                return false;
+            }
+        }
+        if (i + 2 >= subCorreo.length()) {
+            return false;
+        }
+        return true;
     }
 
     public static void ReadFile(String string) {

@@ -1,6 +1,7 @@
 package controller;
 
 import domain.List.ListException;
+import domain.List.SinglyLinkedList;
 import domain.Security;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,9 +43,12 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Image image = new Image(util.Utility.getRouteImagen()); // Cambia la ruta por la ubicación de tu imagen
         logoImagen.setImage(image);
+
         try {
 
             System.out.println("Listsss\n"+Utility.addreadSecuritiesFromFile("Security"));
+            util.Utility.exportToPDF2(util.Utility.getSecurityList(),"Security.2o");
+           // util.Utility.exportToPDf2(util.Utility.getSecurityList(),"Security.2023");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

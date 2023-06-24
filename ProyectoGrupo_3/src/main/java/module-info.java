@@ -3,6 +3,7 @@ module ucr.proyecto {
     requires javafx.fxml;
     requires mail;
     requires java.desktop;
+    requires pdfbox.app;
 
 
     opens ucr.proyecto to javafx.fxml;
