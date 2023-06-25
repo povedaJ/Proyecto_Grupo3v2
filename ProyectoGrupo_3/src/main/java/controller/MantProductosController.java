@@ -78,15 +78,6 @@ public class MantProductosController {
         this.currentStockColumn.setCellValueFactory(new PropertyValueFactory<>("currentStock"));
         this.minimunStockColumn.setCellValueFactory(new PropertyValueFactory<>("minimumStock"));
         this.supplierColumn.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
-
-//        System.out.println("1"+productsAVL.get(1));
-//        if (productsAVL != null && !productsAVL.isEmpty()) {
-//            int n = productsAVL.size();
-//            for (int i = 1; i <= n; i++) {
-//                //System.out.println("que hay"+productsAVL.get(i-1));
-//                 this.tableView.getItems().add((Product)productsAVL.get(i-1));
-//            }
-//        }
        updateTableView();
 
     }
@@ -120,7 +111,7 @@ public class MantProductosController {
 
     @FXML
     void addOnAction(ActionEvent event) {
-        loadPage("newProduct.fxml");
+        loadPage("addProduct.fxml");
     }
 
     @FXML

@@ -140,7 +140,7 @@ public class newCustomerController {
 
     @FXML
     void retunrOnAction(ActionEvent event) {
-        loadPage("mantClientes.fxml");
+          loadPage("mantClientes.fxml");
     }
 
     @FXML

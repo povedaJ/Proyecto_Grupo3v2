@@ -123,7 +123,6 @@ public class MantClientesController {
 
     @FXML
     void addCustomerOnAction(ActionEvent event) {
-        //loadPage("SignUpController");
        loadPage("newCustomer.fxml");
     }
 
