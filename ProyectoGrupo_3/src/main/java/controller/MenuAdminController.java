@@ -86,8 +86,8 @@ public class MenuAdminController {
     @FXML
     void previsionDemandaOnAction(ActionEvent event) {
 
-    }
 
+    }
     @FXML
     void productosOnAction(ActionEvent event) {
 
