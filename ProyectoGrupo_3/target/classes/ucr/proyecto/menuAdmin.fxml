@@ -83,12 +83,12 @@
    <center>
       <AnchorPane fx:id="ap" prefHeight="605.0" prefWidth="675.0" stylesheets="@stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <Text fx:id="txtMessage" fill="#3a8db8" layoutX="103.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu Admin" textAlignment="CENTER" wrappingWidth="486.0827325582504">
+            <Text fx:id="txtMessage" fill="#3a8db8" layoutX="103.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrador " textAlignment="CENTER" wrappingWidth="486.0827325582504">
                <font>
                   <Font name="Arial" size="40.0" />
                </font>
             </Text>
-            <ImageView fx:id="logoImagen" fitHeight="165.0" fitWidth="174.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="logoImagen" fitHeight="387.0" fitWidth="349.0" layoutX="175.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </center>

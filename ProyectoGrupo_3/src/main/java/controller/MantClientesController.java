@@ -288,7 +288,7 @@ public class MantClientesController {
             mTransport.close();
             alert.setAlertType(Alert.AlertType.INFORMATION);
             alert.setContentText("La información de su cuenta ya fue enviada, por favor revise su correo.");
-            loadPage("mantClientes.fxml");
+            //loadPage("mantClientes.fxml");
 
         } catch (NoSuchProviderException ex) {
             throw new RuntimeException(ex);

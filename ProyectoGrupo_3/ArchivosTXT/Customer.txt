@@ -1,5 +1,4 @@
 Singly Linked List Content
 Customer{id=8888, name='Nuevo1', phoneNumber='6767676', email='vivipoveda15@gmail.com', address='Coy'}
 Customer{id=78780, name='Sebas', phoneNumber='878787', email='vivipoveda15@gmail.com', address='Cartago'}
-Customer{id=1234, name='SEBBAS', phoneNumber='5656', email='vivipoveda15@gmail.com', address='MX'}
 

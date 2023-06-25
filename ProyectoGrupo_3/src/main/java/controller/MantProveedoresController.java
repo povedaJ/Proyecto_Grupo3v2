@@ -51,7 +51,14 @@ public class MantProveedoresController {
     TextInputDialog phoneNumberTID = new TextInputDialog("");
     TextInputDialog emailTID = new TextInputDialog("");
     TextInputDialog addressTID = new TextInputDialog("");
+    private boolean compare;
+    private String d;
 
+    private int id;
+    private String name;
+    private String phoneNumber;
+    private String email;
+    private String address;
     @FXML
     private Label txtMessages;
 
@@ -121,14 +128,7 @@ public class MantProveedoresController {
         loadPage("menuAdmin.fxml");
     }
 
-    private boolean compare;
-    private String d;
 
-    private int id;
-    private String name;
-    private String phoneNumber;
-    private String email;
-    private String address;
     @FXML
     public void btnActualizar(ActionEvent event) throws TreeException {
         busc.setTitle("Modificar curso");

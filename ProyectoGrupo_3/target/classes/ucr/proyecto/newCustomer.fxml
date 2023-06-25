@@ -14,7 +14,7 @@
       <AnchorPane prefHeight="603.0" prefWidth="758.0" stylesheets="@stylesheet.css">
          <children>
             <ImageView fx:id="logoImagen" fitHeight="160.0" fitWidth="117.0" layoutX="130.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
-            <Button contentDisplay="GRAPHIC_ONLY" layoutX="117.0" layoutY="459.0" mnemonicParsing="false" onAction="#retunrOnAction" prefHeight="63.0" prefWidth="93.0" stylesheets="@returnButton.css" text="Button" />
+            <Button contentDisplay="GRAPHIC_ONLY" layoutX="109.0" layoutY="475.0" mnemonicParsing="false" onAction="#retunrOnAction" prefHeight="63.0" prefWidth="93.0" stylesheets="@returnButton.css" text="Button" />
             <Pane layoutX="203.0" layoutY="55.0" prefHeight="494.0" prefWidth="483.0">
                <children>
                   <Text fontSmoothingType="LCD" layoutX="116.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar nuevo cliente" wrappingWidth="292.822265625">

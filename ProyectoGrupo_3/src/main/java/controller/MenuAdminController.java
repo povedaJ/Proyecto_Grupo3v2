@@ -92,7 +92,7 @@ public class MenuAdminController {
 
     @FXML
     void productosOnAction(ActionEvent event) {
-        loadPage("newProduct.fxml");
+        loadPage("mantProductos.fxml");
     }
 
     @FXML

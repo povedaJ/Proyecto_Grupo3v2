@@ -1,17 +1,5 @@
 Circular Linked List Content
 Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
-Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
-Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
-Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
-Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
-Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
-Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
-Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
-Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
-Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
-Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
-Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
-Security{user='admin1', passWord='e00cf25ad42683b3df678c61f42c6bda', rol='1'}
 Security{user='305150861', passWord='e26e82452242bc910e4eb55d8a60ca4f', rol='2'}
 Security{user='3076', passWord='6fe1a55816a230cfc06c8e30f900adee', rol='2'}
 Security{user='303240670', passWord='882d3e1c4a906b84224ce7562af4a519', rol='2'}

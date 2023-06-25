@@ -1,0 +1,6 @@
+AVL Binary Search Tree Tour...
+Product{id=457, description='Enchuefe itr', price=567.0, currentStock=23, minimumStock=6, supplierId=6090}
+Product{id=12, description='Cable ', price=670.0, currentStock=12, minimumStock=5, supplierId=6090}
+Product{id=5679, description='Mentro metalico 1 metro', price=1200.0, currentStock=34, minimumStock=56, supplierId=6090}
+
+

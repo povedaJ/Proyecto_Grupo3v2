@@ -520,6 +520,7 @@ public class Utility {
                 int supplierId = Integer.parseInt(line.substring(startIndex, endIndex));
 
                 Product product = new Product(id,description, price, currentStock, minimumStock, supplierId);
+                System.out.println("Read product"+product);
                 productsAVL.add(product);
             }
         }
@@ -589,7 +590,6 @@ public class Utility {
                 String address = line.substring(startIndex, endIndex);
 
                 Supplier supplier = new Supplier(id, name, phoneNumber, email, address);
-                System.out.println("soy del read"+supplier.toString());
                 supplierAVL.add(supplier);
             }
         }

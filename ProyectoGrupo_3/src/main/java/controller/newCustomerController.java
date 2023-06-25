@@ -5,6 +5,8 @@ import domain.List.CircularLinkedList;
 import domain.List.ListException;
 import domain.List.SinglyLinkedList;
 import domain.Security;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,6 +86,14 @@ public class newCustomerController {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        idTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    idTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 
     private void loadPage(String page) {
@@ -261,7 +271,7 @@ public class newCustomerController {
             mTransport.close();
             alert.setAlertType(Alert.AlertType.INFORMATION);
             alert.setContentText("La información de su cuenta ya fue enviada, por favor revise su correo.");
-            loadPage("mantClientes.fxml");
+            //loadPage("mantClientes.fxml");
 
         } catch (NoSuchProviderException ex) {
             throw new RuntimeException(ex);
