@@ -1,8 +1,13 @@
 AVL Binary Search Tree Tour...
 Supplier{id=6090, name='Colono', phoneNumber='8787878', email='colono@gmail.com', address='Curridabat'}
+Supplier{id=1111, name='Lagos', phoneNumber='89890909', email='joseLago@gmail.com', address='Panama'}
+Supplier{id=123, name='Zxs', phoneNumber='516513', email='ZxZ@gmail.com', address='asdad'}
 Supplier{id=1234, name='EPA', phoneNumber='8787878', email='epa@gmail.com', address='Curridabat'}
-Supplier{id=7898, name='TornillosBolaos', phoneNumber='898989', email='TbOLAOS@gmail.com', address='Cot'}
+Supplier{id=13515, name='asdas', phoneNumber='1325', email='asds@gmail.com', address='sadsd'}
 Supplier{id=9065, name='El Lagar', phoneNumber='8787878', email='lagar@gmail.com', address='Curridabat'}
-Supplier{id=123456, name='Lago', phoneNumber='89890909', email='joseLago@gmail.com', address='Panama'}
+Supplier{id=7898, name='TornillosBolaos', phoneNumber='898989', email='TbOLAOS@gmail.com', address='Cot'}
+Supplier{id=13251, name='asdasd', phoneNumber='1533', email='asdas@gmail.com', address='asdaw'}
+Supplier{id=24242, name='asdas', phoneNumber='46561', email='sebas@gmail.com', address='sadasd'}
+Supplier{id=123456, name='asdas', phoneNumber='1351', email='asd@gmail.com', address='asdasd'}
 
 

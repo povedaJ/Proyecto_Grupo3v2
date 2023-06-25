@@ -450,4 +450,29 @@ public class AVL implements Tree {
         result+="PreOrder: "+preOrder(root)+"\n";
         return result;
     }
+
+    public int indexOf(int index) throws TreeException {
+        if (isEmpty()) {
+            throw new TreeException("AVL Binary Search Tree is empty");
+        }
+
+        if (index < 0 || index >= size()) {
+            throw new IllegalArgumentException("Index is out of bounds");
+        }
+
+        return indexOf(root, index);
+    }
+
+    private int indexOf(BTreeNode node, int index) {
+        int leftSubtreeSize = size(node.left);
+
+        if (index == leftSubtreeSize) {
+            return (int) node.data;
+        } else if (index < leftSubtreeSize) {
+            return indexOf(node.left, index);
+        } else {
+            return indexOf(node.right, index - leftSubtreeSize - 1);
+        }
+    }
+
 }

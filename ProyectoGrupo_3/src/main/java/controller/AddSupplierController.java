@@ -89,12 +89,14 @@ public class AddSupplierController implements Initializable {
         });
         this.alert = util.FXUtility.alert("Proveedores","Registrar nuevo Proveedor");
         this.supplierList = util.Utility.getSupplierAVL();
+        this.binnacleList = util.Utility.getBinnacleList();
         Image image = new Image(util.Utility.getRouteImagen()); // Cambia la ruta por la ubicación de tu imagen
         logoImagen.setImage(image);
         try {
 //            binnacleList.add(new Binnacle(LocalDateTime.now(), userInfo.getUser(), "Salió de Añadir Proveedor"));
 //            util.Utility.addreadBinnacleFromFile("Binnacle");
             Utility.addReadSuppliersFromFile("Supplier");
+            Utility.addreadBinnacleFromFile("Binnacle");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -141,11 +143,8 @@ public class AddSupplierController implements Initializable {
     public void btnRegresar(ActionEvent actionEvent) throws ListException, IOException {
 
 
-        userInfo = (Security) userList.getNode(1).data;
-        binnacleList.add(new Binnacle(LocalDateTime.now(), userInfo.getUser(), "Salió de Añadir Proveedor"));
-        util.Utility.addreadBinnacleFromFile("Binnacle");
-        util.Utility.file(binnacleList,"Binnacle");
-        util.Utility.setBinnacleList(binnacleList);
+
+
         loadPage("mantProveedores.fxml");
 
     }
@@ -187,7 +186,7 @@ public class AddSupplierController implements Initializable {
 
     public void signUpOnAction(ActionEvent actionEvent) {
         try {
-            if (isValid() && util.Utility.isCorreo(emailTextField.getText())) {
+            if (isValid() && util.Utility.isCorreo(emailTextField.getText()) && util.Utility.isNumber(phoneNumberTextField.getText())) {
                 int id = Integer.parseInt(this.idTextField.getText());
                 Supplier newSupplier = new Supplier(
                         id,
@@ -198,9 +197,13 @@ public class AddSupplierController implements Initializable {
 
                 alert.setAlertType(Alert.AlertType.INFORMATION);
                 alert.setContentText("New supplier added");
-                if (supplierList.isEmpty() || !supplierList.contains(newSupplier)) {
+
+
+                if (supplierList.isEmpty() || !supplierList.contains(newSupplier) || binnacleList.isEmpty() || !binnacleList.contains(new Binnacle())) {
                     supplierList.add(newSupplier);
+
                     util.Utility.file(supplierList, "Supplier");
+
                     btnClean();
                     System.out.println(supplierList.toString());
                 } else {
@@ -218,10 +221,10 @@ public class AddSupplierController implements Initializable {
 
         } catch (TreeException | IOException e) {
             throw new RuntimeException(e);
+
+
         }
-
     }
-
     void btnClean() {
         this.idTextField.clear();
         this.nameTextField.clear();

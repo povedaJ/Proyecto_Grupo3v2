@@ -5,10 +5,6 @@ import java.time.LocalDateTime;
 
 public class Binnacle implements Serializable {
 
-    private int id;
-
-    private static int autoId;// id autogenerado
-
     private LocalDateTime dateHour;
 
     private String user;
@@ -16,29 +12,13 @@ public class Binnacle implements Serializable {
     private String Description;
 
     public Binnacle(LocalDateTime dateHour, String user, String description) {
-        this.id= ++autoId;
+
         this.dateHour = dateHour;
         this.user = user;
         Description = description;
     }
 
     public Binnacle() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public static int getAutoId() {
-        return autoId;
-    }
-
-    public static void setAutoId(int autoId) {
-        Binnacle.autoId = autoId;
     }
 
     public LocalDateTime getDateHour() {
@@ -68,8 +48,7 @@ public class Binnacle implements Serializable {
     @Override
     public String toString() {
         return "Binnacle{" +
-                "id=" + id +
-                ", dateHour=" + dateHour +
+                "dateHour=" + dateHour +
                 ", user='" + user + '\'' +
                 ", Description='" + Description + '\'' +
                 '}'+"\n";

@@ -17,10 +17,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import ucr.proyecto.HelloApplication;
+import util.Utility;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -59,116 +63,30 @@ public class ControlCostosController implements Initializable {
     @FXML
     private TextArea textAreaCosts;
 
+    private AVL productList = util.Utility.getProductsAVL();
+
+    private AVL supplierList = util.Utility.getSupplierAVL();
+
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-        Supplier s = new Supplier(1,"Nayeli","85211401","sebas@gamil.com","100m Sur");
-        Supplier s1 = new Supplier(2,"Sebas","85211401","sebas@gamil.com","100m Sur");
-        Supplier s2 = new Supplier(3,"Kendy","85211401","sebas@gamil.com","100m Sur");
-        Supplier s3 = new Supplier(4,"Estela","85211401","sebas@gamil.com","100m Sur");
-
-        supplierName.add(s);
-        supplierName.add(s1);
-        supplierName.add(s2);
-        supplierName.add(s3);
-
-
-        product = new AVL();
-        Product p1 = new Product(18,"Martillo", 20.000, 4, 1, 1);
-        Product p2 = new Product(19,"Tornillo", 20.000, 4, 1, 1);
-
-        product.add(p1);
-        product.add(p2);
-        this.columnId.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue call(TableColumn.CellDataFeatures<List<String>, String> data) {
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(0));
-            }
-        });
-
-        this.columnDescription.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue call(TableColumn.CellDataFeatures<List<String>, String> data) {
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(1));
-            }
-        });
-
-        this.columnPrice.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue call(TableColumn.CellDataFeatures<List<String>, String> data) {
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(2));
-            }
-        });
-
-        this.columnCurrentStock.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue call(TableColumn.CellDataFeatures<List<String>, String> data) {
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(3));
-            }
-        });
-
-        this.colunmMinimunStock.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue call(TableColumn.CellDataFeatures<List<String>, String> data) {
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(4));
-            }
-        });
-
-        this.columnSupplierId.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue call(TableColumn.CellDataFeatures<List<String>, String> data) {
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(5));
-            }
-        });
-
-        this.columnTotalCosts.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue call(TableColumn.CellDataFeatures<List<String>, String> data) {
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(6));
-            }
-        });
-
-        if (!product.isEmpty()) {
-            try {
-                tableCosts.setItems(getData());
-            } catch (TreeException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public void initialize(URL url, ResourceBundle rb) {   try {
+        Utility.addReadSuppliersFromFile("Supplier");
+    } catch (FileNotFoundException e) {
+        // Manejar adecuadamente la excepción o mostrar un mensaje de error
+        e.printStackTrace();
     }
 
-    private ObservableList<List<String>> getData() throws TreeException {
+//        Image image = new Image(util.Utility.getRouteImagen());
+//        logoImagen.setImage(image);
 
+        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnDescription.setCellValueFactory(new PropertyValueFactory<>(""));
+        columnPrice.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        columnCurrentStock.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colunmMinimunStock.setCellValueFactory(new PropertyValueFactory<>("address"));
+        columnSupplierId.setCellValueFactory(new PropertyValueFactory<>("address"));
+        columnTotalCosts.setCellValueFactory(new PropertyValueFactory<>("address"));
 
-        ObservableList<List<String>> data = FXCollections.observableArrayList();
-
-        for (int i = 0; i < this.product.size(); i++) {
-
-            List<String> arrayList = new ArrayList<>();
-            Product pr = (Product) product.get(i);
-            arrayList.add(String.valueOf(pr.getId()));
-            arrayList.add(pr.getDescription());
-            arrayList.add("₡" + pr.getPrice());
-            arrayList.add(String.valueOf(pr.getCurrentStock()));
-            arrayList.add(String.valueOf(pr.getMinimumStock()));
-
-            for (int j = 0; j < supplierName.size(); j++) {
-                Supplier su = (Supplier) supplierName.get(j);
-                if (String.valueOf(su.getId()).equals(pr.getSupplierId()))
-                    arrayList.add(su.getName());
-            }
-
-            try {
-                hLQ1.enQueue(pr.getPrice() * pr.getCurrentStock());
-                arrayList.add("₡" + hLQ1.deQueue());
-            } catch (QueueException e) {
-                throw new RuntimeException(e);
-
-            }
-            data.add(arrayList);
-        }
-        return data;
     }
 
 

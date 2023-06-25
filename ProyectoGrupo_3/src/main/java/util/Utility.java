@@ -58,7 +58,7 @@ public class Utility {
     private static AVL ordersManagement;// Gestión de pedidos
     private static BST forecastDemandBST;//Previsión de la demanda
     private static HearderLinkedQueue costsControlQ;//Control de costos
-    private static AVL binnacleList ;
+    private static AVL binnacleList;
 
     static Product[] productsList;
 
@@ -72,7 +72,7 @@ public class Utility {
         securityList = new CircularLinkedList();
         productsAVL = new AVL();
         supplierAVL = new AVL();
-        binnacleList= new AVL();
+        binnacleList = new AVL();
 
 //
     }
@@ -212,7 +212,21 @@ public class Utility {
                 String produc1 = (String) a;
                 String produc2 = (String) b;
                 return produc1 == produc2 ? 0 : 1;
+            case "Supplier":
+                Supplier s1 = (Supplier) a;
+                Supplier s2 = (Supplier) b;
+                return s1.getId() < s2.getId() ? -1 :
+                        s1.getId() > s2.getId()? 1 : 0; //0==equal
+            case "SupplierP":
+                Supplier su1 = (Supplier) a;
+                Supplier su2 = (Supplier) b;
+                return String.valueOf(su1.getId()).compareTo(String.valueOf(su2.getId()))  < 0 ? -1 :
+                        String.valueOf(su1.getId()).compareTo(String.valueOf(su2.getId()))  > 0 ? 1 : 0;
 
+            case "AVL":
+                AVL avl1 = (AVL) a;
+                AVL avl2 = (AVL) b;
+                return !avl1.equals(avl2) ? -1 : 0;
         }
         return 2; //Unknown
     }
@@ -237,9 +251,13 @@ public class Utility {
         if (a instanceof Customer && b instanceof Customer) return "CustomerP";
         if (a instanceof Customer && b instanceof Integer) return "Customer";
         if (a instanceof CircularLinkedList && b instanceof CircularLinkedList) return "Security";
+        if (a instanceof AVL && b instanceof AVL) return "AVL";
         if (a instanceof Product && b instanceof Product) return "Product";
+        if (a instanceof Supplier && b instanceof Supplier) return "Supplier";
+        if (a instanceof Supplier && b instanceof Supplier) return "SupplierP";
         if (a instanceof Product && b == null) return "Eliminar nulo";
         if (a == null && b == null) return "Eliminar los nulos";
+
 
         return "Unknown"; //desconocido
     }
@@ -290,9 +308,10 @@ public class Utility {
         }
         return null;
     }
-    public static void exportToPDF(Object show,String name){
-       // System.out.println("SOY SHOW: \n"+show);
-        try  {
+
+    public static void exportToPDF(Object show, String name) {
+        // System.out.println("SOY SHOW: \n"+show);
+        try {
 
             PDDocument documento = new PDDocument();
             PDPage pagina = new PDPage(PDRectangle.A6);
@@ -300,7 +319,7 @@ public class Utility {
             PDPageContentStream contenido = new PDPageContentStream(documento, pagina);
             contenido.beginText();
             contenido.setFont(PDType1Font.TIMES_BOLD, 12);
-            contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight()-52);
+            contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight() - 52);
             String text = show.toString().replace("\n", ""); // Reemplazar el carácter de nueva línea
             contenido.showText(text);
 
@@ -310,10 +329,11 @@ public class Utility {
             contenido.close();
 
             documento.save(name);
-        }catch (Exception e2) {
+        } catch (Exception e2) {
             e2.printStackTrace();
         }
     }
+
     public static void exportToPDf2(Object show, String name) {
         try {
             PDDocument document = new PDDocument();
@@ -332,7 +352,7 @@ public class Utility {
             String text = show.toString().replace("\n", "\n"); // Reemplazar el carácter de nueva línea
 
             contentStream.beginText();
-           contentStream.newLineAtOffset(startX, yPosition);
+            contentStream.newLineAtOffset(startX, yPosition);
 
 
             for (String line : text.split("\n")) {
@@ -351,6 +371,7 @@ public class Utility {
             ex.printStackTrace();
         }
     }
+
     public static void exportToPDF2(Object show, String name) {
         try {
             PDDocument document = new PDDocument();
@@ -379,7 +400,7 @@ public class Utility {
             float textHeight = yPosition - margin - textYPosition;
 
             String text = show.toString().replace("\n", "li"); // Reemplazar el carácter de nueva línea
-           // String text = "Soy el texto "; // Reemplazar el carácter de nueva línea
+            // String text = "Soy el texto "; // Reemplazar el carácter de nueva línea
 
             float textLimitX = startX; // Coordenada X de inicio del límite
             float textLimitY = textYPosition - textHeight; // Coordenada Y de inicio del límite
@@ -406,6 +427,7 @@ public class Utility {
             ex.printStackTrace();
         }
     }
+
     public static void file(Object b, String name) throws IOException {
         FileWriter file = new FileWriter("ProyectoGrupo_3/ArchivosTXT/" + name + ".txt");
         file.write(b + "\n");
@@ -419,7 +441,7 @@ public class Utility {
         Scanner scanner = new Scanner(file);
         securityList.clear();
         try {
-            securityList.add(new Security("admin1",MD5("admin1"),"1"));
+            securityList.add(new Security("admin1", MD5("admin1"), "1"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -448,11 +470,12 @@ public class Utility {
 
         return securityList;
     }
+
     public static SinglyLinkedList addReadCustomersFromFile(String fileName) throws FileNotFoundException {
         File file = new File("ProyectoGrupo_3/ArchivosTXT/" + fileName + ".txt");
 
         Scanner scanner = new Scanner(file);
-         customerList.clear();
+        customerList.clear();
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -487,6 +510,7 @@ public class Utility {
 
         return customerList;
     }
+
     public static AVL addreadProductsFromFile(String fileName) throws FileNotFoundException {
         File file = new File("ProyectoGrupo_3/ArchivosTXT/" + fileName + ".txt");
         Scanner scanner = new Scanner(file);
@@ -519,7 +543,7 @@ public class Utility {
                 endIndex = line.indexOf("}", startIndex);
                 int supplierId = Integer.parseInt(line.substring(startIndex, endIndex));
 
-                Product product = new Product(id,description, price, currentStock, minimumStock, supplierId);
+                Product product = new Product(id, description, price, currentStock, minimumStock, supplierId);
                 productsAVL.add(product);
             }
         }
@@ -531,26 +555,26 @@ public class Utility {
 
 
     public static AVL addreadBinnacleFromFile(String fileName) throws FileNotFoundException {
-        File file = new File("ProyectoGrupo_3/ArchivosTXT/"+fileName + ".txt");
+        File file = new File("ProyectoGrupo_3/ArchivosTXT/" + fileName + ".txt");
         // ProyectoGrupo_3/ArchivosTXT/Security.txt
         Scanner scanner = new Scanner(file);
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if (line.startsWith("Binnacle{")) {
-                int startIndex = line.indexOf("id='") + 6;
+                int startIndex = line.indexOf("dateHour='") + 10;
                 int endIndex = line.indexOf("'", startIndex);
-                String id = line.substring(startIndex, endIndex);
-
-                startIndex = line.indexOf("dateHour='") + 10;
-                endIndex = line.indexOf("'", startIndex);
                 String dateHour = line.substring(startIndex, endIndex);
+
+                startIndex = line.indexOf("user='") + 10;
+                endIndex = line.indexOf("'", startIndex);
+                String user = line.substring(startIndex, endIndex);
 
                 startIndex = line.indexOf("Description='") + 5;
                 endIndex = line.indexOf("'", startIndex);
                 String description = line.substring(startIndex, endIndex);
 
-                Binnacle binnacle = new Binnacle(LocalDateTime.parse(dateHour), id, description);
+                Binnacle binnacle = new Binnacle(LocalDateTime.parse(dateHour),user, description);
                 binnacleList.add(binnacle);
             }
         }
@@ -559,6 +583,7 @@ public class Utility {
 
         return binnacleList;
     }
+
     public static AVL addReadSuppliersFromFile(String fileName) throws FileNotFoundException {
         File file = new File("ProyectoGrupo_3/ArchivosTXT/" + fileName + ".txt");
 
@@ -589,7 +614,7 @@ public class Utility {
                 String address = line.substring(startIndex, endIndex);
 
                 Supplier supplier = new Supplier(id, name, phoneNumber, email, address);
-                System.out.println("soy del read"+supplier.toString());
+                System.out.println("soy del read" + supplier.toString());
                 supplierAVL.add(supplier);
             }
         }
@@ -598,6 +623,7 @@ public class Utility {
 
         return supplierAVL;
     }
+
     public static boolean isCorreo(String email) {
         String subCorreo = null;
         if ('@' == email.charAt(0)) {
@@ -718,19 +744,21 @@ public class Utility {
 
     public static void llenarProductosLista() {
         productsList = new Product[]{
-                new Product(1,"Enchufe de vinil 15 a 125v", 1395.0, 12, 20, 11),
-                new Product(2,"Extensión para exterior 3x12 awg 15m", 59950.0, 7, 12, 12),
-                new Product(3,"Plafón de policarbonato 150 w", 900.0, 3, 37, 13),
-                new Product(4,"Tubo cpvc 1/2' x6m", 12450.0, 10, 12, 14),
-                new Product(5,"Tubo emt 1 1/2' ul", 10.0, 20, 38, 15),
-                new Product(6,"Cable transparente N°18", 220.0, 25, 42, 16)
+                new Product(1, "Enchufe de vinil 15 a 125v", 1395.0, 12, 20, 11),
+                new Product(2, "Extensión para exterior 3x12 awg 15m", 59950.0, 7, 12, 12),
+                new Product(3, "Plafón de policarbonato 150 w", 900.0, 3, 37, 13),
+                new Product(4, "Tubo cpvc 1/2' x6m", 12450.0, 10, 12, 14),
+                new Product(5, "Tubo emt 1 1/2' ul", 10.0, 20, 38, 15),
+                new Product(6, "Cable transparente N°18", 220.0, 25, 42, 16)
         };
-    }  public static void llenarSupplier() {
-        supplierAVL.add(new Supplier(1234,"EPA","8787878","epa@gmail.com","Curridabat"));
-        supplierAVL.add(new Supplier(6090,"Colono","8787878","colono@gmail.com","Curridabat"));
-        supplierAVL.add(new Supplier(9065,"El Lagar","8787878","lagar@gmail.com","Curridabat"));
+    }
+
+    public static void llenarSupplier() {
+        supplierAVL.add(new Supplier(1234, "EPA", "8787878", "epa@gmail.com", "Curridabat"));
+        supplierAVL.add(new Supplier(6090, "Colono", "8787878", "colono@gmail.com", "Curridabat"));
+        supplierAVL.add(new Supplier(9065, "El Lagar", "8787878", "lagar@gmail.com", "Curridabat"));
         try {
-            file(supplierAVL,"Supplier");
+            file(supplierAVL, "Supplier");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -748,7 +776,8 @@ public class Utility {
         for (int i = 0; i < numero.length(); i++) {
             if (numero.charAt(i) < 48 || numero.charAt(i) > 57) {
                 return false;
-            }if(numero.length() >=9 || numero.length() <=7){
+            }
+            if (numero.length() >= 9 || numero.length() <= 7) {
                 return false;
             }
         }
@@ -759,7 +788,8 @@ public class Utility {
         for (int i = 0; i < numero.length(); i++) {
             if (numero.charAt(i) < 48 || numero.charAt(i) > 57) {
                 return false;
-            }if(numero.length() >=10 || numero.length() <=8){
+            }
+            if (numero.length() >= 10 || numero.length() <= 8) {
                 return false;
             }
         }
@@ -773,5 +803,7 @@ public class Utility {
         }
         return true;
     }
+
 }
+
 
