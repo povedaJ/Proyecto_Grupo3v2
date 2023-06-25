@@ -11,11 +11,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import ucr.proyecto.HelloApplication;
+import util.FXUtility;
 import util.Utility;
 
 import java.io.IOException;
@@ -41,6 +43,7 @@ public class GestionPedidosController {
     private int cantPedido;
     private Sale sale;
     private AVL orders;
+    private Alert alert;
 
     @FXML
     public void initialize() throws TreeException {
@@ -48,6 +51,9 @@ public class GestionPedidosController {
         productos= util.Utility.getProductsAVL();
         pedidos= new AVL();
         orders= util.Utility.getOrdersManagement();
+        if (orders.isEmpty()){
+            orders= new AVL();
+        }
         productosNombre= FXCollections.observableArrayList();
         extraerNombres(productos.getRoot());
         productosChoiceBox.setItems(productosNombre);
@@ -73,6 +79,8 @@ public class GestionPedidosController {
 
     @FXML
     void btnPedidos(ActionEvent event) throws TreeException {
+        this.alert = FXUtility.alert("", "");
+        notificacionLabel.setText("");
         String cant = cantidadTextField.getText();
         if (productosChoiceBox.getValue()!=null){
             if (!cant.isEmpty()){
@@ -102,12 +110,17 @@ public class GestionPedidosController {
                 if (cantidad <= cant){
                     Product  pedido= new Product(p.getDescription(), p.getPrice(), p.getCurrentStock(),p.getMinimumStock(),p.getSupplierId());
                     if (!pedidos.isEmpty() && pedidos.contains(pedido)){
-                        //poner un Alert, para avisarle al cliente que ya pidio este producto
-                        pedidoCantActual(pedidos.getRoot(), producto);
-                        pedido.setCurrentStock(cantPedido+cantidad);
-                        pedidos.remove(pedido);
-                        pedidos.add(pedido);
-                        notificacionLabel.setText("El pedido se ha realizado con "+pedido.getCurrentStock()+" unidades"); //poner algo más corto
+                        //Alert, para avisarle al cliente que ya pidio este producto
+                        alert.setContentText("Usted ya ha pedido este producto\n Desea continuar?");
+                        alert.showAndWait();
+                        alert.getResult();
+                        if (alert.getResult()!=null){ //sí desea continuar
+                            pedidoCantActual(pedidos.getRoot(), producto);
+                            pedido.setCurrentStock(cantPedido+cantidad);
+                            pedidos.remove(pedido);
+                            pedidos.add(pedido);
+                            notificacionLabel.setText("La cantidad actual del pedido es "+pedido.getCurrentStock());
+                        }
                     }else{
                         pedido.setCurrentStock(cantidad);
                         pedidos.add(pedido);

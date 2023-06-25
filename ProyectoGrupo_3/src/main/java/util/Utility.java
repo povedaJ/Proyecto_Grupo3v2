@@ -51,6 +51,7 @@ public class Utility {
    private static AVL ordersManagement;// Gestión de pedidos
     private static BST forecastDemandBST;//Previsión de la demanda
     private static HearderLinkedQueue costsControlQ;//Control de costos
+    private static BTree ordersBTree;//Lista de objetos Order
 
     static Product[] productsList;
 
@@ -188,6 +189,27 @@ public class Utility {
                 String produc1 = (String) a;
                 String produc2 = (String) b;
                 return produc1 == produc2 ? 0 : 1;
+            case "OrderDetail":
+                OrderDetail orDe1 = (OrderDetail) a;
+                OrderDetail orDe2 = (OrderDetail) b;
+                Integer orD1 = orDe1.getProductIdInt();
+                Integer orD2 = orDe2.getProductIdInt();
+                return orD1 < orD2 ? -1 :
+                        orD1 > orD2 ? 1 : 0; //0==equal
+            case "OrderDetail-Product":
+                OrderDetail orDe = (OrderDetail) a;
+                Product prod = (Product) b;
+                int idPro1 = prod.getId();
+                int idPro2 = orDe.getProductIdInt();
+                return idPro1 < idPro2 ? -1 :
+                        idPro1 > idPro2 ? 1 : 0; //0==equal
+            case "Order-Product":
+                Order order = (Order) a;
+                Product producto = (Product) b;
+                int idSuppli1 = producto.getSupplierId();
+                int idSuppli2 = order.getSupplierId();
+                return idSuppli1 < idSuppli2 ? -1 :
+                        idSuppli1 > idSuppli2 ? 1 : 0; //0==equal
 
         }
         return 2; //Unknown
@@ -214,6 +236,9 @@ public class Utility {
         if (a instanceof Product && b instanceof Product) return "Product";
         if (a instanceof Product && b == null) return "Eliminar nulo";
         if (a == null && b == null) return "Eliminar los nulos";
+        if (a instanceof OrderDetail && b instanceof OrderDetail) return "OrderDetail";
+        if (a instanceof OrderDetail && b instanceof Product) return "OrderDetail-Product";
+        if (a instanceof Order && b instanceof Product) return "Order-Product";
 
         return "Unknown"; //desconocido
     }
@@ -384,6 +409,14 @@ public class Utility {
 
     public static void setCostsControlQ(HearderLinkedQueue costsControlQ) {
         Utility.costsControlQ = costsControlQ;
+    }
+
+    public static BTree getOrdersBTree() {
+        return ordersBTree;
+    }
+
+    public static void setOrdersBTree(BTree ordersBTree) {
+        Utility.ordersBTree = ordersBTree;
     }
 
     public static void llenarProductosLista() {

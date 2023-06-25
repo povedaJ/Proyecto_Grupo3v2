@@ -2,7 +2,10 @@ package controller;
 
 
 
+import domain.Order;
+import domain.OrderDetail;
 import domain.Product;
+import domain.Tree.AVL;
 import domain.Tree.BTree;
 import domain.Tree.BTreeNode;
 import domain.Tree.TreeException;
@@ -19,6 +22,7 @@ import ucr.proyecto.HelloApplication;
 import util.Utility;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class ControlInventarioController {
 
@@ -36,26 +40,40 @@ public class ControlInventarioController {
     private BTree registro;
     private int tamañoRegistro;
     ObservableList<String> nombreProductos;
+    OrderDetail orderDetail;
+    private BTree orders;
+    private BTree orderBTree;
+    private AVL devuelveProduct;
 
     @FXML
     public void initialize() throws TreeException {
         notificacionLabel.setText("");
         registro= new BTree();
-        //ejemplolistaProductos();
-        llenarBTree();
+        AVL products = util.Utility.getProductsAVL();
+        llenarBTree(products.getRoot()); //con util.Utility.getProductsAVL
         nombreProductos= FXCollections.observableArrayList();
         extraerNombres(registro.getRoot());
         productosChoiceBox.setItems(nombreProductos);
         tamañoRegistro = registro.size();
+
+        orders=util.Utility.getInventoryBT();
+        if (orders.isEmpty()){
+            orders= new BTree();
+        }
+        orderBTree = util.Utility.getOrdersBTree();
+        if (orderBTree.isEmpty()){
+            orderBTree = new BTree();
+        }
     }
 
-    public void llenarBTree(){
-        Utility.llenarProductosLista();
-
-        Product[] list =Utility.getProductosList();
-        int n = list.length;
-        for (int i = 0; i < n; i++) {
-            registro.add(list[i]);
+    public void llenarBTree(BTreeNode node){
+        if (node!=null){
+            Product p = (Product) node.data;
+            if (p!=null){
+                registro.add(p);
+            }
+            llenarBTree(node.left);
+            llenarBTree(node.right);
         }
     }
 
@@ -97,8 +115,12 @@ public class ControlInventarioController {
         if(n != registro.size()){
             eliminaNulos(registro.getRoot());
         }
-        cambiarListaProductos(registro.getRoot(), 0);
+        devuelveProduct= new AVL();
+        cambiarListaProductos(registro.getRoot()); //llena devuelveProduct
+        util.Utility.setProductsAVL(devuelveProduct); //cambia actualiza productos
+
         notificacionLabel.setText("Las cantidades se actializaron");
+        guardaOrderAuto(registro.getRoot());
     }
 
     public void cambiaAutomatico(BTreeNode node) throws TreeException {
@@ -137,7 +159,11 @@ public class ControlInventarioController {
                 if (Utility.isNumberExp(cant)){
                     int cantidad = Integer.parseInt(cant);
                     cambiarCantidad(registro.getRoot(), producto, cantidad);
-                    cambiarListaProductos(registro.getRoot(), 0); //se debe actualizar toda la lista de productos
+
+                    devuelveProduct= new AVL();
+                    cambiarListaProductos(registro.getRoot());
+                    util.Utility.setProductsAVL(devuelveProduct); //se debe actualizar toda la lista de productos
+
                     notificacionLabel.setText("La cantidad se actualizo");
                 }else{
                     notificacionLabel.setText("Solo puede ingresar numeros");
@@ -156,24 +182,89 @@ public class ControlInventarioController {
     public void cambiarCantidad(BTreeNode node, String nombre, int cant) throws TreeException {
         if (node!=null){
             Product p = (Product) node.data;
-            if (Utility.compare(p.getDescription(), nombre)==0){
-                p.setCurrentStock(cant); //cambia la cantidad
-                registro.remove(node.data);
-                registro.add(p);
+            if (p!=null){
+                if (Utility.compare(p.getDescription(), nombre)==0){
+                    p.setCurrentStock(cant); //cambia la cantidad
+                    registro.remove(node.data);
+                    registro.add(p);
+                    guardaOrder(p);
+                }
             }
             cambiarCantidad(node.left, nombre, cant);
             cambiarCantidad(node.right, nombre, cant);
         }
     }
 
-    public void cambiarListaProductos(BTreeNode node, int k) throws TreeException {
-        Product[] list = new Product[registro.size()];
+    public void cambiarListaProductos(BTreeNode node) {
         if (node!=null){
-            list[k]= (Product) node.data;
-            cambiarListaProductos(node.left, k+1);
-            cambiarListaProductos(node.right, k+1);
+            Product p = (Product) node.data;
+            if (p!=null){
+                devuelveProduct.add(p);
+            }
+            cambiarListaProductos(node.left);
+            cambiarListaProductos(node.right);
         }
-        Utility.setProductsList(list);
+    }
+
+    public void guardaOrder(Product product) throws TreeException {
+        int cant = product.getCurrentStock();
+        double totalCost = cant * product.getPrice();
+        LocalDateTime fechaHoraActual = LocalDateTime.now();
+        Order order = new Order(fechaHoraActual, "En espera", product.getSupplierId(), totalCost, "");
+        orderDetail= new OrderDetail(order.getId(), product.getId(), cant, product.getPrice());
+
+        if (orders.isEmpty()){
+            orders.add(orderDetail);
+            orderBTree.add(order);
+        }else {
+            if (!orders.contains(orderDetail)){
+                orders.add(orderDetail);
+                orderBTree.add(order);
+            }else{
+                contieneProduct(orders.getRoot(), product, cant);
+                contieneProduct2(orderBTree.getRoot(), product, totalCost);
+            }
+        }
+    }
+
+    private void contieneProduct2(BTreeNode node, Product product, double cant) throws TreeException {
+        if (node!=null){
+            Order order = (Order) node.data;
+            if (order!=null){
+                if (util.Utility.compare(order, product)==0){
+                    order.setTotalCost(cant);
+                }
+            }
+            contieneProduct2(node.left, product, cant);
+            contieneProduct2(node.right, product, cant);
+        }
+    }
+
+    private void contieneProduct(BTreeNode node, Product product, int cant) throws TreeException {
+        if (node!=null){
+            OrderDetail orderD = (OrderDetail) node.data;
+            if (orderD!=null){
+                if (util.Utility.compare(orderD, product)==0){
+                    orderD.setQuantity(cant);
+                }
+            }
+            contieneProduct(node.left, product, cant);
+            contieneProduct(node.right, product, cant);
+        }
+    }
+
+    public void guardaOrderAuto(BTreeNode node){
+        if (node!=null){
+            Product p = (Product) node.data;
+            double totalCost = p.getCurrentStock() * p.getPrice();
+            LocalDateTime fechaHoraActual = LocalDateTime.now();
+            Order order = new Order(fechaHoraActual, "En espera", p.getSupplierId(), totalCost, "");
+            orderDetail= new OrderDetail(12, p.getId(), p.getCurrentStock(), p.getPrice());
+            orders.add(orderDetail);
+            orderBTree.add(order);
+            guardaOrderAuto(node.left);
+            guardaOrderAuto(node.right);
+        }
     }
 
     @FXML

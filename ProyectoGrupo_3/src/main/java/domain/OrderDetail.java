@@ -28,6 +28,10 @@ public class OrderDetail {
         return String.valueOf(productId);
     }
 
+    public int getProductIdInt() {
+        return productId;
+    }
+
     public void setProductId(int productId) {
         this.productId = productId;
     }
