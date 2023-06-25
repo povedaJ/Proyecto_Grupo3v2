@@ -259,7 +259,7 @@ public class ControlInventarioController {
             double totalCost = p.getCurrentStock() * p.getPrice();
             LocalDateTime fechaHoraActual = LocalDateTime.now();
             Order order = new Order(fechaHoraActual, "En espera", p.getSupplierId(), totalCost, "");
-            orderDetail= new OrderDetail(12, p.getId(), p.getCurrentStock(), p.getPrice());
+            orderDetail= new OrderDetail(order.getId(), p.getId(), p.getCurrentStock(), p.getPrice());
             orders.add(orderDetail);
             orderBTree.add(order);
             guardaOrderAuto(node.left);
