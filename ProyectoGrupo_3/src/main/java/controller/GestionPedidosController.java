@@ -51,7 +51,7 @@ public class GestionPedidosController {
         productos= util.Utility.getProductsAVL();
         pedidos= new AVL();
         orders= util.Utility.getOrdersManagement();
-        if (orders.isEmpty()){
+        if (orders!=null){
             orders= new AVL();
         }
         productosNombre= FXCollections.observableArrayList();

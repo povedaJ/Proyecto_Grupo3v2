@@ -49,6 +49,7 @@ public class ControlInventarioController {
     public void initialize() throws TreeException {
         notificacionLabel.setText("");
         registro= new BTree();
+        //util.Utility.llenar(); //prueba
         AVL products = util.Utility.getProductsAVL();
         llenarBTree(products.getRoot()); //con util.Utility.getProductsAVL
         nombreProductos= FXCollections.observableArrayList();
@@ -57,11 +58,11 @@ public class ControlInventarioController {
         tamañoRegistro = registro.size();
 
         orders=util.Utility.getInventoryBT();
-        if (orders.isEmpty()){
+        if (orders==null){
             orders= new BTree();
         }
         orderBTree = util.Utility.getOrdersBTree();
-        if (orderBTree.isEmpty()){
+        if (orderBTree==null){
             orderBTree = new BTree();
         }
     }
