@@ -143,7 +143,7 @@ public class SignUpController {
     @FXML
     void signUpOnAction(ActionEvent event) {
         try {
-            if (isValid()) {
+            if (isValid()&& util.Utility.isCorreo(emailTextField.getText())) {
                 //if (isNumber(this.idTextField.getText())){
                 int id = Integer.parseInt(this.idTextField.getText());
                 Customer newCustomer = new Customer(
@@ -162,7 +162,6 @@ public class SignUpController {
                     securityList.add( p1);
                     util.Utility.file(securityList,"Security");
                     util.Utility.file(customerList,"Customer");
-                  //  util.Utility.securityList().add(new Security("Admin",util.Utility.MD5("1234"),"1"));
                     btnClean(); //llama al boton clean
                     System.out.println(securityList.toString());
                     System.out.println(customerList.toString());
@@ -193,8 +192,6 @@ public class SignUpController {
     }
 
     private boolean isValid() {
-        //System.out.println("ies numero"+isNumber(this.idTextField.getText()));
-        //System.out.println("ies "+isNumber("a"));
 
         return !idTextField.getText().isEmpty()
                 //&& isNumber(idTextField.getText())

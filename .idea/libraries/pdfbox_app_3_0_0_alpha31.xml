@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="pdfbox-app-3.0.0-alpha31">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/javax.faces-api-2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mail.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.ejb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.activation-1.1.0.v201105071233.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax-inject.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/pdfbox-app-2.0.28.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

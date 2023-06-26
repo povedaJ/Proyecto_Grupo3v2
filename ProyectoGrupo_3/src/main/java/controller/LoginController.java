@@ -46,10 +46,9 @@ public class LoginController implements Initializable {
 
         try {
 
-            System.out.println("Listsss\n"+Utility.addreadSecuritiesFromFile("Security"));
-            System.out.println("Lcus\n"+Utility.addReadCustomersFromFile("Customer"));
-            util.Utility.exportToPDF2(util.Utility.getSecurityList(),"Security.2o");
-           // util.Utility.exportToPDf2(util.Utility.getSecurityList(),"Security.2023");
+          Utility.addreadSecuritiesFromFile("Security");
+           Utility.addReadCustomersFromFile("Customer");
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -63,8 +62,6 @@ public class LoginController implements Initializable {
          String usuario= this.textFieldUsuario.getText();
          String contrasena= this. passwordField.getText();
 
-        //System.out.println("Listsss\n"+Utility.addreadSecuritiesFromFile("ProyectoGrupo_3/Security"));
-       // Utility.file(util.Utility.securityList().toString(), "Security");
         if(util.Utility.securityList().contains(new Security(usuario, util.Utility.MD5(contrasena),"1"))){
             loadPage("menuAdmin.fxml");
         } else if(util.Utility.securityList().contains(new Security(usuario, util.Utility.MD5(contrasena),"2"))){

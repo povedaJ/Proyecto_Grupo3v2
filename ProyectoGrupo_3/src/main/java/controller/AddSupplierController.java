@@ -202,7 +202,7 @@ public class AddSupplierController implements Initializable {
                     supplierList.add(newSupplier);
                     util.Utility.file(supplierList, "Supplier");
                     btnClean();
-                    System.out.println(supplierList.toString());
+
                 } else {
                     alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setContentText("The supplier already exists in the list");

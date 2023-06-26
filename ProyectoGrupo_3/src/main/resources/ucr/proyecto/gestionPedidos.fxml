@@ -4,70 +4,64 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GestionPedidosController">
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="675.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GestionPedidosController">
    <center>
-      <AnchorPane prefHeight="400.0" prefWidth="706.0" stylesheets="@stylesheet.css" BorderPane.alignment="CENTER">
+      <AnchorPane maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="691.0" stylesheets="@stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="253.0" layoutY="65.0" text="Gestión de Pedidos">
-               <font>
-                  <Font name="Berlin Sans FB" size="30.0" />
-               </font>
-            </Label>
-            <Button layoutX="14.0" layoutY="416.0" mnemonicParsing="false" onAction="#btnRegresar" prefHeight="56.0" prefWidth="57.0" stylesheets="@returnButton.css">
-               <font>
-                  <Font name="Berlin Sans FB" size="20.0" />
-               </font>
-            </Button>
-            <ChoiceBox fx:id="productosChoiceBox" layoutX="283.0" layoutY="139.0" prefHeight="45.0" prefWidth="178.0" />
-            <Label layoutX="223.0" layoutY="106.0" text="Seleccione el producto a pedir">
-               <font>
-                  <Font name="Berlin Sans FB" size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="212.0" layoutY="209.0" text="Cantidad a pedir:">
-               <font>
-                  <Font name="Berlin Sans FB" size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="cantidadTextField" layoutX="398.0" layoutY="201.0" prefHeight="43.0" prefWidth="126.0">
-               <font>
-                  <Font name="Berlin Sans FB" size="24.0" />
-               </font>
-            </TextField>
-            <Button layoutX="101.0" layoutY="416.0" mnemonicParsing="false" onAction="#btnPedidos" stylesheets="@stylesheet.css" text="Realizar Pedido">
-               <font>
-                  <Font name="Berlin Sans FB" size="4.0" />
-               </font>
-            </Button>
-            <Label fx:id="notificacionLabel" layoutX="25.0" layoutY="295.0" prefHeight="27.0" prefWidth="552.0" textAlignment="CENTER">
-               <font>
-                  <Font name="Berlin Sans FB" size="24.0" />
-               </font>
-            </Label>
-            <Button layoutX="351.0" layoutY="416.0" mnemonicParsing="false" onAction="#btnPedidosAutomaticos" prefHeight="46.0" prefWidth="295.0" stylesheets="@stylesheet.css" text="Pedidos Automaticos">
-               <font>
-                  <Font name="Berlin Sans FB" size="20.0" />
-               </font>
-            </Button>
-            <Label layoutX="220.0" layoutY="260.0" text="*Solo si va a pedir automaticamente">
-               <font>
-                  <Font name="Berlin Sans FB" size="20.0" />
-               </font>
-            </Label>
-            <TextField fx:id="cantidadAutoTextField" layoutX="398.0" layoutY="291.0" prefHeight="37.0" prefWidth="126.0">
-               <font>
-                  <Font name="Berlin Sans FB" size="24.0" />
-               </font>
-            </TextField>
-            <Label layoutX="129.0" layoutY="301.0" text="Cantidad de productos a pedir:">
-               <font>
-                  <Font name="Berlin Sans FB" size="20.0" />
-               </font>
-            </Label>
-         </children></AnchorPane>
+            <Pane layoutX="101.0" layoutY="19.0" prefHeight="561.0" prefWidth="590.0">
+               <children>
+                  <Label layoutX="192.0" layoutY="28.0" text="Gestión de pedidos">
+                     <font>
+                        <Font name="Berlin Sans FB" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtErrorMessages" layoutX="234.0" layoutY="479.0" text="Proceso Fallido" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtMessages" layoutX="233.0" layoutY="490.0" text="Proceso Exitoso" textFill="#0dff00" visible="false">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="logoImagen" fitHeight="135.0" fitWidth="139.0" layoutX="-38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="168.0" layoutY="66.0" text="Seleccione el producto a pedir ">
+                     <font>
+                        <Font name="Berlin Sans FB" size="21.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="productosChoiceBox" layoutX="206.0" layoutY="99.0" prefHeight="29.0" prefWidth="190.0" />
+                  <Label layoutX="78.0" layoutY="166.0" text="Cantidad a pedir: ">
+                     <font>
+                        <Font name="Berlin Sans FB" size="21.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="78.0" layoutY="267.0" text="* Pedido automatico">
+                     <font>
+                        <Font name="Berlin Sans FB" size="21.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="cantidadTextField" layoutX="269.0" layoutY="166.0" prefHeight="40.0" prefWidth="151.0" />
+                  <Label layoutX="110.0" layoutY="300.0" text="Cantidad de productos a pedir: ">
+                     <font>
+                        <Font name="Berlin Sans FB" size="21.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="cantidadAutoTextField" layoutX="225.0" layoutY="338.0" prefHeight="40.0" prefWidth="151.0" />
+                  <Button layoutX="78.0" layoutY="501.0" mnemonicParsing="false" onAction="#btnPedidos" prefHeight="46.0" prefWidth="221.0" text="Realizar Pedido" />
+                  <Button layoutX="312.0" layoutY="501.0" mnemonicParsing="false" onAction="#btnPedidosAutomaticos" prefHeight="46.0" prefWidth="261.0" text="Pedido Automatico" />
+                  <Button layoutX="-9.0" layoutY="511.0" mnemonicParsing="false" onAction="#btnRegresar" prefHeight="44.0" prefWidth="63.0" stylesheets="@returnButton.css" />
+                  <Label fx:id="notificacionLabel" layoutX="122.0" layoutY="427.0" prefHeight="55.0" prefWidth="383.0" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
    </center>
 </BorderPane>

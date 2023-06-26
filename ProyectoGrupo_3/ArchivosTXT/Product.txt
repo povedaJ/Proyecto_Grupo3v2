@@ -1,9 +1,9 @@
 AVL Binary Search Tree Tour...
-Product{id=5679, description='Mentro metalico 1 metro', price=1200.0, currentStock=34, minimumStock=56, supplierId=6090}
-Product{id=457, description='Enchuefe itr', price=567.0, currentStock=23, minimumStock=6, supplierId=6090}
-Product{id=12, description='Cable ', price=670.0, currentStock=12, minimumStock=5, supplierId=6090}
-Product{id=9, description='hhhhh', price=888.0, currentStock=7, minimumStock=3, supplierId=9065}
-Product{id=898, description='Metal libra', price=450.0, currentStock=5, minimumStock=2, supplierId=1234}
-Product{id=1267, description='Metal calado', price=450.0, currentStock=24, minimumStock=4, supplierId=1234}
+Product{id=5679, description='Metro metalico', price=1200.0, currentStock=34, minimumStock=56, supplierId=3443}
+Product{id=4573, description='Enchuefe Industrial', price=1500.0, currentStock=23, minimumStock=6, supplierId=1234}
+Product{id=1212, description='Caja de herramientas ', price=12200.0, currentStock=12, minimumStock=5, supplierId=6090}
+Product{id=9676, description='Madera de pino', price=2500.0, currentStock=70, minimumStock=15, supplierId=9065}
+Product{id=8918, description='Tornillos 3p', price=120.0, currentStock=20, minimumStock=10, supplierId=0976}
+Product{id=1227, description='Serrucho', price=5050.0, currentStock=24, minimumStock=4, supplierId=3212}
 
 

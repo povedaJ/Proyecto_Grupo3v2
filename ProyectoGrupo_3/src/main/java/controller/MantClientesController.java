@@ -139,7 +139,6 @@ public class MantClientesController {
                 int index=customerList.indexOf(value);
                 Node node =customerList.getNode(index);
                Customer cus= (Customer) node.getData();
-                System.out.println( "ide"+ cus.getId());
                 customerList.remove(cus.getId());
                 alert.setContentText("Cliente "+value+ " eliminado");
                // alert.setContentText(String.valueOf(customerList.indexOf(value)));

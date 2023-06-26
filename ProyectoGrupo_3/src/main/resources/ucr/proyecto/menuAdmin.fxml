@@ -55,7 +55,7 @@
             </MenuButton>
             <MenuButton contentDisplay="CENTER" layoutX="10.0" layoutY="308.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="349.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Reportes" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#infoInventarioOnAction" text="Informe de inventario" />
+                  <MenuItem mnemonicParsing="false" onAction="#infoInventarioOnAction" text="Informe de proveedores" />
                   <MenuItem mnemonicParsing="false" onAction="#infoPedidosOnAction" text="Informe de pedidos" />
                   <MenuItem mnemonicParsing="false" onAction="#infoProductosOnAction" text="Informe de productos " />
                </items>

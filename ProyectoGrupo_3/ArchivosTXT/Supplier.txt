@@ -1,6 +1,10 @@
 AVL Binary Search Tree Tour...
-Supplier{id=9065, name='El Lagar', phoneNumber='8787878', email='lagar@gmail.com', address='Curridabat'}
-Supplier{id=1234, name='EPA', phoneNumber='8787878', email='epa@gmail.com', address='Curridabat'}
-Supplier{id=6090, name='Colono', phoneNumber='8787878', email='colono@gmail.com', address='Curridabat'}
+Supplier{id=3443, name='Almacenes Gigante', phoneNumber='87879090', email='AlmacenesGigante@gmail.com', address='Cartago'}
+Supplier{id=1234, name='EPA', phoneNumber='25098767', email='epa@gmail.com', address='Curridabat'}
+Supplier{id=6090, name='Colono', phoneNumber='25367890', email='colono@gmail.com', address='Cartago '}
+Supplier{id=9065, name='El Lagar', phoneNumber='25876909', email='lagar@gmail.com', address='Curridabat'}
+Supplier{id=3000, name='AgroVecinos', phoneNumber='24676767', email='agroV@gmail.com', address='Mexico'}
+Supplier{id=0976, name='Almacen del Sur', phoneNumber='26357890', email='delSur@gmail.com', address='Puntarenas'}
+Supplier{id=3212, name='El Pochote', phoneNumber='25649199', email='Pochote@gmail.com', address='San Jose'}
 
 

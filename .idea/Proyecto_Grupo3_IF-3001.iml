@@ -8,5 +8,7 @@
     <orderEntry type="library" name="cli-module-8.1.0-javadoc" level="project" />
     <orderEntry type="library" name="javax-inject" level="project" />
     <orderEntry type="library" name="javax-inject1" level="project" />
+    <orderEntry type="library" name="pdfbox-app-3.0.0-alpha3" level="project" />
+    <orderEntry type="library" name="pdfbox-app-3.0.0-alpha31" level="project" />
   </component>
 </module>

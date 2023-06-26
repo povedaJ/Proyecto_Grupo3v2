@@ -167,8 +167,7 @@ public class newCustomerController {
                     util.Utility.file(customerList,"Customer");
                     //  util.Utility.securityList().add(new Security("Admin",util.Utility.MD5("1234"),"1"));
                     btnClean(); //llama al boton clean
-                    System.out.println(securityList.toString());
-                    System.out.println(customerList.toString());
+
                 }else{
                     alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setContentText("El usuario ya existe");
@@ -196,8 +195,7 @@ public class newCustomerController {
     }
 
     private boolean isValid() {
-        //System.out.println("ies numero"+isNumber(this.idTextField.getText()));
-        //System.out.println("ies "+isNumber("a"));
+
 
         return !idTextField.getText().isEmpty()
                 //&& isNumber(idTextField.getText())
